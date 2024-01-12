@@ -1,4 +1,4 @@
-import { logCatchError } from "./logger";
+import { logCatchError } from "../utils/logger";
 
 const errorHandler = async (err: any, req: any, res: any, next: any) => {
     logCatchError.error(err);
