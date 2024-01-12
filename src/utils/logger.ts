@@ -32,4 +32,10 @@ const logCatchError = createLogger({
   ]
 })
 
-export { logNull, logInfo, logCatchError }
+const logGeneratedCode = createLogger({
+  level: 'info',
+  format: combine(timestamp({ format: dateFormat }), logFormat),
+  transports: [new transports.File({ filename: path.join(log, 'codeGenerate.log') })]
+})
+
+export { logNull, logInfo, logCatchError, logGeneratedCode }
