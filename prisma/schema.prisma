@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Admin {
+  code     String     @id @unique
+  name     String
+  password String
+  mobile   Int
+  status   Boolean
+  SubAdmin SubAdmin[]
+}
+
+model SubAdmin {
+  code              String   @id @unique
+  upLink            Admin    @relation(fields: [upLinkCode], references: [code])
+  upLinkCode        String
+  name              String
+  password          String
+  mobile            String
+  share             Float
+  SessionCommission Float
+  MatchCommission   Float
+  MobileCommission  Float
+  status            Boolean
+  limit             Float
+  Master            Master[]
+}
+
+model Master {
+  code              String       @id @unique
+  upLink            SubAdmin     @relation(fields: [subAdminCode], references: [code])
+  name              String
+  password          String
+  mobile            String
+  share             Float
+  SessionCommission Float
+  MatchCommission   Float
+  MobileCommission  Float
+  status            Boolean
+  limit             Float
+  subAdminCode      String
+  SuperAgent        SuperAgent[]
+}
+
+model SuperAgent {
+  code              String  @id @unique
+  upLink            Master  @relation(fields: [masterCode], references: [code])
+  name              String
+  password          String
+  mobile            String
+  share             Float
+  SessionCommission Float
+  MatchCommission   Float
+  MobileCommission  Float
+  status            Boolean
+  limit             Float
+  masterCode        String
+  Agent             Agent[]
+}
+
+model Agent {
+  code              String     @id @unique
+  upLink            SuperAgent @relation(fields: [superAgentCode], references: [code])
+  name              String
+  password          String
+  mobile            String
+  share             Float
+  SessionCommission Float
+  MatchCommission   Float
+  MobileCommission  Float
+  status            Boolean
+  limit             Float
+  superAgentCode    String
+  Client            Client[]
+}
+
+model Client {
+  code              String  @id @unique
+  upLink            Agent   @relation(fields: [agentCode], references: [code])
+  name              String
+  password          String
+  mobile            String
+  SessionCommission Float
+  MatchCommission   Float
+  MobileCommission  Float
+  status            Boolean
+  limit             Float
+  agentCode         String
+}
