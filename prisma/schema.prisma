@@ -7,13 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Admin {
   code     String     @id @unique
   name     String
   password String
   mobile   Int
-  status   Boolean
+  status   Boolean    @default(true)
   SubAdmin SubAdmin[]
 }
 
@@ -93,4 +92,14 @@ model Client {
   status            Boolean
   limit             Float
   agentCode         String
+}
+
+model Session {
+  id         Int      @id @default(autoincrement())
+  ip_address String
+  agent      String
+  created_at DateTime @default(now())
+  expire_at  DateTime
+  active     Boolean  @default(true)
+  deleted    Boolean  @default(false)
 }
