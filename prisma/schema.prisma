@@ -11,8 +11,8 @@ model Admin {
   code     String     @id @unique
   name     String
   password String
-  mobile   Int
-  status   Boolean    @default(true)
+  share    Float      @default(100)
+  mobile   String
   SubAdmin SubAdmin[]
 }
 
@@ -27,7 +27,7 @@ model SubAdmin {
   SessionCommission Float
   MatchCommission   Float
   MobileCommission  Float
-  status            Boolean
+  status            Boolean  @default(true)
   limit             Float
   Master            Master[]
 }
@@ -42,7 +42,7 @@ model Master {
   SessionCommission Float
   MatchCommission   Float
   MobileCommission  Float
-  status            Boolean
+  status            Boolean      @default(true)
   limit             Float
   subAdminCode      String
   SuperAgent        SuperAgent[]
@@ -58,7 +58,7 @@ model SuperAgent {
   SessionCommission Float
   MatchCommission   Float
   MobileCommission  Float
-  status            Boolean
+  status            Boolean @default(true)
   limit             Float
   masterCode        String
   Agent             Agent[]
@@ -74,7 +74,7 @@ model Agent {
   SessionCommission Float
   MatchCommission   Float
   MobileCommission  Float
-  status            Boolean
+  status            Boolean    @default(true)
   limit             Float
   superAgentCode    String
   Client            Client[]
@@ -89,7 +89,7 @@ model Client {
   SessionCommission Float
   MatchCommission   Float
   MobileCommission  Float
-  status            Boolean
+  status            Boolean @default(true)
   limit             Float
   agentCode         String
 }

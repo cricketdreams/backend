@@ -1,15 +1,21 @@
 import { Router } from 'express'
+import { adminPassport } from '../passport/admin.passport'
 import { prisma } from '../prisma/prisma'
+import { hashPassword } from '../utils/password'
+import generateCode from '../utils/generateCode'
 
 const router = Router()
 
 router.post('/createAdmin', async (req, res) => {
-  const { code, password } = req.body
+  const { name } = req.body
+  const code = generateCode('admin')
+  const password = '2341324'
+  const hashedPassword = await hashPassword(password)
   const result = await prisma.admin.create({
     data: {
-      name: 'Raj Dubey',
+      name,
       code,
-      password,
+      password: hashedPassword,
       mobile: 3456789
     }
   })
@@ -19,16 +25,10 @@ router.post('/createAdmin', async (req, res) => {
   })
 })
 
-router.post('/login', async (req, res) => {
-  const { code, password } = req.body
-  const result = await prisma.admin.findFirst({
-    where: {
-      code,
-      password
-    }
-  })
-  res.json({
-    data: result
+router.post('/login', adminPassport.authenticate('local'), async (req, res) => {
+  res.status(200).json({
+    data: req.user,
+    message: 'Login successfully'
   })
 })
 

@@ -1,10 +1,12 @@
 import express from 'express'
 import http from 'http'
-import errorHandler from './middlewares/error'
 import { ROUTER } from './routes'
+import errorHandler from './utils/error'
 
-// import flash from 'express-flash'
-// import session from 'express-session'
+import flash from 'express-flash'
+import session from 'express-session'
+import { adminPassport } from './passport/admin.passport'
+import { subadminPassport } from './passport/subadmin.passport'
 
 const app = express()
 
@@ -20,7 +22,29 @@ process.on('unhandledRejection', err => {
 })
 
 const serverConfig = () => {
-  console.log('Server configuration started')
+  app.use(
+    session({
+      secret: 'test is tought ug sdfsdf',
+      resave: true,
+      saveUninitialized: true,
+      cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7, // One week
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax'
+      }
+    })
+  )
+  // app.use(adminPassport.initialize())
+  // app.use(adminPassport.session())
+  // app.use(
+  //   cors({
+  //     origin: 'http://localhost:5173',
+  //     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  //     credentials: true
+  //   })
+  // )
+  app.use(flash())
   app.use((req, res, next) => {
     console.log(
       `Incoming -> Method: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}] - Method: [${req.method}]`
@@ -38,7 +62,8 @@ const serverConfig = () => {
   app.use(errorHandler as any)
 
   ROUTER.forEach(route => {
-    app.use(route.path, route.router)
+    app.use(route.path, ...route.middleware)
+    app.use(route.path,route.router)
   })
 
   const PORT = process.env.PORT || 3000

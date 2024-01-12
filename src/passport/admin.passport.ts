@@ -1,18 +1,38 @@
 import dotenv from 'dotenv'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
-import signinHandler from '../handlers/signin.handler'
 import { prisma } from '../prisma/prisma'
+import { comparePassword } from '../utils/password'
 // import { User, UserDocument, UserModel } from '../models/userModel'
 
+const adminPassport = new passport.Passport();
 dotenv.config()
-passport.use(
+
+interface User {
+  code: string
+  password: string
+}
+
+adminPassport.use(
   new LocalStrategy(
-    { usernameField: 'email' },
+    { usernameField: 'code' },
     async (code, password, done) => {
       try {
+        console.log(code, password)
+        const admin = await prisma.admin.findUnique({
+          where: { code: code }
+        })
 
+        if(!admin ) {
+          return done(null, false, { message: 'Invalid User.' })
+        }
+        if(await comparePassword(password, admin.password)) {
+          return done(null, admin)
+        } else {
+          return done(null, false, { message: 'Incorrect password.' })
+        }
       } catch (error) {
+        if(error instanceof Error)
         return done(null, false, {
           message: error.message || 'Incorrect username or password.'
         })
@@ -21,36 +41,21 @@ passport.use(
   )
 )
 
-passport.serializeUser((user: UserDocument, done) => {
-  done(null, user._id.toString())
+adminPassport.serializeUser((user, done) => {
+  done(null, (user as User).code)
 })
 
-passport.deserializeUser(async (id, done) => {
-  const userDb = await prisma..findById(id)
-  let user = {
-    _id: userDb?._id,
-    firstname: userDb?.firstname,
-    lastname: userDb?.lastname,
-    email: userDb?.email,
-    googleId: userDb?.googleId,
-    githubId: userDb?.githubId,
-    slug: userDb?.slug
-  }
+adminPassport.deserializeUser(async (id: string, done) => {
+  try {
+    const adminDb = await prisma.admin.findUnique({
+      where: { code: id },
+    });
 
-  if (userDb?.slug) {
-    const candidate = await getCandidate(user.slug)
-    ;(user as User).information = {
-      role: candidate.position,
-      skills: candidate.skill,
-      city: candidate.city,
-      country: candidate.country,
-      locality: candidate.locality,
-      resume: {
-        file_link: candidate.resume?.file_link
-      }
-    }
-  }
-  done(null, user)
-})
+    console.log(adminDb)
 
-export { passport }
+  } catch (error) {
+    done(error, null);
+  }
+});
+
+export { adminPassport }

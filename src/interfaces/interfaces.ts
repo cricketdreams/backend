@@ -1,5 +1,9 @@
 import { type Request } from 'express'
 
+export interface User {
+  code: string
+  password: string
+}
 export interface decodedToken {
   _id: string
   ext: number

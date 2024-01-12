@@ -1,6 +1,7 @@
-import { logGeneratedCode } from './logger.js'
+import { logGeneratedCode } from './logger'
 
 const ROLES = {
+  admin: 'admin',
   subadmin: 'subadmin',
   master: 'master',
   superagent: 'superagent',
@@ -15,6 +16,7 @@ export default function generateCode(role: Roles): string {
   role = role.toLowerCase() as Roles
 
   const rolesMap: Record<Roles, string> = {
+    admin: 'AD',
     subadmin: 'S',
     master: 'M',
     superagent: 'SA',
@@ -34,5 +36,5 @@ export default function generateCode(role: Roles): string {
 
 function checkInDatabase(code: string, role: Roles): boolean {
   // check code in database
-  return true
+  return false
 }
