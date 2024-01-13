@@ -1,4 +1,4 @@
-import { logGeneratedCode } from './logger'
+import { logCodeGenerated } from './logger'
 
 const ROLES = {
   admin: 'admin',
@@ -17,11 +17,11 @@ export default function generateCode(role: Roles): string {
 
   const rolesMap: Record<Roles, string> = {
     admin: 'AD',
-    subadmin: 'S',
-    master: 'M',
+    subadmin: 'SB',
+    master: 'MA',
     superagent: 'SA',
-    agent: 'A',
-    client: 'C'
+    agent: 'AG',
+    client: 'CL'
   }
 
   do {
@@ -30,7 +30,7 @@ export default function generateCode(role: Roles): string {
     generatedCode = roleInitial + randomNumber.toString()
   } while (checkInDatabase(generatedCode, role))
 
-  logGeneratedCode.info(`New user created: ${generatedCode}`)
+  logCodeGenerated.info(`New user created: ${generatedCode}`)
   return generatedCode
 }
 

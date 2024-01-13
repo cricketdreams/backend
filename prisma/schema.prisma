@@ -1,19 +1,27 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  schemas  = ["base", "transactional"]
 }
 
+// --------------------
+// ---------- User Models ---------
 model Admin {
-  code     String     @id @unique
-  name     String
-  password String
-  share    Float      @default(100)
-  mobile   String
-  SubAdmin SubAdmin[]
+  code      String     @id @unique
+  name      String
+  password  String
+  share     Float      @default(100)
+  mobile    String
+  SubAdmin  SubAdmin[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@schema("base")
 }
 
 model SubAdmin {
@@ -30,6 +38,10 @@ model SubAdmin {
   status            Boolean  @default(true)
   limit             Float
   Master            Master[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@schema("base")
 }
 
 model Master {
@@ -46,11 +58,15 @@ model Master {
   limit             Float
   subAdminCode      String
   SuperAgent        SuperAgent[]
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  @@schema("base")
 }
 
 model SuperAgent {
-  code              String  @id @unique
-  upLink            Master  @relation(fields: [masterCode], references: [code])
+  code              String   @id @unique
+  upLink            Master   @relation(fields: [masterCode], references: [code])
   name              String
   password          String
   mobile            String
@@ -58,10 +74,14 @@ model SuperAgent {
   SessionCommission Float
   MatchCommission   Float
   MobileCommission  Float
-  status            Boolean @default(true)
+  status            Boolean  @default(true)
   limit             Float
   masterCode        String
   Agent             Agent[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@schema("base")
 }
 
 model Agent {
@@ -78,28 +98,209 @@ model Agent {
   limit             Float
   superAgentCode    String
   Client            Client[]
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  @@schema("base")
 }
 
 model Client {
-  code              String  @id @unique
-  upLink            Agent   @relation(fields: [agentCode], references: [code])
+  code              String   @id @unique
+  upLink            Agent    @relation(fields: [agentCode], references: [code])
   name              String
   password          String
   mobile            String
   SessionCommission Float
   MatchCommission   Float
   MobileCommission  Float
-  status            Boolean @default(true)
+  status            Boolean  @default(true)
   limit             Float
   agentCode         String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@schema("base")
 }
 
+// --------------------
+// ---------- Login Report ----------
+model AdminLoginReport {
+  id        String   @id @default(uuid())
+  code      String
+  ipAddress String
+  name      String
+  createdAt DateTime @default(now())
+
+  @@schema("base")
+}
+
+model SubAdminLoginReport {
+  id        String   @id @default(uuid())
+  code      String
+  ipAddress String
+  name      String
+  createdAt DateTime @default(now())
+
+  @@schema("base")
+}
+
+model MasterLoginReport {
+  id        String   @id @default(uuid())
+  code      String
+  ipAddress String
+  name      String
+  createdAt DateTime @default(now())
+
+  @@schema("base")
+}
+
+model SuperAgentLoginReport {
+  id        String   @id @default(uuid())
+  code      String
+  ipAddress String
+  name      String
+  createdAt DateTime @default(now())
+
+  @@schema("base")
+}
+
+model AgentLoginReport {
+  id        String   @id @default(uuid())
+  code      String
+  ipAddress String
+  name      String
+  createdAt DateTime @default(now())
+
+  @@schema("base")
+}
+
+model ClientLoginReport {
+  id        String   @id @default(uuid())
+  code      String
+  ipAddress String
+  name      String
+  createdAt DateTime @default(now())
+
+  @@schema("base")
+}
+
+// --------------------
+// ---------- Ledger ----------
+model AdminLedger {
+  id             String   @id @default(uuid())
+  code           String
+  createdAt      DateTime @default(now())
+  collectionName String
+  debit          Float
+  credit         Float
+  balance        Float
+  type           String? // See later
+  description    String?
+  kisnekara      String
+
+  @@schema("base")
+}
+
+model SubaAdminLedger {
+  id             String   @id @default(uuid())
+  code           String
+  createdAt      DateTime @default(now())
+  collectionName String
+  debit          Float
+  credit         Float
+  balance        Float
+  type           String? // See later
+  description    String?
+  kisnekara      String
+
+  @@schema("base")
+}
+
+model MasterLedger {
+  id             String   @id @default(uuid())
+  code           String
+  createdAt      DateTime @default(now())
+  collectionName String
+  debit          Float
+  credit         Float
+  balance        Float
+  type           String? // See later
+  description    String?
+  kisnekara      String
+
+  @@schema("base")
+}
+
+model SuperAgentLedger {
+  id             String   @id @default(uuid())
+  code           String
+  createdAt      DateTime @default(now())
+  collectionName String
+  debit          Float
+  credit         Float
+  balance        Float
+  type           String? // See later
+  description    String?
+  kisnekara      String
+
+  @@schema("base")
+}
+
+model AgentLedger {
+  id             String   @id @default(uuid())
+  code           String
+  createdAt      DateTime @default(now())
+  collectionName String
+  debit          Float
+  credit         Float
+  balance        Float
+  type           String? // See later
+  description    String?
+  kisnekara      String
+
+  @@schema("base")
+}
+
+model ClientLedger {
+  id             String   @id @default(uuid())
+  code           String
+  createdAt      DateTime @default(now())
+  collectionName String
+  debit          Float
+  credit         Float
+  balance        Float
+  type           String? // See later
+  description    String?
+  kisnekara      String
+
+  @@schema("base")
+}
+
+// --------------------
+// ---------- Session ----------
 model Session {
-  id         Int      @id @default(autoincrement())
-  ip_address String
-  agent      String
-  created_at DateTime @default(now())
-  expire_at  DateTime
-  active     Boolean  @default(true)
-  deleted    Boolean  @default(false)
+  id        String   @id @default(uuid())
+  ipAddress String
+  name      String
+  agent     String
+  createdAt DateTime @default(now())
+  expireAt  DateTime
+  active    Boolean  @default(true)
+  deleted   Boolean  @default(false)
+
+  @@schema("base")
+}
+
+// --------------------
+// ---------- Match ----------
+model Match {
+  matchId   Int      @id @default(autoincrement())
+  name      String
+  dataTime  DateTime // See later from api
+  type      String
+  declare   String
+  wonBy     String
+  plusMinus Float
+
+  @@schema("base")
 }

@@ -3,6 +3,15 @@ import path from 'path'
 
 const { combine, timestamp, printf } = format
 
+const logLevels = {
+  fatal: 0,
+  error: 1,
+  warn: 2,
+  info: 3,
+  debug: 4,
+  trace: 5
+}
+
 const logFormat = printf(
   ({ level, message, timestamp }) => `${timestamp} ${level}: ${message}`
 )
@@ -10,7 +19,15 @@ const logFormat = printf(
 const log = 'logs'
 const dateFormat = 'YYYY-MM-DD HH:mm:ss'
 
+const logFatal = createLogger({
+  levels: logLevels,
+  level: 'fatal',
+  format: combine(timestamp({ format: dateFormat }), logFormat),
+  transports: [new transports.File({ filename: path.join(log, 'Fatal.log') })]
+})
+
 const logNull = createLogger({
+  levels: logLevels,
   level: 'debug',
   format: combine(timestamp({ format: dateFormat }), logFormat),
   transports: [
@@ -19,12 +36,14 @@ const logNull = createLogger({
 })
 
 const logInfo = createLogger({
+  levels: logLevels,
   level: 'info',
   format: combine(timestamp({ format: dateFormat }), logFormat),
   transports: [new transports.File({ filename: path.join(log, 'Info.log') })]
 })
 
 const logCatchError = createLogger({
+  levels: logLevels,
   level: 'error',
   format: combine(timestamp({ format: dateFormat }), logFormat),
   transports: [
@@ -32,10 +51,13 @@ const logCatchError = createLogger({
   ]
 })
 
-const logGeneratedCode = createLogger({
+const logCodeGenerated = createLogger({
+  levels: logLevels,
   level: 'info',
   format: combine(timestamp({ format: dateFormat }), logFormat),
-  transports: [new transports.File({ filename: path.join(log, 'codeGenerate.log') })]
+  transports: [
+    new transports.File({ filename: path.join(log, 'CodeGenerate.log') })
+  ]
 })
 
-export { logNull, logInfo, logCatchError, logGeneratedCode }
+export { logNull, logInfo, logCatchError, logCodeGenerated }
