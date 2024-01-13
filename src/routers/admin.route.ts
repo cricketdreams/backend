@@ -1,50 +1,32 @@
 import { Router } from 'express'
+import {
+  createAdminController,
+  loginAdminController,
+  logoutAdminController
+} from '../controllers/admin/auth.controller'
+import {
+  createAgentController,
+  createClientController,
+  createMasterController,
+  createSubadminController,
+  createSuperagentController
+} from '../controllers/create.controller'
+import { isAuthenticate } from '../middlewares/check-auth'
 import { adminPassport } from '../passport/admin.passport'
-import { prisma } from '../prisma/prisma'
-import { hashPassword } from '../utils/password'
-import generateCode from '../utils/generateCode'
 
 const router = Router()
 
-router.post('/createAdmin', async (req, res) => {
-  const { name } = req.body
-  const code = generateCode('admin')
-  const password = '2341324'
-  const hashedPassword = await hashPassword(password)
-  const result = await prisma.admin.create({
-    data: {
-      name,
-      code,
-      password: hashedPassword,
-      mobile: 3456789
-    }
-  })
-  res.status(201).json({
-    data: result,
-    message: 'Admin created successfully'
-  })
-})
+//auth
+// only for development
+router.post('/createAdmin', createAdminController)
+router.post('/login', adminPassport.authenticate('local'), loginAdminController)
+router.get('/logout', logoutAdminController)
 
-router.post('/login', adminPassport.authenticate('local'), async (req, res) => {
-  res.status(200).json({
-    data: req.user,
-    message: 'Login successfully'
-  })
-})
+//create
+router.post('/create-subadmin', isAuthenticate, createSubadminController)
+router.post('/create-master', isAuthenticate, createMasterController)
+router.post('/create-superagent', isAuthenticate, createSuperagentController)
+router.post('/create-agent', isAuthenticate, createAgentController)
+router.post('/create-client', isAuthenticate, createClientController)
 
-router.get('/logout', (req, res) => {
-  req.logout(err => {
-    if (err) {
-      res.status(500).json({ message: err })
-    } else {
-      req.session.destroy(err => {
-        if (err) {
-          res.status(500).json({ message: err })
-        } else {
-          res.redirect('/admin/login')
-        }
-      })
-    }
-  })
-})
 export default router

@@ -46,7 +46,10 @@ agentPassport.deserializeUser(async (id: string, done) => {
       where: { code: id }
     })
 
-    console.log(agentDb)
+    if (!agentDb) {
+      throw new Error('User not found')
+    }
+    return done(null, agentDb)
   } catch (error) {
     done(error, null)
   }

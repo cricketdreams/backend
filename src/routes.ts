@@ -8,34 +8,36 @@ import masterRoute from './routers/master.route'
 import subadminRoute from './routers/subadmin.route'
 import superagentRoute from './routers/superagent.route'
 
+const version = 'v1'
+
 export const ROUTER = [
   {
-    path: '/admin',
+    path: `/api/${version}/admin`,
     router: adminRoute,
     middleware: [adminPassport.initialize(), adminPassport.session()]
   },
   {
-    path: '/subadmin',
+    path: `/api/${version}/subadmin`,
     router: subadminRoute,
     middleware: [subadminPassport.initialize(), subadminPassport.session()]
   },
   {
-    path: '/master',
+    path: `/api/${version}/master`,
     router: masterRoute,
     middleware: [subadminPassport.initialize(), subadminPassport.session()]
   },
   {
-    path: '/superagent',
+    path: `/api/${version}/superagent`,
     router: superagentRoute,
     middleware: [subadminPassport.initialize(), subadminPassport.session()]
   },
   {
-    path: '/agent',
+    path: `/api/${version}/agent`,
     router: agentRoute,
     middleware: [subadminPassport.initialize(), subadminPassport.session()]
   },
   {
-    path: '/client',
+    path: `/api/${version}/client`,
     router: clientRoute,
     middleware: [subadminPassport.initialize(), subadminPassport.session()]
   }

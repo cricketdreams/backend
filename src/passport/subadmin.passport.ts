@@ -16,7 +16,7 @@ interface User {
 subadminPassport.use(
   new LocalStrategy({ usernameField: 'code' }, async (code, password, done) => {
     try {
-      const subadmin = await prisma.subAdmin.findUnique({
+      const subadmin = await prisma.subadmin.findUnique({
         where: { code: code }
       })
       if (!subadmin) {
@@ -45,11 +45,14 @@ subadminPassport.serializeUser((user, done) => {
 
 subadminPassport.deserializeUser(async (id: string, done) => {
   try {
-    const subadminDb = await prisma.subAdmin.findUnique({
+    const subadminDb = await prisma.subadmin.findUnique({
       where: { code: id }
     })
 
-    console.log(subadminDb)
+    if (!subadminDb) {
+      throw new Error('User not found')
+    }
+    return done(null, subadminDb)
   } catch (error) {
     done(error, null)
   }

@@ -16,7 +16,7 @@ interface User {
 superagentPassport.use(
   new LocalStrategy({ usernameField: 'code' }, async (code, password, done) => {
     try {
-      const superagentDb = await prisma.superAgent.findUnique({
+      const superagentDb = await prisma.superagent.findUnique({
         where: { code: code }
       })
       if (!superagentDb) {
@@ -45,11 +45,14 @@ superagentPassport.serializeUser((user, done) => {
 
 superagentPassport.deserializeUser(async (id: string, done) => {
   try {
-    const superagentDb = await prisma.superAgent.findUnique({
+    const superagentDb = await prisma.superagent.findUnique({
       where: { code: id }
     })
 
-    console.log(superagentDb)
+    if (!superagentDb) {
+      throw new Error('User not found')
+    }
+    return done(null, superagentDb)
   } catch (error) {
     done(error, null)
   }

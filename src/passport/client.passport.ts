@@ -49,7 +49,10 @@ clientPassport.deserializeUser(async (id: string, done) => {
       where: { code: id }
     })
 
-    console.log(clientDb)
+    if (!clientDb) {
+      throw new Error('User not found')
+    }
+    return done(null, clientDb)
   } catch (error) {
     done(error, null)
   }

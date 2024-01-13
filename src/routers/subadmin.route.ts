@@ -1,35 +1,32 @@
 import { Router } from 'express'
-import { prisma } from '../prisma/prisma'
+import {
+  createAgentController,
+  createClientController,
+  createMasterController,
+  createSuperagentController
+} from '../controllers/create.controller'
+import {
+  loginSubadminController,
+  logoutSubadminController
+} from '../controllers/subadmin/auth.controller'
+import { isAuthenticate } from '../middlewares/check-auth'
+import {} from '../passport/admin.passport'
+import { subadminPassport } from '../passport/subadmin.passport'
 
 const router = Router()
 
-router.post('/createAdmin', async (req, res) => {
-  const { code, password } = req.body
-  const result = await prisma.admin.create({
-    data: {
-      name: 'Raj Dubey',
-      code,
-      password,
-      mobile: 3456789
-    }
-  })
-  res.status(201).json({
-    data: result,
-    message: 'Admin created successfully'
-  })
-})
+//auth
+router.post(
+  '/login',
+  subadminPassport.authenticate('local'),
+  loginSubadminController
+)
+router.get('/logout', logoutSubadminController)
 
-router.post('/login', async (req, res) => {
-  const { code, password } = req.body
-  const result = await prisma.admin.findFirst({
-    where: {
-      code,
-      password
-    }
-  })
-  res.json({
-    data: result
-  })
-})
+//create
+router.post('/create-master', isAuthenticate, createMasterController)
+router.post('/create-superagent', isAuthenticate, createSuperagentController)
+router.post('/create-agent', isAuthenticate, createAgentController)
+router.post('/create-client', isAuthenticate, createClientController)
 
 export default router

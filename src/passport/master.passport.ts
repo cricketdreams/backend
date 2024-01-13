@@ -49,7 +49,10 @@ masterPassport.deserializeUser(async (id: string, done) => {
       where: { code: id }
     })
 
-    console.log(masterDb)
+    if (!masterDb) {
+      throw new Error('User not found')
+    }
+    return done(null, masterDb)
   } catch (error) {
     done(error, null)
   }

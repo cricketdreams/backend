@@ -9,7 +9,7 @@ const ROLES = {
   client: 'client'
 } as const
 
-type Roles = keyof typeof ROLES
+export type Roles = keyof typeof ROLES
 
 export default function generateCode(role: Roles): string {
   let generatedCode: string

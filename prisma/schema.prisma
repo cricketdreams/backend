@@ -17,27 +17,28 @@ model Admin {
   password  String
   share     Float      @default(100)
   mobile    String
-  SubAdmin  SubAdmin[]
+  subadmin  Subadmin[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 
   @@schema("base")
 }
 
-model SubAdmin {
+model Subadmin {
   code              String   @id @unique
   upLink            Admin    @relation(fields: [upLinkCode], references: [code])
   upLinkCode        String
   name              String
   password          String
   mobile            String
+  reference         String
   share             Float
-  SessionCommission Float
-  MatchCommission   Float
-  MobileCommission  Float
+  sessionCommission Float
+  matchCommission   Float
+  mobileCommission  Float
   status            Boolean  @default(true)
   limit             Float
-  Master            Master[]
+  master            Master[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
@@ -46,38 +47,40 @@ model SubAdmin {
 
 model Master {
   code              String       @id @unique
-  upLink            SubAdmin     @relation(fields: [subAdminCode], references: [code])
+  upLink            Subadmin     @relation(fields: [upLinkCode], references: [code])
+  upLinkCode        String
   name              String
   password          String
   mobile            String
+  reference         String
   share             Float
-  SessionCommission Float
-  MatchCommission   Float
-  MobileCommission  Float
+  sessionCommission Float
+  matchCommission   Float
+  mobileCommission  Float
   status            Boolean      @default(true)
   limit             Float
-  subAdminCode      String
-  SuperAgent        SuperAgent[]
+  superagent        Superagent[]
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
 
   @@schema("base")
 }
 
-model SuperAgent {
+model Superagent {
   code              String   @id @unique
-  upLink            Master   @relation(fields: [masterCode], references: [code])
+  upLink            Master   @relation(fields: [upLinkCode], references: [code])
+  upLinkCode        String
   name              String
   password          String
   mobile            String
+  reference         String
   share             Float
-  SessionCommission Float
-  MatchCommission   Float
-  MobileCommission  Float
+  sessionCommission Float
+  matchCommission   Float
+  mobileCommission  Float
   status            Boolean  @default(true)
   limit             Float
-  masterCode        String
-  Agent             Agent[]
+  agent             Agent[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
@@ -86,18 +89,19 @@ model SuperAgent {
 
 model Agent {
   code              String     @id @unique
-  upLink            SuperAgent @relation(fields: [superAgentCode], references: [code])
+  upLink            Superagent @relation(fields: [upLinkCode], references: [code])
+  upLinkCode        String
   name              String
   password          String
   mobile            String
+  reference         String
   share             Float
-  SessionCommission Float
-  MatchCommission   Float
-  MobileCommission  Float
+  sessionCommission Float
+  matchCommission   Float
+  mobileCommission  Float
   status            Boolean    @default(true)
   limit             Float
-  superAgentCode    String
-  Client            Client[]
+  client            Client[]
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
 
@@ -106,16 +110,17 @@ model Agent {
 
 model Client {
   code              String   @id @unique
-  upLink            Agent    @relation(fields: [agentCode], references: [code])
+  upLink            Agent    @relation(fields: [upLinkCode], references: [code])
+  upLinkCode        String
   name              String
   password          String
   mobile            String
-  SessionCommission Float
-  MatchCommission   Float
-  MobileCommission  Float
+  reference         String
+  sessionCommission Float
+  matchCommission   Float
+  mobileCommission  Float
   status            Boolean  @default(true)
   limit             Float
-  agentCode         String
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
@@ -134,7 +139,7 @@ model AdminLoginReport {
   @@schema("base")
 }
 
-model SubAdminLoginReport {
+model SubadminLoginReport {
   id        String   @id @default(uuid())
   code      String
   ipAddress String
@@ -154,7 +159,7 @@ model MasterLoginReport {
   @@schema("base")
 }
 
-model SuperAgentLoginReport {
+model SuperagentLoginReport {
   id        String   @id @default(uuid())
   code      String
   ipAddress String
@@ -201,7 +206,7 @@ model AdminLedger {
   @@schema("base")
 }
 
-model SubaAdminLedger {
+model SubadminLedger {
   id             String   @id @default(uuid())
   code           String
   createdAt      DateTime @default(now())
@@ -231,7 +236,7 @@ model MasterLedger {
   @@schema("base")
 }
 
-model SuperAgentLedger {
+model SuperagentLedger {
   id             String   @id @default(uuid())
   code           String
   createdAt      DateTime @default(now())
