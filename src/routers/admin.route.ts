@@ -32,4 +32,19 @@ router.post('/login', adminPassport.authenticate('local'), async (req, res) => {
   })
 })
 
+router.get('/logout', (req, res) => {
+  req.logout(err => {
+    if (err) {
+      res.status(500).json({ message: err })
+    } else {
+      req.session.destroy(err => {
+        if (err) {
+          res.status(500).json({ message: err })
+        } else {
+          res.redirect('/admin/login')
+        }
+      })
+    }
+  })
+})
 export default router
