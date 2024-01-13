@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { logoutHandler } from '../../handlers/auth'
 import { newLoginReportHandler } from '../../handlers/login-report'
-import { User } from '../../interfaces/interfaces'
+import { User } from '../../ts/interfaces'
 
 export const loginMasterController = async (req: Request, res: Response) => {
   try {

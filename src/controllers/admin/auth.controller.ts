@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { logoutHandler } from '../../handlers/auth'
 import { newLoginReportHandler } from '../../handlers/login-report'
-import { User } from '../../interfaces/interfaces'
+import { User } from '../../ts/interfaces'
 import { prisma } from '../../prisma/prisma'
 import generateCode from '../../utils/generateCode'
 import { hashPassword } from '../../utils/password'

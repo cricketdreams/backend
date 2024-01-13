@@ -1,8 +1,8 @@
-import { NextFunction, Response } from "express";
-import jsonwebtoken from "jsonwebtoken";
-import { CustomRequest, decodedToken } from "../interfaces/interfaces";
-import createAccessToken from "./create-access-token";
-import { prisma } from "../prisma/prisma";
+import { NextFunction, Response } from 'express'
+import jsonwebtoken from 'jsonwebtoken'
+import { CustomRequest, decodedToken } from '../ts/interfaces'
+import createAccessToken from './create-access-token'
+import { prisma } from '../prisma/prisma'
 
 export const verifyToken = async (
   req: CustomRequest,

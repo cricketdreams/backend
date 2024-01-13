@@ -1,9 +1,12 @@
 import { Request, Response } from 'express'
 import { logoutHandler } from '../../handlers/auth'
 import { newLoginReportHandler } from '../../handlers/login-report'
-import { User } from '../../interfaces/interfaces'
+import { User } from '../../ts/interfaces'
 
-export const loginSuperagentController = async (req: Request, res: Response) => {
+export const loginSuperagentController = async (
+  req: Request,
+  res: Response
+) => {
   try {
     if (!req.user) throw new Error('User not found')
     const user: User = req.user as User

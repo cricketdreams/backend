@@ -1,42 +1,42 @@
 import express from 'express'
 import http from 'http'
-import { ROUTER } from './routes'
-import errorHandler from './utils/error'
-
 import flash from 'express-flash'
 import session from 'express-session'
-import { adminPassport } from './passport/admin.passport'
-import { subadminPassport } from './passport/subadmin.passport'
+import helmet from 'helmet'
+import compression from 'compression'
+
+import { ROUTER } from './routes'
+import errorHandler from './utils/error'
+import { logFatal, logResReq } from './utils/logger'
+import { CONST } from './config'
 
 const app = express()
 
-// to caught uncaught exception
 process.on('uncaughtException', err => {
-  console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...')
-  console.log(err.name, err.message)
+  logFatal.log('fatal', 'uncaught exception')
   process.exit(1)
 })
-// unhandled promise rejection
+
 process.on('unhandledRejection', err => {
   throw err
 })
 
 const serverConfig = () => {
+  app.use(helmet())
+  app.use(compression())
   app.use(
     session({
       secret: 'test is tought ug sdfsdf',
       resave: true,
       saveUninitialized: true,
       cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7, // One week
+        maxAge: CONST.maxAge,
         httpOnly: true,
         secure: false,
         sameSite: 'lax'
       }
     })
   )
-  // app.use(adminPassport.initialize())
-  // app.use(adminPassport.session())
   // app.use(
   //   cors({
   //     origin: 'http://localhost:5173',
@@ -46,11 +46,11 @@ const serverConfig = () => {
   // )
   app.use(flash())
   app.use((req, res, next) => {
-    console.log(
-      `Incoming -> Method: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}] - Method: [${req.method}]`
+    logResReq.info(
+      `Incoming -> Method: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`
     )
     res.on('finish', () => {
-      console.log(
+      logResReq.info(
         `Outgoing -> Status: [${res.statusCode}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}] - Method: [${req.method}]`
       )
     })
@@ -58,13 +58,13 @@ const serverConfig = () => {
   })
 
   app.use(express.urlencoded({ extended: true }))
-  app.use(express.json())
-  app.use(errorHandler as any)
 
   ROUTER.forEach(route => {
     app.use(route.path, ...route.middleware)
-    app.use(route.path,route.router)
+    app.use(route.path, route.router)
   })
+
+  app.use(errorHandler)
 
   const PORT = process.env.PORT || 3000
   http

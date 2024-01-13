@@ -1,4 +1,4 @@
-import { CreateUserBody } from '../../interfaces/interfaces'
+import { CreateUserBody } from '../../ts/interfaces'
 import { prisma } from '../../prisma/prisma'
 import generateCode, { Roles } from '../../utils/generateCode'
 import { hashPassword } from '../../utils/password'

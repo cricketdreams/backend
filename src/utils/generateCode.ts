@@ -1,15 +1,5 @@
-import { logCodeGenerated } from './logger'
-
-const ROLES = {
-  admin: 'admin',
-  subadmin: 'subadmin',
-  master: 'master',
-  superagent: 'superagent',
-  agent: 'agent',
-  client: 'client'
-} as const
-
-export type Roles = keyof typeof ROLES
+import { prisma } from '../prisma/prisma'
+import { Roles } from '../ts/type'
 
 export default function generateCode(role: Roles): string {
   let generatedCode: string
@@ -30,11 +20,35 @@ export default function generateCode(role: Roles): string {
     generatedCode = roleInitial + randomNumber.toString()
   } while (checkInDatabase(generatedCode, role))
 
-  logCodeGenerated.info(`New user created: ${generatedCode}`)
   return generatedCode
 }
 
-function checkInDatabase(code: string, role: Roles): boolean {
-  // check code in database
-  return false
+async function checkInDatabase(
+  generatedCode: string,
+  role: Roles
+): Promise<boolean> {
+  let user
+  if (role === 'subadmin') {
+    const user = await prisma.subAdmin.findUnique({
+      where: { code: generatedCode }
+    })
+  } else if (role === 'master') {
+    const user = await prisma.master.findUnique({
+      where: { code: generatedCode }
+    })
+  } else if (role === 'superagent') {
+    const user = await prisma.superAgent.findUnique({
+      where: { code: generatedCode }
+    })
+  } else if (role === 'agent') {
+    const user = await prisma.agent.findUnique({
+      where: { code: generatedCode }
+    })
+  } else if (role === 'client') {
+    const user = await prisma.client.findUnique({
+      where: { code: generatedCode }
+    })
+  }
+
+  return user !== null
 }

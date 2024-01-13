@@ -1,12 +1,14 @@
+import { NextFunction, Request, Response } from 'express'
 import { logCatchError } from './logger'
 
-const errorHandler = async (err: any, req: any, res: any, next: any) => {
+const errorHandler = (
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   logCatchError.error(err)
-  res.status(err.status || 500).json({
-    error: {
-      message: err.message || 'Oops! Something went wrong.'
-    }
-  })
+  res.status(500).send('Something went wrong')
 }
 
 export default errorHandler

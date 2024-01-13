@@ -21,7 +21,7 @@ const dateFormat = 'YYYY-MM-DD HH:mm:ss'
 
 const logFatal = createLogger({
   levels: logLevels,
-  level: 'fatal',
+  level: 'error',
   format: combine(timestamp({ format: dateFormat }), logFormat),
   transports: [new transports.File({ filename: path.join(log, 'Fatal.log') })]
 })
@@ -51,13 +51,13 @@ const logCatchError = createLogger({
   ]
 })
 
-const logCodeGenerated = createLogger({
+const logResReq = createLogger({
   levels: logLevels,
   level: 'info',
   format: combine(timestamp({ format: dateFormat }), logFormat),
   transports: [
-    new transports.File({ filename: path.join(log, 'CodeGenerate.log') })
+    new transports.File({ filename: path.join(log, 'ResReq.log') })
   ]
 })
 
-export { logNull, logInfo, logCatchError, logCodeGenerated }
+export { logNull, logInfo, logCatchError, logResReq, logFatal }
