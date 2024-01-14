@@ -1,8 +1,9 @@
 import { Request, Response } from 'express'
 
-
-
-export const deactiveSubadminController = async (req: Request, res: Response) => {
+export const deactiveSubadminController = async (
+  req: Request,
+  res: Response
+) => {
   return await deactiveSubadminHandler(req, res)
 }
 

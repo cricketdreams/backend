@@ -12,6 +12,12 @@ import {
 import { isAuthenticate } from '../middlewares/check-auth'
 import { masterPassport } from '../passport/master.passport'
 import { catchError } from '../middlewares/catch-error'
+import {
+  addLimitAgentController,
+  addLimitClientController,
+  subtractLimitAgentController,
+  subtractLimitClientController
+} from '../controllers/superagent/limit.controller'
 
 const router = Router()
 
@@ -29,6 +35,23 @@ router.post(
   '/create-client',
   isAuthenticate,
   catchError(createClientController)
+)
+
+// limit
+// add limit
+router.post('/add-limit-agent', isAuthenticate, addLimitAgentController)
+router.post('/add-limit-client', isAuthenticate, addLimitClientController)
+
+// subtract limit
+router.post(
+  '/subtract-limit-agent',
+  isAuthenticate,
+  subtractLimitAgentController
+)
+router.post(
+  '/subtract-limit-client',
+  isAuthenticate,
+  subtractLimitClientController
 )
 
 export default router

@@ -4,121 +4,16 @@ import { User } from '../../ts/interfaces'
 import { prisma } from '../../prisma/prisma'
 import { getUserHandler } from '../../handlers/get-user'
 import { ROLES } from '../../ts/type'
-
-// Subadmin Limit
-export const addLimitSubadminController = async (
-  req: Request,
-  res: Response
-) => {
-  const { subadminCode, limit, limitType } = req.body
-
-  const subadmin = await getUserHandler(subadminCode, ROLES.subadmin)
-  await prisma.subadmin.update({
-    where: {
-      code: subadminCode
-    },
-    data: {
-      limit: subadmin.limit + limit
-    }
-  })
-  return res.status(200)
-}
-
-export const subtractLimitSubadminController = async (
-  req: Request,
-  res: Response
-) => {
-  const { subadminCode, limit, limitType } = req.body
-
-  const subadmin = await getUserHandler(subadminCode, ROLES.subadmin)
-  await prisma.subadmin.update({
-    where: {
-      code: subadminCode
-    },
-    data: {
-      limit: subadmin.limit - limit
-    }
-  })
-
-  return res.status(200)
-}
-
-// Master Limit
-export const addLimitMasterController = async (req: Request, res: Response) => {
-  const { subadminCode, masterCode, limit, limitType } = req.body
-
-  const subadmin = await getUserHandler(subadminCode, ROLES.subadmin)
-  const master = await getUserHandler(masterCode, ROLES.master)
-  if (master?.status === false) {
-    return res.status(400).json({
-      message: 'Master inactive'
-    })
-  } else if (subadmin.limit <= limit) {
-    return res.status(400).json({
-      message: 'Insuffient subadmin limit'
-    })
-  } else {
-    await prisma.master.update({
-      where: {
-        code: masterCode
-      },
-      data: {
-        limit: master.limit + limit
-      }
-    })
-    await prisma.subadmin.update({
-      where: {
-        code: subadmin.code
-      },
-      data: {
-        limit: subadmin.limit - limit
-      }
-    })
-  }
-  return res.status(200)
-}
-
-export const subtractLimitMasterController = async (
-  req: Request,
-  res: Response
-) => {
-  const { subadminCode, masterCode, limit, limitType } = req.body
-
-  const subadmin = await getUserHandler(subadminCode, ROLES.subadmin)
-  const master = await getUserHandler(masterCode, ROLES.master)
-  if (master.limit <= limit) {
-    return res.status(400).json({
-      message: 'Insufficent master limit'
-    })
-  } else {
-    await prisma.master.update({
-      where: {
-        code: masterCode
-      },
-      data: {
-        limit: master.limit - limit
-      }
-    })
-    await prisma.subadmin.update({
-      where: {
-        code: subadmin.code
-      },
-      data: {
-        limit: subadmin.limit + limit
-      }
-    })
-  }
-  return res.status(200)
-}
+import { get } from 'http'
 
 // Superagent Limit
 export const addLimitSuperagentController = async (
   req: Request,
   res: Response
 ) => {
-  const { masterCode, superagentCode, limit, limitType } = req.body
+  const { superagentCode, limit, limitType } = req.body
 
-  const master = await getUserHandler(masterCode, ROLES.master)
+  const master = req.user as User
   const superagent = await getUserHandler(superagentCode, ROLES.superagent)
   if (superagent?.status === false) {
     return res.status(400).json({
@@ -153,9 +48,9 @@ export const subtractLimitSuperagentController = async (
   req: Request,
   res: Response
 ) => {
-  const { masterCode, superagentCode, limit, limitType } = req.body
+  const { superagentCode, limit, limitType } = req.body
 
-  const master = await getUserHandler(masterCode, ROLES.master)
+  const master = req.user as User
   const superagent = await getUserHandler(superagentCode, ROLES.superagent)
   if (superagent.limit <= limit) {
     return res.status(400).json({

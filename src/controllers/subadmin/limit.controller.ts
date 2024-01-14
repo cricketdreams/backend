@@ -5,49 +5,11 @@ import { prisma } from '../../prisma/prisma'
 import { getUserHandler } from '../../handlers/get-user'
 import { ROLES } from '../../ts/type'
 
-// Subadmin Limit
-export const addLimitSubadminController = async (
-  req: Request,
-  res: Response
-) => {
-  const { subadminCode, limit, limitType } = req.body
-
-  const subadmin = await getUserHandler(subadminCode, ROLES.subadmin)
-  await prisma.subadmin.update({
-    where: {
-      code: subadminCode
-    },
-    data: {
-      limit: subadmin.limit + limit
-    }
-  })
-  return res.status(200)
-}
-
-export const subtractLimitSubadminController = async (
-  req: Request,
-  res: Response
-) => {
-  const { subadminCode, limit, limitType } = req.body
-
-  const subadmin = await getUserHandler(subadminCode, ROLES.subadmin)
-  await prisma.subadmin.update({
-    where: {
-      code: subadminCode
-    },
-    data: {
-      limit: subadmin.limit - limit
-    }
-  })
-
-  return res.status(200)
-}
-
 // Master Limit
 export const addLimitMasterController = async (req: Request, res: Response) => {
-  const { subadminCode, masterCode, limit, limitType } = req.body
+  const { masterCode, limit, limitType } = req.body
 
-  const subadmin = await getUserHandler(subadminCode, ROLES.subadmin)
+  const subadmin = req.user as User
   const master = await getUserHandler(masterCode, ROLES.master)
   if (master?.status === false) {
     return res.status(400).json({
@@ -82,9 +44,9 @@ export const subtractLimitMasterController = async (
   req: Request,
   res: Response
 ) => {
-  const { subadminCode, masterCode, limit, limitType } = req.body
+  const { masterCode, limit, limitType } = req.body
 
-  const subadmin = await getUserHandler(subadminCode, ROLES.subadmin)
+  const subadmin = req.user as User
   const master = await getUserHandler(masterCode, ROLES.master)
   if (master.limit <= limit) {
     return res.status(400).json({
