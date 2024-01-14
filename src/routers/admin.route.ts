@@ -38,15 +38,25 @@ router.post('/create-superagent', isAuthenticate, catchError(createSuperagentCon
 router.post('/create-agent', isAuthenticate, catchError(createAgentController))
 router.post('/create-client', isAuthenticate, catchError(createClientController))
 
+
+// active deactivate
+
+router.post('/active-subadmin', isAuthenticate, catchError(createSubadminController))
+router.post('/active-master', isAuthenticate, catchError(createMasterController))
+router.post('/active-superagent', isAuthenticate, catchError(createSuperagentController))
+router.post('/active-agent', isAuthenticate, catchError(createAgentController))
+router.post('/active-client', isAuthenticate, catchError(createClientController))
+
+
 // limit
-router.post('/add-limit-subadmin', isAuthenticate, addLimitSubadminController)
-router.post('/add-limit-master', isAuthenticate, addLimitMasterController)
-router.post(
-  '/add-limit-superagent',
-  isAuthenticate,
-  addLimitSuperagentController
-)
-router.post('/add-limit-agent', isAuthenticate, addLimitAgentController)
-router.post('/add-limit-client', isAuthenticate, addLimitClientController)
+// router.post('/add-limit-subadmin', isAuthenticate, addLimitSubadminController)
+// router.post('/add-limit-master', isAuthenticate, addLimitMasterController)
+// router.post(
+//   '/add-limit-superagent',
+//   isAuthenticate,
+//   addLimitSuperagentController
+// )
+// router.post('/add-limit-agent', isAuthenticate, addLimitAgentController)
+// router.post('/add-limit-client', isAuthenticate, addLimitClientController)
 
 export default router

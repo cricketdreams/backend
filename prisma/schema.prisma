@@ -12,21 +12,25 @@ datasource db {
 // --------------------
 // ---------- User Models ---------
 model Admin {
-  code      String     @id @unique
-  name      String
-  password  String
-  share     Float      @default(100)
-  mobile    String
-  subadmin  Subadmin[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  code       String       @id @unique
+  name       String
+  password   String
+  share      Float        @default(100)
+  mobile     String
+  subadmin   Subadmin[]
+  master     Master[]
+  superagent Superagent[]
+  agent      Agent[]
+  client     Client[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
 
   @@schema("user")
 }
 
 model Subadmin {
-  code              String   @id @unique
-  upLink            Admin    @relation(fields: [upLinkCode], references: [code])
+  code              String       @id @unique
+  upLink            Admin        @relation(fields: [upLinkCode], references: [code])
   upLinkCode        String
   name              String
   password          String
@@ -36,11 +40,14 @@ model Subadmin {
   sessionCommission Float
   matchCommission   Float
   mobileCommission  Float
-  status            Boolean  @default(true)
+  status            Boolean      @default(true)
   limit             Float
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
   master            Master[]
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  superagent        Superagent[]
+  agent             Agent[]
+  client            Client[]
 
   @@schema("user")
 }
@@ -60,15 +67,19 @@ model Master {
   status            Boolean      @default(true)
   limit             Float
   superagent        Superagent[]
+  agent             Agent[]
+  client            Client[]
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
+  Admin             Admin?       @relation(fields: [adminCode], references: [code])
+  adminCode         String?
 
   @@schema("user")
 }
 
 model Superagent {
-  code              String   @id @unique
-  upLink            Master   @relation(fields: [upLinkCode], references: [code])
+  code              String    @id @unique
+  upLink            Master    @relation(fields: [upLinkCode], references: [code])
   upLinkCode        String
   name              String
   password          String
@@ -78,11 +89,16 @@ model Superagent {
   sessionCommission Float
   matchCommission   Float
   mobileCommission  Float
-  status            Boolean  @default(true)
+  status            Boolean   @default(true)
   limit             Float
   agent             Agent[]
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  client            Client[]
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  Admin             Admin?    @relation(fields: [adminCode], references: [code])
+  adminCode         String?
+  Subadmin          Subadmin? @relation(fields: [subadminCode], references: [code])
+  subadminCode      String?
 
   @@schema("user")
 }
@@ -104,13 +120,19 @@ model Agent {
   client            Client[]
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
+  admin             Admin?     @relation(fields: [adminCode], references: [code])
+  adminCode         String?
+  subadmin          Subadmin?  @relation(fields: [subadminCode], references: [code])
+  subadminCode      String?
+  master            Master?    @relation(fields: [masterCode], references: [code])
+  masterCode        String?
 
   @@schema("user")
 }
 
 model Client {
-  code              String   @id @unique
-  upLink            Agent    @relation(fields: [upLinkCode], references: [code])
+  code              String      @id @unique
+  upLink            Agent       @relation(fields: [upLinkCode], references: [code])
   upLinkCode        String
   name              String
   password          String
@@ -119,10 +141,18 @@ model Client {
   sessionCommission Float
   matchCommission   Float
   mobileCommission  Float
-  status            Boolean  @default(true)
+  status            Boolean     @default(true)
   limit             Float
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  admin             Admin?      @relation(fields: [adminCode], references: [code])
+  adminCode         String?
+  subadmin          Subadmin?   @relation(fields: [subadminCode], references: [code])
+  subadminCode      String?
+  master            Master?     @relation(fields: [masterCode], references: [code])
+  masterCode        String?
+  superagent        Superagent? @relation(fields: [superagentCode], references: [code])
+  superagentCode    String?
 
   @@schema("user")
 }
@@ -185,6 +215,86 @@ model ClientLoginReport {
   ipAddress String
   name      String
   createdAt DateTime @default(now())
+
+  @@schema("report")
+}
+
+// --------------------
+// ---------- Report ----------
+model AdminReport {
+  id        String   @id @default(uuid())
+  code      String
+  name      String
+  createdAt DateTime @default(now())
+  old       String
+  new       String
+  kisnekara String
+  ipAddress String
+
+  @@schema("report")
+}
+
+model SubadminReport {
+  id        String   @id @default(uuid())
+  code      String
+  name      String
+  createdAt DateTime @default(now())
+  old       String
+  new       String
+  kisnekara String
+  ipAddress String
+
+  @@schema("report")
+}
+
+model MasterReport {
+  id        String   @id @default(uuid())
+  code      String
+  name      String
+  createdAt DateTime @default(now())
+  old       String
+  new       String
+  kisnekara String
+  ipAddress String
+
+  @@schema("report")
+}
+
+model SuperagentReport {
+  id        String   @id @default(uuid())
+  code      String
+  name      String
+  createdAt DateTime @default(now())
+  old       String
+  new       String
+  kisnekara String
+  ipAddress String
+
+  @@schema("report")
+}
+
+model AgentReport {
+  id        String   @id @default(uuid())
+  code      String
+  name      String
+  createdAt DateTime @default(now())
+  old       String
+  new       String
+  kisnekara String
+  ipAddress String
+
+  @@schema("report")
+}
+
+model ClientReport {
+  id        String   @id @default(uuid())
+  code      String
+  name      String
+  createdAt DateTime @default(now())
+  old       String
+  new       String
+  kisnekara String
+  ipAddress String
 
   @@schema("report")
 }

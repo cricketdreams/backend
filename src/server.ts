@@ -1,18 +1,18 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
+import compression from 'compression'
 import express from 'express'
-import http from 'http'
 import flash from 'express-flash'
 import session from 'express-session'
 import helmet from 'helmet'
-import compression from 'compression'
+import http from 'http'
 
-import { ROUTER } from './routes'
-import errorHandler from './middlewares/error'
-import { logFatal, logResReq } from './utils/logger'
 import { CONST } from './config'
+import errorHandler from './middlewares/error'
 import { resreqLog } from './middlewares/resreq-log'
+import { ROUTER } from './routes'
+import { logFatal } from './utils/logger'
 
 const app = express()
 

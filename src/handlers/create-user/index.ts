@@ -64,6 +64,8 @@ export const createUser = async (
       }
     })
   }
+
+
   if (upLinkType === 'admin') {
     await (prisma[upLinkType as keyof typeof prisma] as any).update({
       where: {
@@ -130,7 +132,9 @@ export const createUser = async (
       }
     })
   }
+  // add to report
 
+  
   return {
     data: result,
     message: `${userType} created successfully`
