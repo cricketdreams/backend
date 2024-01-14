@@ -25,30 +25,15 @@ export default async function generateCode(role: Roles): Promise<string> {
 
 async function checkInDatabase(
   generatedCode: string,
-  role: Roles
+  userType: Roles
 ): Promise<boolean> {
-  let user = null
-  if (role === 'subadmin') {
-    const user = await prisma.subadmin.findUnique({
-      where: { code: generatedCode }
-    })
-  } else if (role === 'master') {
-    const user = await prisma.master.findUnique({
-      where: { code: generatedCode }
-    })
-  } else if (role === 'superagent') {
-    const user = await prisma.superagent.findUnique({
-      where: { code: generatedCode }
-    })
-  } else if (role === 'agent') {
-    const user = await prisma.agent.findUnique({
-      where: { code: generatedCode }
-    })
-  } else if (role === 'client') {
-    const user = await prisma.client.findUnique({
-      where: { code: generatedCode }
-    })
-  }
+  const user = await (
+    prisma[userType as keyof typeof prisma] as any
+  ).findUnique({
+    where: {
+      code: generatedCode
+    }
+  })
 
   return user !== null
 }

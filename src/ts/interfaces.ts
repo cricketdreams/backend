@@ -5,6 +5,7 @@ export interface User {
   name: string
   password: string
   mobile: string
+  limit: number
 }
 export interface decodedToken {
   _id: string
@@ -17,7 +18,6 @@ export interface CustomRequest extends Request {
   query: any
   sessionId: any
 }
-
 
 export type CreateUserBody = {
   upLinkCode: string

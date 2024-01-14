@@ -1,4 +1,4 @@
-const ROLES = {
+export const ROLES = {
   admin: 'admin',
   subadmin: 'subadmin',
   master: 'master',
