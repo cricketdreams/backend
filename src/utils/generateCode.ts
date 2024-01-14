@@ -1,7 +1,7 @@
 import { prisma } from '../prisma/prisma'
 import { Roles } from '../ts/type'
 
-export default function generateCode(role: Roles): string {
+export default async function generateCode(role: Roles): Promise<string> {
   let generatedCode: string
   role = role.toLowerCase() as Roles
 
@@ -18,7 +18,7 @@ export default function generateCode(role: Roles): string {
     const randomNumber = Math.floor(100000 + Math.random() * 900000)
     const roleInitial = rolesMap[role]
     generatedCode = roleInitial + randomNumber.toString()
-  } while (checkInDatabase(generatedCode, role))
+  } while (await checkInDatabase(generatedCode, role))
 
   return generatedCode
 }
@@ -27,9 +27,9 @@ async function checkInDatabase(
   generatedCode: string,
   role: Roles
 ): Promise<boolean> {
-  let user
+  let user = null
   if (role === 'subadmin') {
-    const user = await prisma.subAdmin.findUnique({
+    const user = await prisma.subadmin.findUnique({
       where: { code: generatedCode }
     })
   } else if (role === 'master') {
@@ -37,7 +37,7 @@ async function checkInDatabase(
       where: { code: generatedCode }
     })
   } else if (role === 'superagent') {
-    const user = await prisma.superAgent.findUnique({
+    const user = await prisma.superagent.findUnique({
       where: { code: generatedCode }
     })
   } else if (role === 'agent') {

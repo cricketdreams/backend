@@ -5,11 +5,12 @@ import { User } from '../../ts/interfaces'
 import { prisma } from '../../prisma/prisma'
 import generateCode from '../../utils/generateCode'
 import { hashPassword } from '../../utils/password'
+import { logFatal } from '../../utils/logger'
 
 export const createAdminController = async (req: Request, res: Response) => {
   try {
     const { name, password, mobile } = req.body
-    const code = generateCode('admin')
+    const code = await generateCode('admin')
     const hashedPassword = await hashPassword(password)
     const result = await prisma.admin.create({
       data: {
@@ -24,10 +25,12 @@ export const createAdminController = async (req: Request, res: Response) => {
       message: 'Admin created successfully'
     })
   } catch (error) {
-    if (error instanceof Error)
+    if (error instanceof Error) {
+      logFatal.log('fatal', error.message)
       res.status(500).json({
         message: error.message
       })
+    }
   }
 }
 

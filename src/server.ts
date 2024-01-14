@@ -6,14 +6,14 @@ import helmet from 'helmet'
 import compression from 'compression'
 
 import { ROUTER } from './routes'
-import errorHandler from './utils/error'
+import errorHandler from './middlewares/error'
 import { logFatal, logResReq } from './utils/logger'
 import { CONST } from './config'
 
 const app = express()
 
 process.on('uncaughtException', err => {
-  logFatal.log('fatal', 'uncaught exception')
+  logFatal.log('fatal', 'uncaught exception') // See later
   process.exit(1)
 })
 
@@ -58,7 +58,7 @@ const serverConfig = () => {
   })
 
   app.use(express.urlencoded({ extended: true }))
-
+  app.use(express.json())
   ROUTER.forEach(route => {
     app.use(route.path, ...route.middleware)
     app.use(route.path, route.router)

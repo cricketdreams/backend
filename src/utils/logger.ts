@@ -19,6 +19,18 @@ const logFormat = printf(
 const log = 'logs'
 const dateFormat = 'YYYY-MM-DD HH:mm:ss'
 
+const errorFilter = format((info, opts) =>
+  info.level === 'error' ? info : false
+)
+
+const infoFilter = format((info, opts) =>
+  info.level === 'info' ? info : false
+)
+
+const debugFilter = format((info, opts) =>
+  info.level === 'debug' ? info : false
+)
+
 const logFatal = createLogger({
   levels: logLevels,
   level: 'error',
@@ -26,28 +38,26 @@ const logFatal = createLogger({
   transports: [new transports.File({ filename: path.join(log, 'Fatal.log') })]
 })
 
-const logNull = createLogger({
+const logger = createLogger({
   levels: logLevels,
   level: 'debug',
   format: combine(timestamp({ format: dateFormat }), logFormat),
   transports: [
-    new transports.File({ filename: path.join(log, 'NullError.log') })
-  ]
-})
-
-const logInfo = createLogger({
-  levels: logLevels,
-  level: 'info',
-  format: combine(timestamp({ format: dateFormat }), logFormat),
-  transports: [new transports.File({ filename: path.join(log, 'Info.log') })]
-})
-
-const logCatchError = createLogger({
-  levels: logLevels,
-  level: 'error',
-  format: combine(timestamp({ format: dateFormat }), logFormat),
-  transports: [
-    new transports.File({ filename: path.join(log, 'CatchError.log') })
+    new transports.File({
+      filename: path.join(log, 'Error.log'),
+      level: 'error',
+      format: combine(errorFilter(), timestamp(), logFormat)
+    }),
+    new transports.File({
+      filename: path.join(log, 'Info.log'),
+      level: 'info',
+      format: combine(infoFilter(), timestamp(), logFormat)
+    }),
+    new transports.File({
+      filename: path.join(log, 'Null.log'),
+      level: 'debug',
+      format: combine(debugFilter(), timestamp(), logFormat)
+    })
   ]
 })
 
@@ -55,9 +65,7 @@ const logResReq = createLogger({
   levels: logLevels,
   level: 'info',
   format: combine(timestamp({ format: dateFormat }), logFormat),
-  transports: [
-    new transports.File({ filename: path.join(log, 'ResReq.log') })
-  ]
+  transports: [new transports.File({ filename: path.join(log, 'ResReq.log') })]
 })
 
-export { logNull, logInfo, logCatchError, logResReq, logFatal }
+export { logger, logResReq, logFatal }

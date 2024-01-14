@@ -1,6 +1,7 @@
 import { CreateUserBody } from '../../ts/interfaces'
 import { prisma } from '../../prisma/prisma'
-import generateCode, { Roles } from '../../utils/generateCode'
+import generateCode from '../../utils/generateCode'
+import { Roles } from '../../ts/type'
 import { hashPassword } from '../../utils/password'
 
 export const createUser = async (
@@ -29,7 +30,7 @@ export const createUser = async (
   })
   if (!upLinkData) throw new Error('Uplink not found')
   const hashedPassword = await hashPassword(password)
-  const code = generateCode(userType)
+  const code = await generateCode(userType)
   let result
   if (userType === 'client') {
     result = await prisma.client.create({

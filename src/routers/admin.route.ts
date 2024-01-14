@@ -1,4 +1,12 @@
 import { Router } from 'express'
+
+import {
+  addLimitAgentController,
+  addLimitClientController,
+  addLimitMasterController,
+  addLimitSubadminController,
+  addLimitSuperagentController
+} from '../controllers/admin/limit.controller'
 import {
   createAdminController,
   loginAdminController,
@@ -18,7 +26,7 @@ const router = Router()
 
 //auth
 // only for development
-router.post('/createAdmin', createAdminController)
+router.post('/create-admin', createAdminController)
 router.post('/login', adminPassport.authenticate('local'), loginAdminController)
 router.get('/logout', logoutAdminController)
 
@@ -28,5 +36,16 @@ router.post('/create-master', isAuthenticate, createMasterController)
 router.post('/create-superagent', isAuthenticate, createSuperagentController)
 router.post('/create-agent', isAuthenticate, createAgentController)
 router.post('/create-client', isAuthenticate, createClientController)
+
+// limit
+// router.post('/add-limit-subadmin', isAuthenticate, addLimitSubadminController)
+// router.post('/add-limit-master', isAuthenticate, addLimitMasterController)
+// router.post(
+//   '/add-limit-superagent',
+//   isAuthenticate,
+//   addLimitSuperagentController
+// )
+// router.post('/add-limit-agent', isAuthenticate, addLimitAgentController)
+// router.post('/add-limit-client', isAuthenticate, addLimitClientController)
 
 export default router
