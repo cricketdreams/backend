@@ -6,7 +6,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  schemas  = ["base", "transactional"]
+  schemas  = ["user", "transactional", "report", "session"]
 }
 
 // --------------------
@@ -21,7 +21,7 @@ model Admin {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 
-  @@schema("base")
+  @@schema("user")
 }
 
 model Subadmin {
@@ -42,7 +42,7 @@ model Subadmin {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
-  @@schema("base")
+  @@schema("user")
 }
 
 model Master {
@@ -63,7 +63,7 @@ model Master {
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
 
-  @@schema("base")
+  @@schema("user")
 }
 
 model Superagent {
@@ -84,7 +84,7 @@ model Superagent {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
-  @@schema("base")
+  @@schema("user")
 }
 
 model Agent {
@@ -105,7 +105,7 @@ model Agent {
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
 
-  @@schema("base")
+  @@schema("user")
 }
 
 model Client {
@@ -124,7 +124,7 @@ model Client {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
-  @@schema("base")
+  @@schema("user")
 }
 
 // --------------------
@@ -136,7 +136,7 @@ model AdminLoginReport {
   name      String
   createdAt DateTime @default(now())
 
-  @@schema("base")
+  @@schema("report")
 }
 
 model SubadminLoginReport {
@@ -146,7 +146,7 @@ model SubadminLoginReport {
   name      String
   createdAt DateTime @default(now())
 
-  @@schema("base")
+  @@schema("report")
 }
 
 model MasterLoginReport {
@@ -156,7 +156,7 @@ model MasterLoginReport {
   name      String
   createdAt DateTime @default(now())
 
-  @@schema("base")
+  @@schema("report")
 }
 
 model SuperagentLoginReport {
@@ -166,7 +166,7 @@ model SuperagentLoginReport {
   name      String
   createdAt DateTime @default(now())
 
-  @@schema("base")
+  @@schema("report")
 }
 
 model AgentLoginReport {
@@ -176,7 +176,7 @@ model AgentLoginReport {
   name      String
   createdAt DateTime @default(now())
 
-  @@schema("base")
+  @@schema("report")
 }
 
 model ClientLoginReport {
@@ -186,7 +186,7 @@ model ClientLoginReport {
   name      String
   createdAt DateTime @default(now())
 
-  @@schema("base")
+  @@schema("report")
 }
 
 // --------------------
@@ -203,7 +203,7 @@ model AdminLedger {
   description    String?
   kisnekara      String
 
-  @@schema("base")
+  @@schema("report")
 }
 
 model SubadminLedger {
@@ -218,7 +218,7 @@ model SubadminLedger {
   description    String?
   kisnekara      String
 
-  @@schema("base")
+  @@schema("report")
 }
 
 model MasterLedger {
@@ -233,7 +233,7 @@ model MasterLedger {
   description    String?
   kisnekara      String
 
-  @@schema("base")
+  @@schema("report")
 }
 
 model SuperagentLedger {
@@ -248,7 +248,7 @@ model SuperagentLedger {
   description    String?
   kisnekara      String
 
-  @@schema("base")
+  @@schema("report")
 }
 
 model AgentLedger {
@@ -263,7 +263,7 @@ model AgentLedger {
   description    String?
   kisnekara      String
 
-  @@schema("base")
+  @@schema("report")
 }
 
 model ClientLedger {
@@ -278,7 +278,7 @@ model ClientLedger {
   description    String?
   kisnekara      String
 
-  @@schema("base")
+  @@schema("report")
 }
 
 // --------------------
@@ -293,7 +293,7 @@ model Session {
   active    Boolean  @default(true)
   deleted   Boolean  @default(false)
 
-  @@schema("base")
+  @@schema("session")
 }
 
 // --------------------
@@ -307,5 +307,5 @@ model Match {
   wonBy     String
   plusMinus Float
 
-  @@schema("base")
+  @@schema("report")
 }
