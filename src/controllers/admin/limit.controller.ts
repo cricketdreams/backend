@@ -2,7 +2,7 @@ export const addLimitSubadminController = async (
   req: Request,
   res: Response
 ) => {
-
+  
 }
 
 export const addLimitMasterController = async (

@@ -1,21 +1,14 @@
-import dotenv from 'dotenv'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { prisma } from '../prisma/prisma'
 import { comparePassword } from '../utils/password'
+import { User } from '../ts/interfaces'
 
 const adminPassport = new passport.Passport()
-dotenv.config()
-
-interface User {
-  code: string
-  password: string
-}
 
 adminPassport.use(
   new LocalStrategy({ usernameField: 'code' }, async (code, password, done) => {
     try {
-
       const admin = await prisma.admin.findUnique({
         where: { code: code }
       })

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
-export const logoutHandler = async (req: Request, res: Response, path: string) => {
-  req.logout(err => {
+export const logoutHandler = (req: Request, res: Response, path: string) => {
+  return req.logout(err => {
     if (err) {
       res.status(500).json({ message: err })
     } else {

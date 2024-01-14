@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+
 import { createUser } from '.'
 
 export const createSubadminHandler = async (req: Request, res: Response) => {

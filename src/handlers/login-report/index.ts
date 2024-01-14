@@ -1,4 +1,5 @@
 import { prisma } from '../../prisma/prisma'
+import { logLogin } from '../../utils/logger'
 
 export const newLoginReportHandler = async (
   reportDb: string,
@@ -15,6 +16,7 @@ export const newLoginReportHandler = async (
       name: user.name
     }
   })
+  logLogin.info(`${user.code}, ${ip}`)
 
   return {
     succuss: true,

@@ -1,4 +1,5 @@
 import { Router } from 'express'
+
 import {
   createAgentController,
   createClientController,
@@ -12,6 +13,7 @@ import {
 import { isAuthenticate } from '../middlewares/check-auth'
 import {} from '../passport/admin.passport'
 import { subadminPassport } from '../passport/subadmin.passport'
+import { catchError } from '../middlewares/catch-error'
 
 const router = Router()
 
@@ -19,14 +21,26 @@ const router = Router()
 router.post(
   '/login',
   subadminPassport.authenticate('local'),
-  loginSubadminController
+  catchError(loginSubadminController)
 )
-router.get('/logout', logoutSubadminController)
+router.get('/logout', catchError(logoutSubadminController))
 
 //create
-router.post('/create-master', isAuthenticate, createMasterController)
-router.post('/create-superagent', isAuthenticate, createSuperagentController)
-router.post('/create-agent', isAuthenticate, createAgentController)
-router.post('/create-client', isAuthenticate, createClientController)
+router.post(
+  '/create-master',
+  isAuthenticate,
+  catchError(createMasterController)
+)
+router.post(
+  '/create-superagent',
+  isAuthenticate,
+  catchError(createSuperagentController)
+)
+router.post('/create-agent', isAuthenticate, catchError(createAgentController))
+router.post(
+  '/create-client',
+  isAuthenticate,
+  catchError(createClientController)
+)
 
 export default router

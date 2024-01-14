@@ -68,4 +68,11 @@ const logResReq = createLogger({
   transports: [new transports.File({ filename: path.join(log, 'ResReq.log') })]
 })
 
-export { logger, logResReq, logFatal }
+const logLogin = createLogger({
+  levels: logLevels,
+  level: 'info',
+  format: combine(timestamp({ format: dateFormat }), logFormat),
+  transports: [new transports.File({ filename: path.join(log, 'Login.log') })]
+})
+
+export { logger, logResReq, logFatal, logLogin }

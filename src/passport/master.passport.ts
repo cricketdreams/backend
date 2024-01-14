@@ -1,17 +1,10 @@
-import dotenv from 'dotenv'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { prisma } from '../prisma/prisma'
 import { comparePassword } from '../utils/password'
-// import { User, UserDocument, UserModel } from '../models/userModel'
+import { User } from '../ts/interfaces'
 
-dotenv.config()
 const masterPassport = new passport.Passport()
-
-interface User {
-  code: string
-  password: string
-}
 
 masterPassport.use(
   new LocalStrategy({ usernameField: 'code' }, async (code, password, done) => {

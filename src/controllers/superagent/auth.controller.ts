@@ -7,30 +7,16 @@ export const loginSuperagentController = async (
   req: Request,
   res: Response
 ) => {
-  try {
-    if (!req.user) throw new Error('User not found')
-    const user: User = req.user as User
-    await newLoginReportHandler('SuperagentLoginReport', user, req.ip!)
+  if (!req.user) throw new Error('User not found')
+  const user: User = req.user as User
+  await newLoginReportHandler('SuperagentLoginReport', user, req.ip!)
 
-    res.status(200).json({
-      data: req.user,
-      message: 'Login successfully'
-    })
-  } catch (error) {
-    if (error instanceof Error)
-      res.status(500).json({
-        message: error.message
-      })
-  }
+  return res.status(200).json({
+    data: req.user,
+    message: 'Login successfully'
+  })
 }
 
 export const logoutSuperagentController = (req: Request, res: Response) => {
-  try {
-    logoutHandler(req, res, '/Superagent/login')
-  } catch (error) {
-    if (error instanceof Error)
-      res.status(500).json({
-        message: error.message
-      })
-  }
+  return logoutHandler(req, res, '/Superagent/login')
 }

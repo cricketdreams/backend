@@ -1,11 +1,9 @@
-import dotenv from 'dotenv'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { prisma } from '../prisma/prisma'
 import { comparePassword } from '../utils/password'
 import { User } from '../ts/interfaces'
 
-dotenv.config()
 const agentPassport = new passport.Passport()
 
 agentPassport.use(

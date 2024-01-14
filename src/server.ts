@@ -1,3 +1,6 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import express from 'express'
 import http from 'http'
 import flash from 'express-flash'
@@ -9,6 +12,7 @@ import { ROUTER } from './routes'
 import errorHandler from './middlewares/error'
 import { logFatal, logResReq } from './utils/logger'
 import { CONST } from './config'
+import { resreqLog } from './middlewares/resreq-log'
 
 const app = express()
 
@@ -45,17 +49,7 @@ const serverConfig = () => {
   //   })
   // )
   app.use(flash())
-  app.use((req, res, next) => {
-    logResReq.info(
-      `Incoming -> Method: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`
-    )
-    res.on('finish', () => {
-      logResReq.info(
-        `Outgoing -> Status: [${res.statusCode}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}] - Method: [${req.method}]`
-      )
-    })
-    next()
-  })
+  app.use(resreqLog)
 
   app.use(express.urlencoded({ extended: true }))
   app.use(express.json())

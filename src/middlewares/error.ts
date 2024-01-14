@@ -2,12 +2,12 @@ import { NextFunction, Request, Response } from 'express'
 import { logger } from '../utils/logger'
 
 const errorHandler = (
-  err: Error,
+  err: any,
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  logger.error(err)
+  logger.error(`${err.message}, error code: ${err.code || ''} `)
   res.status(500).send('Something went wrong')
 }
 
