@@ -18,7 +18,10 @@ import {
   subtractLimitAgentController,
   subtractLimitClientController
 } from '../controllers/superagent/limit.controller'
-import { agentLoginReportController, clientLoginReportController } from '../controllers/login-report.controller'
+import {
+  agentLoginReportController,
+  clientLoginReportController
+} from '../controllers/login-report.controller'
 
 const router = Router()
 
@@ -40,8 +43,16 @@ router.post(
 
 // limit
 // add limit
-router.post('/add-limit-agent', isAuthenticate, catchError(addLimitAgentController))
-router.post('/add-limit-client', isAuthenticate, catchError(addLimitClientController))
+router.post(
+  '/add-limit-agent',
+  isAuthenticate,
+  catchError(addLimitAgentController)
+)
+router.post(
+  '/add-limit-client',
+  isAuthenticate,
+  catchError(addLimitClientController)
+)
 
 // subtract limit
 router.post(
@@ -56,7 +67,15 @@ router.post(
 )
 
 // login report
-router.post('/login-report-agent', isAuthenticate, catchError(agentLoginReportController))
-router.post('/login-report-client', isAuthenticate, catchError(clientLoginReportController))
+router.post(
+  '/login-report-agent',
+  isAuthenticate,
+  catchError(agentLoginReportController)
+)
+router.post(
+  '/login-report-client',
+  isAuthenticate,
+  catchError(clientLoginReportController)
+)
 
 export default router
