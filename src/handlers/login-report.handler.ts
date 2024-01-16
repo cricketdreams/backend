@@ -9,7 +9,7 @@ export const newLoginReportHandler = async (
   },
   ip: string
 ) => {
-  const report = await (prisma[reportDb as keyof typeof prisma] as any).create({
+  await (prisma[reportDb as keyof typeof prisma] as any).create({
     data: {
       code: user.code,
       ipAddress: ip,
@@ -21,14 +21,34 @@ export const newLoginReportHandler = async (
   return true
 }
 
-export const getLoginReportHandler = async (reportDb: string) => {
-  const report = await (
-    prisma[reportDb as keyof typeof prisma] as any
-  ).findMany({
-    orderBy: {
-      createdAt: 'desc'
-    }
-  })
+export const getLoginReportHandler = async (
+  reportDb: string,
+  startDate: Date,
+  endDate: Date,
+  code?: string
+) => {
+  let report
+  if (code) {
+    report = await (prisma[reportDb as keyof typeof prisma] as any).findMany({
+      where: {
+        code,
+        createdAt: {
+          gte: startDate,
+          lte: endDate
+        }
+      }
+    })
+  } else {
+    report = await prisma.adminLoginReport.findMany({
+      where: {
+        code,
+        createdAt: {
+          gte: startDate,
+          lte: endDate
+        }
+      }
+    })
+  }
 
   return report
 }
