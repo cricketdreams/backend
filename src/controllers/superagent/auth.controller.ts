@@ -9,7 +9,11 @@ export const loginSuperagentController = async (
   res: Response
 ) => {
   const user: User = req.user as User
-  await newLoginReportHandler(LOGIN_REPORT_DB.SuperagentLoginReport, user, req.ip!)
+  await newLoginReportHandler(
+    LOGIN_REPORT_DB.SuperagentLoginReport,
+    user,
+    req.ip!
+  )
 
   return res.status(200).json({
     data: req.user,
