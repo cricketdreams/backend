@@ -12,6 +12,7 @@ import {
   addLimitClientController,
   subtractLimitClientController
 } from '../controllers/agent/limit.controller'
+import { clientLoginReportController } from '../controllers/login-report.controller'
 
 const router = Router()
 
@@ -45,4 +46,10 @@ router.post(
   catchError(subtractLimitClientController)
 )
 
+// login report
+router.post(
+  '/login-report-client',
+  isAuthenticate,
+  catchError(clientLoginReportController)
+)
 export default router

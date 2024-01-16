@@ -8,7 +8,7 @@ import { hashPassword } from '../../utils/password'
 
 export const createAdminController = async (req: Request, res: Response) => {
   const { name, password, mobile } = req.body
-  const code = await generateCode('admin')
+  const code = await generateCode('Admin')
   const hashedPassword = await hashPassword(password)
   const result = await prisma.admin.create({
     data: {

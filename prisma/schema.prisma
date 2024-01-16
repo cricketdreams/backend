@@ -6,7 +6,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  schemas  = ["user", "transactional", "report", "session"]
+  schemas  = ["user", "transaction", "ledger", "report", "login-report", "session"]
 }
 
 // --------------------
@@ -166,7 +166,7 @@ model AdminLoginReport {
   name      String
   createdAt DateTime @default(now())
 
-  @@schema("report")
+  @@schema("login-report")
 }
 
 model SubadminLoginReport {
@@ -176,7 +176,7 @@ model SubadminLoginReport {
   name      String
   createdAt DateTime @default(now())
 
-  @@schema("report")
+  @@schema("login-report")
 }
 
 model MasterLoginReport {
@@ -186,7 +186,7 @@ model MasterLoginReport {
   name      String
   createdAt DateTime @default(now())
 
-  @@schema("report")
+  @@schema("login-report")
 }
 
 model SuperagentLoginReport {
@@ -196,7 +196,7 @@ model SuperagentLoginReport {
   name      String
   createdAt DateTime @default(now())
 
-  @@schema("report")
+  @@schema("login-report")
 }
 
 model AgentLoginReport {
@@ -206,7 +206,7 @@ model AgentLoginReport {
   name      String
   createdAt DateTime @default(now())
 
-  @@schema("report")
+  @@schema("login-report")
 }
 
 model ClientLoginReport {
@@ -216,7 +216,7 @@ model ClientLoginReport {
   name      String
   createdAt DateTime @default(now())
 
-  @@schema("report")
+  @@schema("login-report")
 }
 
 // --------------------
@@ -231,7 +231,7 @@ model AdminReport {
   kisnekara String
   ipAddress String
 
-  @@schema("report")
+  @@schema("login-report")
 }
 
 model SubadminReport {
@@ -313,7 +313,7 @@ model AdminLedger {
   description    String?
   kisnekara      String
 
-  @@schema("report")
+  @@schema("ledger")
 }
 
 model SubadminLedger {
@@ -328,7 +328,7 @@ model SubadminLedger {
   description    String?
   kisnekara      String
 
-  @@schema("report")
+  @@schema("ledger")
 }
 
 model MasterLedger {
@@ -343,7 +343,7 @@ model MasterLedger {
   description    String?
   kisnekara      String
 
-  @@schema("report")
+  @@schema("ledger")
 }
 
 model SuperagentLedger {
@@ -358,7 +358,7 @@ model SuperagentLedger {
   description    String?
   kisnekara      String
 
-  @@schema("report")
+  @@schema("ledger")
 }
 
 model AgentLedger {
@@ -373,7 +373,7 @@ model AgentLedger {
   description    String?
   kisnekara      String
 
-  @@schema("report")
+  @@schema("ledger")
 }
 
 model ClientLedger {
@@ -388,7 +388,7 @@ model ClientLedger {
   description    String?
   kisnekara      String
 
-  @@schema("report")
+  @@schema("ledger")
 }
 
 // --------------------

@@ -6,12 +6,12 @@ export default async function generateCode(role: Roles): Promise<string> {
   role = role.toLowerCase() as Roles
 
   const rolesMap: Record<Roles, string> = {
-    admin: 'AD',
-    subadmin: 'SB',
-    master: 'MA',
-    superagent: 'SA',
-    agent: 'AG',
-    client: 'CL'
+    Admin: 'AD',
+    Subadmin: 'SB',
+    Master: 'MA',
+    Superagent: 'SA',
+    Agent: 'AG',
+    Client: 'CL'
   }
 
   do {

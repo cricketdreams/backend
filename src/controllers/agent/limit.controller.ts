@@ -9,7 +9,7 @@ import { ROLES } from '../../ts/type'
 export const addLimitClientController = async (req: Request, res: Response) => {
   const { clientCode, limit, limitType } = req.body
   const agent = req.user as User
-  const client = await getUserHandler(clientCode, ROLES.client)
+  const client = await getUserHandler(clientCode, ROLES.Client)
   if (client?.status === false) {
     return res.status(400).json({
       message: 'Client inactive'
@@ -46,7 +46,7 @@ export const subtractLimitClientController = async (
   const { clientCode, limit, limitType } = req.body
 
   const agent = req.user as User
-  const client = await getUserHandler(clientCode, ROLES.client)
+  const client = await getUserHandler(clientCode, ROLES.Client)
   if (client.limit <= limit) {
     return res.status(400).json({
       message: 'Insufficent client limit'

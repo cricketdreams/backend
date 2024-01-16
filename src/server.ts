@@ -17,7 +17,7 @@ import { logFatal } from './utils/logger'
 const app = express()
 
 process.on('uncaughtException', err => {
-  logFatal.log('fatal', 'uncaught exception') // See later
+  logFatal.log('fatal', `uncaught exception, ${err.message}, ${err.stack}`) // See later
   process.exit(1)
 })
 

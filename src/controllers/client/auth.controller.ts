@@ -2,7 +2,6 @@ import { Request, Response } from 'express'
 import { logoutHandler } from '../../handlers/logout.handler'
 import { newLoginReportHandler } from '../../handlers/login-report.handler'
 import { User } from '../../ts/interfaces'
-import { prisma } from '../../prisma/prisma'
 
 export const loginClientController = async (req: Request, res: Response) => {
   if (!req.user) throw new Error('User not found')

@@ -78,7 +78,7 @@ export const addLimitClientController = async (req: Request, res: Response) => {
   const { clientCode, agentCode, limit, limitType } = req.body
 
   const agent = await getUserHandler(agentCode, ROLES.agent)
-  const client = await getUserHandler(clientCode, ROLES.client)
+  const client = await getUserHandler(clientCode, ROLES.Client)
   if (client?.status === false) {
     return res.status(400).json({
       message: 'Client inactive'
@@ -115,7 +115,7 @@ export const subtractLimitClientController = async (
   const { clientCode, agentCode, limit, limitType } = req.body
 
   const agent = await getUserHandler(agentCode, ROLES.agent)
-  const client = await getUserHandler(clientCode, ROLES.client)
+  const client = await getUserHandler(clientCode, ROLES.Client)
   if (client.limit < limit) {
     return res.status(400).json({
       message: 'Insufficent agent limit'
