@@ -7,7 +7,6 @@ export const loginSuperagentController = async (
   req: Request,
   res: Response
 ) => {
-  if (!req.user) throw new Error('User not found')
   const user: User = req.user as User
   await newLoginReportHandler('SuperagentLoginReport', user, req.ip!)
 

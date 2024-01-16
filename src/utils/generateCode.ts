@@ -3,7 +3,6 @@ import { Roles } from '../ts/type'
 
 export default async function generateCode(role: Roles): Promise<string> {
   let generatedCode: string
-  role = role.toLowerCase() as Roles
 
   const rolesMap: Record<Roles, string> = {
     Admin: 'AD',
