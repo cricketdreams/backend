@@ -21,7 +21,7 @@ agentPassport.use(
       if (await comparePassword(password, agentData.password)) {
         return done(null, agentData)
       } else {
-        return done(null, false, { message: 'Incorrect password.' })
+        return done(null, false, { message: 'Incorrect username and password.' })
       }
     } catch (error) {
       if (error instanceof Error)

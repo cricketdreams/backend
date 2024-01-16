@@ -6,7 +6,7 @@ import { User } from '../../ts/interfaces'
 import { prisma } from '../../prisma/prisma'
 import generateCode from '../../utils/generateCode'
 import { hashPassword } from '../../utils/password'
-import { ROLES } from '../../ts/type'
+import { LOGIN_REPORT_DB, ROLES } from '../../ts/type'
 
 export const createAdminController = async (req: Request, res: Response) => {
   const { name, password, mobile } = req.body
@@ -28,7 +28,7 @@ export const createAdminController = async (req: Request, res: Response) => {
 
 export const loginAdminController = async (req: Request, res: Response) => {
   const user: User = req.user as User
-  await newLoginReportHandler('AdminLoginReport', user, req.ip!)
+  await newLoginReportHandler(LOGIN_REPORT_DB.AdminLoginReport, user, req.ip!)
   return res.status(200).json({
     data: req.user,
     message: 'Login successfully'

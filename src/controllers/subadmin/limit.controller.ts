@@ -149,7 +149,7 @@ export const addLimitAgentController = async (req: Request, res: Response) => {
   const { superagentCode, agentCode, limit, limitType } = req.body
 
   const superagent = await getUserHandler(superagentCode, ROLES.Superagent)
-  const agent = await getUserHandler(agentCode, ROLES.agent)
+  const agent = await getUserHandler(agentCode, ROLES.Agent)
   if (superagent?.status === false) {
     return res.status(400).json({
       message: 'Superagent inactive'
@@ -186,7 +186,7 @@ export const subtractLimitAgentController = async (
   const { superagentCode, agentCode, limit, limitType } = req.body
 
   const superagent = await getUserHandler(superagentCode, ROLES.Superagent)
-  const agent = await getUserHandler(agentCode, ROLES.agent)
+  const agent = await getUserHandler(agentCode, ROLES.Agent)
   if (agent.limit <= limit) {
     return res.status(400).json({
       message: 'Insufficent agent limit'
@@ -216,7 +216,7 @@ export const subtractLimitAgentController = async (
 export const addLimitClientController = async (req: Request, res: Response) => {
   const { clientCode, agentCode, limit, limitType } = req.body
 
-  const agent = await getUserHandler(agentCode, ROLES.agent)
+  const agent = await getUserHandler(agentCode, ROLES.Agent)
   const client = await getUserHandler(clientCode, ROLES.Client)
   if (client?.status === false) {
     return res.status(400).json({
@@ -253,7 +253,7 @@ export const subtractLimitClientController = async (
 ) => {
   const { clientCode, agentCode, limit, limitType } = req.body
 
-  const agent = await getUserHandler(agentCode, ROLES.agent)
+  const agent = await getUserHandler(agentCode, ROLES.Agent)
   const client = await getUserHandler(clientCode, ROLES.Client)
   if (client.limit < limit) {
     return res.status(400).json({

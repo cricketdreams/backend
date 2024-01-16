@@ -18,12 +18,12 @@ adminPassport.use(
       if (await comparePassword(password, admin.password)) {
         return done(null, admin)
       } else {
-        return done(null, false, { message: 'Incorrect password' })
+        return done(null, false, { message: 'Incorrect username and password.' })
       }
     } catch (error) {
       if (error instanceof Error)
         return done(null, false, {
-          message: error.message || 'Incorrect username or password'
+          message: error.message || 'Incorrect username or password.'
         })
     }
   })

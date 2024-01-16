@@ -21,7 +21,7 @@ clientPassport.use(
       if (await comparePassword(password, clientDb.password)) {
         return done(null, clientDb)
       } else {
-        return done(null, false, { message: 'Incorrect password.' })
+        return done(null, false, { message: 'Incorrect username and password.' })
       }
     } catch (error) {
       if (error instanceof Error)

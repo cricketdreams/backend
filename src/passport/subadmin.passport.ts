@@ -21,7 +21,7 @@ subadminPassport.use(
       if (await comparePassword(password, subadmin.password)) {
         return done(null, subadmin)
       } else {
-        return done(null, false, { message: 'Incorrect password.' })
+        return done(null, false, { message: 'Incorrect username and password.' })
       }
     } catch (error) {
       if (error instanceof Error)
