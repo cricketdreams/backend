@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 
 import { User } from '../../ts/interfaces'
 import { prisma } from '../../prisma/prisma'
-import { getUserHandler } from '../../handlers/get-user'
+import { getUserHandler } from '../../handlers/get-user.handler'
 import { ROLES } from '../../ts/type'
 
 // Subadmin Limit

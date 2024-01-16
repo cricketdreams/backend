@@ -1,5 +1,5 @@
-import { prisma } from '../../prisma/prisma'
-import { logLogin } from '../../utils/logger'
+import { prisma } from '../prisma/prisma'
+import { logLogin } from '../utils/logger'
 
 export const newLoginReportHandler = async (
   reportDb: string,
@@ -18,8 +18,17 @@ export const newLoginReportHandler = async (
   })
   logLogin.info(`${user.code}, ${ip}`)
 
-  return {
-    succuss: true,
-    data: report
-  }
+  return true
+}
+
+export const getLoginReportHandler = async (reportDb: string) => {
+  const report = await (
+    prisma[reportDb as keyof typeof prisma] as any
+  ).findMany({
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
+
+  return report
 }
