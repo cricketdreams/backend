@@ -3,6 +3,7 @@ import { Strategy as LocalStrategy } from 'passport-local'
 import { prisma } from '../prisma/prisma'
 import { compareData } from '../utils/password'
 import { User } from '../ts/interfaces'
+import { ROLES } from '../ts/type'
 
 const adminPassport = new passport.Passport()
 
@@ -45,7 +46,7 @@ adminPassport.deserializeUser(async (id: string, done) => {
     }
     const admin = {
       ...adminDb,
-      role: 'Admin'
+      role: ROLES.Admin
     }
     return done(null, admin)
   } catch (error) {

@@ -3,6 +3,7 @@ import { Strategy as LocalStrategy } from 'passport-local'
 import { prisma } from '../prisma/prisma'
 import { compareData } from '../utils/password'
 import { User } from '../ts/interfaces'
+import { ROLES } from '../ts/type'
 
 const superagentPassport = new passport.Passport()
 
@@ -49,7 +50,7 @@ superagentPassport.deserializeUser(async (id: string, done) => {
     }
     const superagent = {
       ...superagentDb,
-      role: 'Admin'
+      role: ROLES.Superagent
     }
     return done(null, superagent)
   } catch (error) {
