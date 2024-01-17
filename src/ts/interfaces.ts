@@ -1,4 +1,5 @@
 import { type Request } from 'express'
+import { Roles } from './type'
 
 export interface User {
   code: string
@@ -6,6 +7,7 @@ export interface User {
   password: string
   mobile: string
   limit: number
+  role: Roles
 }
 export interface decodedToken {
   _id: string

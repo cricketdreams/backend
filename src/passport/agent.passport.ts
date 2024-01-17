@@ -47,7 +47,11 @@ agentPassport.deserializeUser(async (id: string, done) => {
     if (!agentDb) {
       throw new Error('User not found')
     }
-    return done(null, agentDb)
+    const agent = {
+      ...agentDb,
+      role: 'Admin'
+    }
+    return done(null, agent)
   } catch (error) {
     done(error, null)
   }

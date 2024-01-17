@@ -47,7 +47,11 @@ clientPassport.deserializeUser(async (id: string, done) => {
     if (!clientDb) {
       throw new Error('User not found')
     }
-    return done(null, clientDb)
+    const client = {
+      ...clientDb,
+      role: 'Admin'
+    }
+    return done(null, client)
   } catch (error) {
     done(error, null)
   }

@@ -43,7 +43,11 @@ adminPassport.deserializeUser(async (id: string, done) => {
     if (!adminDb) {
       throw new Error('User not found')
     }
-    return done(null, adminDb)
+    const admin = {
+      ...adminDb,
+      role: 'Admin'
+    }
+    return done(null, admin)
   } catch (error) {
     done(error, null)
   }

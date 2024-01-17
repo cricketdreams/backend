@@ -47,7 +47,11 @@ subadminPassport.deserializeUser(async (id: string, done) => {
     if (!subadminDb) {
       throw new Error('User not found')
     }
-    return done(null, subadminDb)
+    const subadmin = {
+      ...subadminDb,
+      role: 'Admin'
+    }
+    return done(null, subadmin)
   } catch (error) {
     done(error, null)
   }

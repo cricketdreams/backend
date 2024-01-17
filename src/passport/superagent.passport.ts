@@ -47,7 +47,11 @@ superagentPassport.deserializeUser(async (id: string, done) => {
     if (!superagentDb) {
       throw new Error('User not found')
     }
-    return done(null, superagentDb)
+    const superagent = {
+      ...superagentDb,
+      role: 'Admin'
+    }
+    return done(null, superagent)
   } catch (error) {
     done(error, null)
   }

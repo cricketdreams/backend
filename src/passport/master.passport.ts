@@ -47,7 +47,11 @@ masterPassport.deserializeUser(async (id: string, done) => {
     if (!masterDb) {
       throw new Error('User not found')
     }
-    return done(null, masterDb)
+    const master = {
+      ...masterDb,
+      role: 'Admin'
+    }
+    return done(null, master)
   } catch (error) {
     done(error, null)
   }
