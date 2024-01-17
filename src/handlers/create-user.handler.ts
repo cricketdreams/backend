@@ -5,7 +5,7 @@ import { CreateUserBody } from '../ts/interfaces'
 import { prisma } from '../prisma/prisma'
 import generateCode from '../utils/generateCode'
 import { Roles } from '../ts/type'
-import { hashPassword } from '../utils/password'
+import { encryptData } from '../utils/password'
 
 const createUser = async (
   data: CreateUserBody,
@@ -32,7 +32,7 @@ const createUser = async (
     }
   })
   if (!upLinkData) throw new Error('Uplink not found')
-  const hashedPassword = await hashPassword(password)
+  const encryptedPassword = await encryptData(password)
   const code = await generateCode(userType)
   let result
   if (userType === ROLES.Client) {
@@ -40,7 +40,7 @@ const createUser = async (
       data: {
         code,
         name,
-        password: hashedPassword,
+        password: encryptedPassword,
         mobile,
         reference,
         sessionCommission,
@@ -55,7 +55,7 @@ const createUser = async (
       data: {
         code,
         name,
-        password: hashedPassword,
+        password: encryptedPassword,
         mobile,
         reference,
         share,

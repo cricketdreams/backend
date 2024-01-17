@@ -3,7 +3,10 @@ import { Request, Response } from 'express'
 import { getLoginReportHandler } from '../handlers/login-report.handler'
 import { LOGIN_REPORT_DB } from '../ts/type'
 
-export const adminLoginReportController = async (req: Request, res: Response) => {
+export const adminLoginReportController = async (
+  req: Request,
+  res: Response
+) => {
   const { startDate, endDate } = req.body
   const result = await getLoginReportHandler(
     LOGIN_REPORT_DB.AdminLoginReport,
@@ -16,7 +19,10 @@ export const adminLoginReportController = async (req: Request, res: Response) =>
   })
 }
 
-export const subadminLoginReportController = async (req: Request, res: Response) => {
+export const subadminLoginReportController = async (
+  req: Request,
+  res: Response
+) => {
   const { subadminCode, startDate, endDate } = req.body
   const result = await getLoginReportHandler(
     LOGIN_REPORT_DB.SubadminLoginReport,
@@ -29,7 +35,10 @@ export const subadminLoginReportController = async (req: Request, res: Response)
   })
 }
 
-export const masterLoginReportController = async (req: Request, res: Response) => {
+export const masterLoginReportController = async (
+  req: Request,
+  res: Response
+) => {
   const { masterCode, startDate, endDate } = req.body
   const result = await getLoginReportHandler(
     LOGIN_REPORT_DB.MasterLoginReport,
@@ -58,7 +67,10 @@ export const superagentLoginReportController = async (
   })
 }
 
-export const agentLoginReportController = async (req: Request, res: Response) => {
+export const agentLoginReportController = async (
+  req: Request,
+  res: Response
+) => {
   const { agentCode, startDate, endDate } = req.body
   const result = await getLoginReportHandler(
     LOGIN_REPORT_DB.AgentLoginReport,
@@ -71,7 +83,10 @@ export const agentLoginReportController = async (req: Request, res: Response) =>
   })
 }
 
-export const clientLoginReportController = async (req: Request, res: Response) => {
+export const clientLoginReportController = async (
+  req: Request,
+  res: Response
+) => {
   const { clientCode, startDate, endDate } = req.body
   const result = await getLoginReportHandler(
     LOGIN_REPORT_DB.ClientLoginReport,

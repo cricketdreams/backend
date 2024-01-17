@@ -1,7 +1,7 @@
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { prisma } from '../prisma/prisma'
-import { comparePassword } from '../utils/password'
+import { compareData } from '../utils/password'
 import { User } from '../ts/interfaces'
 
 const subadminPassport = new passport.Passport()
@@ -18,7 +18,7 @@ subadminPassport.use(
       if (!subadmin.status) {
         return done(null, false, { message: 'User is inactive.' })
       }
-      if (await comparePassword(password, subadmin.password)) {
+      if (await compareData(password, subadmin.password)) {
         return done(null, subadmin)
       } else {
         return done(null, false, {
