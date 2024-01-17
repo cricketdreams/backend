@@ -11,12 +11,12 @@ import { LOGIN_REPORT_DB, ROLES } from '../../ts/type'
 export const createAdminController = async (req: Request, res: Response) => {
   const { name, password, mobile } = req.body
   const code = await generateCode(ROLES.Admin)
-  const hashedPassword = await encryptData(password)
+  const encryptedPassword = await encryptData(password)
   const result = await prisma.admin.create({
     data: {
       name,
       code,
-      password: hashedPassword,
+      password: encryptedPassword,
       mobile
     }
   })

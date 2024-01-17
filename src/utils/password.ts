@@ -23,10 +23,7 @@ async function decryptData(encryptedData: string): Promise<string> {
   return decryptedData
 }
 
-export const compareData = async (
-  data: string,
-  encryptData: string
-) => {
+export const compareData = async (data: string, encryptData: string) => {
   const decryptedPassword = await decryptData(encryptData)
   return data === decryptedPassword
 }
