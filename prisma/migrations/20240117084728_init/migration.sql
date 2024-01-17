@@ -1,11 +1,23 @@
 -- CreateSchema
-CREATE SCHEMA IF NOT EXISTS "base";
+CREATE SCHEMA IF NOT EXISTS "ledger";
 
 -- CreateSchema
-CREATE SCHEMA IF NOT EXISTS "transactional";
+CREATE SCHEMA IF NOT EXISTS "login-report";
+
+-- CreateSchema
+CREATE SCHEMA IF NOT EXISTS "report";
+
+-- CreateSchema
+CREATE SCHEMA IF NOT EXISTS "session";
+
+-- CreateSchema
+CREATE SCHEMA IF NOT EXISTS "transaction";
+
+-- CreateSchema
+CREATE SCHEMA IF NOT EXISTS "user";
 
 -- CreateTable
-CREATE TABLE "base"."Admin" (
+CREATE TABLE "user"."Admin" (
     "code" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "password" TEXT NOT NULL,
@@ -18,7 +30,7 @@ CREATE TABLE "base"."Admin" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."Subadmin" (
+CREATE TABLE "user"."Subadmin" (
     "code" TEXT NOT NULL,
     "upLinkCode" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -38,7 +50,7 @@ CREATE TABLE "base"."Subadmin" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."Master" (
+CREATE TABLE "user"."Master" (
     "code" TEXT NOT NULL,
     "upLinkCode" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -53,12 +65,13 @@ CREATE TABLE "base"."Master" (
     "limit" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "adminCode" TEXT,
 
     CONSTRAINT "Master_pkey" PRIMARY KEY ("code")
 );
 
 -- CreateTable
-CREATE TABLE "base"."Superagent" (
+CREATE TABLE "user"."Superagent" (
     "code" TEXT NOT NULL,
     "upLinkCode" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -73,12 +86,14 @@ CREATE TABLE "base"."Superagent" (
     "limit" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "adminCode" TEXT,
+    "subadminCode" TEXT,
 
     CONSTRAINT "Superagent_pkey" PRIMARY KEY ("code")
 );
 
 -- CreateTable
-CREATE TABLE "base"."Agent" (
+CREATE TABLE "user"."Agent" (
     "code" TEXT NOT NULL,
     "upLinkCode" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -93,12 +108,15 @@ CREATE TABLE "base"."Agent" (
     "limit" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "adminCode" TEXT,
+    "subadminCode" TEXT,
+    "masterCode" TEXT,
 
     CONSTRAINT "Agent_pkey" PRIMARY KEY ("code")
 );
 
 -- CreateTable
-CREATE TABLE "base"."Client" (
+CREATE TABLE "user"."Client" (
     "code" TEXT NOT NULL,
     "upLinkCode" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -112,12 +130,16 @@ CREATE TABLE "base"."Client" (
     "limit" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "adminCode" TEXT,
+    "subadminCode" TEXT,
+    "masterCode" TEXT,
+    "superagentCode" TEXT,
 
     CONSTRAINT "Client_pkey" PRIMARY KEY ("code")
 );
 
 -- CreateTable
-CREATE TABLE "base"."AdminLoginReport" (
+CREATE TABLE "login-report"."AdminLoginReport" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "ipAddress" TEXT NOT NULL,
@@ -128,7 +150,7 @@ CREATE TABLE "base"."AdminLoginReport" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."SubadminLoginReport" (
+CREATE TABLE "login-report"."SubadminLoginReport" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "ipAddress" TEXT NOT NULL,
@@ -139,7 +161,7 @@ CREATE TABLE "base"."SubadminLoginReport" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."MasterLoginReport" (
+CREATE TABLE "login-report"."MasterLoginReport" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "ipAddress" TEXT NOT NULL,
@@ -150,7 +172,7 @@ CREATE TABLE "base"."MasterLoginReport" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."SuperagentLoginReport" (
+CREATE TABLE "login-report"."SuperagentLoginReport" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "ipAddress" TEXT NOT NULL,
@@ -161,7 +183,7 @@ CREATE TABLE "base"."SuperagentLoginReport" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."AgentLoginReport" (
+CREATE TABLE "login-report"."AgentLoginReport" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "ipAddress" TEXT NOT NULL,
@@ -172,7 +194,7 @@ CREATE TABLE "base"."AgentLoginReport" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."ClientLoginReport" (
+CREATE TABLE "login-report"."ClientLoginReport" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "ipAddress" TEXT NOT NULL,
@@ -183,7 +205,91 @@ CREATE TABLE "base"."ClientLoginReport" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."AdminLedger" (
+CREATE TABLE "login-report"."AdminReport" (
+    "id" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "old" TEXT NOT NULL,
+    "new" TEXT NOT NULL,
+    "kisnekara" TEXT NOT NULL,
+    "ipAddress" TEXT NOT NULL,
+
+    CONSTRAINT "AdminReport_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "report"."SubadminReport" (
+    "id" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "old" TEXT NOT NULL,
+    "new" TEXT NOT NULL,
+    "kisnekara" TEXT NOT NULL,
+    "ipAddress" TEXT NOT NULL,
+
+    CONSTRAINT "SubadminReport_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "report"."MasterReport" (
+    "id" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "old" TEXT NOT NULL,
+    "new" TEXT NOT NULL,
+    "kisnekara" TEXT NOT NULL,
+    "ipAddress" TEXT NOT NULL,
+
+    CONSTRAINT "MasterReport_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "report"."SuperagentReport" (
+    "id" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "old" TEXT NOT NULL,
+    "new" TEXT NOT NULL,
+    "kisnekara" TEXT NOT NULL,
+    "ipAddress" TEXT NOT NULL,
+
+    CONSTRAINT "SuperagentReport_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "report"."AgentReport" (
+    "id" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "old" TEXT NOT NULL,
+    "new" TEXT NOT NULL,
+    "kisnekara" TEXT NOT NULL,
+    "ipAddress" TEXT NOT NULL,
+
+    CONSTRAINT "AgentReport_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "report"."ClientReport" (
+    "id" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "old" TEXT NOT NULL,
+    "new" TEXT NOT NULL,
+    "kisnekara" TEXT NOT NULL,
+    "ipAddress" TEXT NOT NULL,
+
+    CONSTRAINT "ClientReport_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ledger"."AdminLedger" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -199,7 +305,7 @@ CREATE TABLE "base"."AdminLedger" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."SubadminLedger" (
+CREATE TABLE "ledger"."SubadminLedger" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -215,7 +321,7 @@ CREATE TABLE "base"."SubadminLedger" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."MasterLedger" (
+CREATE TABLE "ledger"."MasterLedger" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -231,7 +337,7 @@ CREATE TABLE "base"."MasterLedger" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."SuperagentLedger" (
+CREATE TABLE "ledger"."SuperagentLedger" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -247,7 +353,7 @@ CREATE TABLE "base"."SuperagentLedger" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."AgentLedger" (
+CREATE TABLE "ledger"."AgentLedger" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -263,7 +369,7 @@ CREATE TABLE "base"."AgentLedger" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."ClientLedger" (
+CREATE TABLE "ledger"."ClientLedger" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -279,7 +385,7 @@ CREATE TABLE "base"."ClientLedger" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."Session" (
+CREATE TABLE "session"."Session" (
     "id" TEXT NOT NULL,
     "ipAddress" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -293,7 +399,7 @@ CREATE TABLE "base"."Session" (
 );
 
 -- CreateTable
-CREATE TABLE "base"."Match" (
+CREATE TABLE "report"."Match" (
     "matchId" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "dataTime" TIMESTAMP(3) NOT NULL,
@@ -306,34 +412,64 @@ CREATE TABLE "base"."Match" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Admin_code_key" ON "base"."Admin"("code");
+CREATE UNIQUE INDEX "Admin_code_key" ON "user"."Admin"("code");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Subadmin_code_key" ON "base"."Subadmin"("code");
+CREATE UNIQUE INDEX "Subadmin_code_key" ON "user"."Subadmin"("code");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Master_code_key" ON "base"."Master"("code");
+CREATE UNIQUE INDEX "Master_code_key" ON "user"."Master"("code");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Superagent_code_key" ON "base"."Superagent"("code");
+CREATE UNIQUE INDEX "Superagent_code_key" ON "user"."Superagent"("code");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Agent_code_key" ON "base"."Agent"("code");
+CREATE UNIQUE INDEX "Agent_code_key" ON "user"."Agent"("code");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Client_code_key" ON "base"."Client"("code");
+CREATE UNIQUE INDEX "Client_code_key" ON "user"."Client"("code");
 
 -- AddForeignKey
-ALTER TABLE "base"."Subadmin" ADD CONSTRAINT "Subadmin_upLinkCode_fkey" FOREIGN KEY ("upLinkCode") REFERENCES "base"."Admin"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "user"."Subadmin" ADD CONSTRAINT "Subadmin_upLinkCode_fkey" FOREIGN KEY ("upLinkCode") REFERENCES "user"."Admin"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "base"."Master" ADD CONSTRAINT "Master_upLinkCode_fkey" FOREIGN KEY ("upLinkCode") REFERENCES "base"."Subadmin"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "user"."Master" ADD CONSTRAINT "Master_upLinkCode_fkey" FOREIGN KEY ("upLinkCode") REFERENCES "user"."Subadmin"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "base"."Superagent" ADD CONSTRAINT "Superagent_upLinkCode_fkey" FOREIGN KEY ("upLinkCode") REFERENCES "base"."Master"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "user"."Master" ADD CONSTRAINT "Master_adminCode_fkey" FOREIGN KEY ("adminCode") REFERENCES "user"."Admin"("code") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "base"."Agent" ADD CONSTRAINT "Agent_upLinkCode_fkey" FOREIGN KEY ("upLinkCode") REFERENCES "base"."Superagent"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "user"."Superagent" ADD CONSTRAINT "Superagent_upLinkCode_fkey" FOREIGN KEY ("upLinkCode") REFERENCES "user"."Master"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "base"."Client" ADD CONSTRAINT "Client_upLinkCode_fkey" FOREIGN KEY ("upLinkCode") REFERENCES "base"."Agent"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "user"."Superagent" ADD CONSTRAINT "Superagent_adminCode_fkey" FOREIGN KEY ("adminCode") REFERENCES "user"."Admin"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "user"."Superagent" ADD CONSTRAINT "Superagent_subadminCode_fkey" FOREIGN KEY ("subadminCode") REFERENCES "user"."Subadmin"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "user"."Agent" ADD CONSTRAINT "Agent_upLinkCode_fkey" FOREIGN KEY ("upLinkCode") REFERENCES "user"."Superagent"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "user"."Agent" ADD CONSTRAINT "Agent_adminCode_fkey" FOREIGN KEY ("adminCode") REFERENCES "user"."Admin"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "user"."Agent" ADD CONSTRAINT "Agent_subadminCode_fkey" FOREIGN KEY ("subadminCode") REFERENCES "user"."Subadmin"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "user"."Agent" ADD CONSTRAINT "Agent_masterCode_fkey" FOREIGN KEY ("masterCode") REFERENCES "user"."Master"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "user"."Client" ADD CONSTRAINT "Client_upLinkCode_fkey" FOREIGN KEY ("upLinkCode") REFERENCES "user"."Agent"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "user"."Client" ADD CONSTRAINT "Client_adminCode_fkey" FOREIGN KEY ("adminCode") REFERENCES "user"."Admin"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "user"."Client" ADD CONSTRAINT "Client_subadminCode_fkey" FOREIGN KEY ("subadminCode") REFERENCES "user"."Subadmin"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "user"."Client" ADD CONSTRAINT "Client_masterCode_fkey" FOREIGN KEY ("masterCode") REFERENCES "user"."Master"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "user"."Client" ADD CONSTRAINT "Client_superagentCode_fkey" FOREIGN KEY ("superagentCode") REFERENCES "user"."Superagent"("code") ON DELETE SET NULL ON UPDATE CASCADE;

@@ -1,5 +1,9 @@
 import { adminPassport } from './passport/admin.passport'
+import { agentPassport } from './passport/agent.passport'
+import { clientPassport } from './passport/client.passport'
+import { masterPassport } from './passport/master.passport'
 import { subadminPassport } from './passport/subadmin.passport'
+import { superagentPassport } from './passport/superagent.passport'
 
 import adminRoute from './routers/admin.route'
 import agentRoute from './routers/agent.route'
@@ -24,21 +28,21 @@ export const ROUTER = [
   {
     path: `/api/${version}/master`,
     router: masterRoute,
-    middleware: [subadminPassport.initialize(), subadminPassport.session()]
+    middleware: [masterPassport.initialize(), masterPassport.session()]
   },
   {
     path: `/api/${version}/superagent`,
     router: superagentRoute,
-    middleware: [subadminPassport.initialize(), subadminPassport.session()]
+    middleware: [superagentPassport.initialize(), superagentPassport.session()]
   },
   {
     path: `/api/${version}/agent`,
     router: agentRoute,
-    middleware: [subadminPassport.initialize(), subadminPassport.session()]
+    middleware: [agentPassport.initialize(), agentPassport.session()]
   },
   {
     path: `/api/${version}/client`,
     router: clientRoute,
-    middleware: [subadminPassport.initialize(), subadminPassport.session()]
+    middleware: [clientPassport.initialize(), clientPassport.session()]
   }
 ]
