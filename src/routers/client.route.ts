@@ -2,8 +2,8 @@ import { Router } from 'express'
 
 import { loginAgentController } from '../controllers/agent/auth.controller'
 import { logoutClientController } from '../controllers/client/auth.controller'
-import { clientPassport } from '../passport/client.passport'
 import { catchError } from '../middlewares/catch-error'
+import { clientPassport } from '../passport/client.passport'
 
 const router = Router()
 
