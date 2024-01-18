@@ -65,7 +65,7 @@ CREATE TABLE "user"."Master" (
     "limit" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "adminCode" TEXT,
+    "adminCode" TEXT NOT NULL,
 
     CONSTRAINT "Master_pkey" PRIMARY KEY ("code")
 );
@@ -86,8 +86,8 @@ CREATE TABLE "user"."Superagent" (
     "limit" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "adminCode" TEXT,
-    "subadminCode" TEXT,
+    "adminCode" TEXT NOT NULL,
+    "subadminCode" TEXT NOT NULL,
 
     CONSTRAINT "Superagent_pkey" PRIMARY KEY ("code")
 );
@@ -108,9 +108,9 @@ CREATE TABLE "user"."Agent" (
     "limit" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "adminCode" TEXT,
-    "subadminCode" TEXT,
-    "masterCode" TEXT,
+    "adminCode" TEXT NOT NULL,
+    "subadminCode" TEXT NOT NULL,
+    "masterCode" TEXT NOT NULL,
 
     CONSTRAINT "Agent_pkey" PRIMARY KEY ("code")
 );
@@ -130,10 +130,10 @@ CREATE TABLE "user"."Client" (
     "limit" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "adminCode" TEXT,
-    "subadminCode" TEXT,
-    "masterCode" TEXT,
-    "superagentCode" TEXT,
+    "adminCode" TEXT NOT NULL,
+    "subadminCode" TEXT NOT NULL,
+    "masterCode" TEXT NOT NULL,
+    "superagentCode" TEXT NOT NULL,
 
     CONSTRAINT "Client_pkey" PRIMARY KEY ("code")
 );
@@ -297,8 +297,8 @@ CREATE TABLE "ledger"."AdminLedger" (
     "debit" DOUBLE PRECISION NOT NULL,
     "credit" DOUBLE PRECISION NOT NULL,
     "balance" DOUBLE PRECISION NOT NULL,
-    "type" TEXT,
-    "description" TEXT,
+    "type" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "kisnekara" TEXT NOT NULL,
 
     CONSTRAINT "AdminLedger_pkey" PRIMARY KEY ("id")
@@ -313,8 +313,8 @@ CREATE TABLE "ledger"."SubadminLedger" (
     "debit" DOUBLE PRECISION NOT NULL,
     "credit" DOUBLE PRECISION NOT NULL,
     "balance" DOUBLE PRECISION NOT NULL,
-    "type" TEXT,
-    "description" TEXT,
+    "type" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "kisnekara" TEXT NOT NULL,
 
     CONSTRAINT "SubadminLedger_pkey" PRIMARY KEY ("id")
@@ -329,8 +329,8 @@ CREATE TABLE "ledger"."MasterLedger" (
     "debit" DOUBLE PRECISION NOT NULL,
     "credit" DOUBLE PRECISION NOT NULL,
     "balance" DOUBLE PRECISION NOT NULL,
-    "type" TEXT,
-    "description" TEXT,
+    "type" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "kisnekara" TEXT NOT NULL,
 
     CONSTRAINT "MasterLedger_pkey" PRIMARY KEY ("id")
@@ -345,8 +345,8 @@ CREATE TABLE "ledger"."SuperagentLedger" (
     "debit" DOUBLE PRECISION NOT NULL,
     "credit" DOUBLE PRECISION NOT NULL,
     "balance" DOUBLE PRECISION NOT NULL,
-    "type" TEXT,
-    "description" TEXT,
+    "type" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "kisnekara" TEXT NOT NULL,
 
     CONSTRAINT "SuperagentLedger_pkey" PRIMARY KEY ("id")
@@ -361,8 +361,8 @@ CREATE TABLE "ledger"."AgentLedger" (
     "debit" DOUBLE PRECISION NOT NULL,
     "credit" DOUBLE PRECISION NOT NULL,
     "balance" DOUBLE PRECISION NOT NULL,
-    "type" TEXT,
-    "description" TEXT,
+    "type" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "kisnekara" TEXT NOT NULL,
 
     CONSTRAINT "AgentLedger_pkey" PRIMARY KEY ("id")
@@ -377,8 +377,8 @@ CREATE TABLE "ledger"."ClientLedger" (
     "debit" DOUBLE PRECISION NOT NULL,
     "credit" DOUBLE PRECISION NOT NULL,
     "balance" DOUBLE PRECISION NOT NULL,
-    "type" TEXT,
-    "description" TEXT,
+    "type" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "kisnekara" TEXT NOT NULL,
 
     CONSTRAINT "ClientLedger_pkey" PRIMARY KEY ("id")
@@ -436,40 +436,40 @@ ALTER TABLE "user"."Subadmin" ADD CONSTRAINT "Subadmin_upLinkCode_fkey" FOREIGN 
 ALTER TABLE "user"."Master" ADD CONSTRAINT "Master_upLinkCode_fkey" FOREIGN KEY ("upLinkCode") REFERENCES "user"."Subadmin"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "user"."Master" ADD CONSTRAINT "Master_adminCode_fkey" FOREIGN KEY ("adminCode") REFERENCES "user"."Admin"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "user"."Master" ADD CONSTRAINT "Master_adminCode_fkey" FOREIGN KEY ("adminCode") REFERENCES "user"."Admin"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "user"."Superagent" ADD CONSTRAINT "Superagent_upLinkCode_fkey" FOREIGN KEY ("upLinkCode") REFERENCES "user"."Master"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "user"."Superagent" ADD CONSTRAINT "Superagent_adminCode_fkey" FOREIGN KEY ("adminCode") REFERENCES "user"."Admin"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "user"."Superagent" ADD CONSTRAINT "Superagent_adminCode_fkey" FOREIGN KEY ("adminCode") REFERENCES "user"."Admin"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "user"."Superagent" ADD CONSTRAINT "Superagent_subadminCode_fkey" FOREIGN KEY ("subadminCode") REFERENCES "user"."Subadmin"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "user"."Superagent" ADD CONSTRAINT "Superagent_subadminCode_fkey" FOREIGN KEY ("subadminCode") REFERENCES "user"."Subadmin"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "user"."Agent" ADD CONSTRAINT "Agent_upLinkCode_fkey" FOREIGN KEY ("upLinkCode") REFERENCES "user"."Superagent"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "user"."Agent" ADD CONSTRAINT "Agent_adminCode_fkey" FOREIGN KEY ("adminCode") REFERENCES "user"."Admin"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "user"."Agent" ADD CONSTRAINT "Agent_adminCode_fkey" FOREIGN KEY ("adminCode") REFERENCES "user"."Admin"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "user"."Agent" ADD CONSTRAINT "Agent_subadminCode_fkey" FOREIGN KEY ("subadminCode") REFERENCES "user"."Subadmin"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "user"."Agent" ADD CONSTRAINT "Agent_subadminCode_fkey" FOREIGN KEY ("subadminCode") REFERENCES "user"."Subadmin"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "user"."Agent" ADD CONSTRAINT "Agent_masterCode_fkey" FOREIGN KEY ("masterCode") REFERENCES "user"."Master"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "user"."Agent" ADD CONSTRAINT "Agent_masterCode_fkey" FOREIGN KEY ("masterCode") REFERENCES "user"."Master"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "user"."Client" ADD CONSTRAINT "Client_upLinkCode_fkey" FOREIGN KEY ("upLinkCode") REFERENCES "user"."Agent"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "user"."Client" ADD CONSTRAINT "Client_adminCode_fkey" FOREIGN KEY ("adminCode") REFERENCES "user"."Admin"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "user"."Client" ADD CONSTRAINT "Client_adminCode_fkey" FOREIGN KEY ("adminCode") REFERENCES "user"."Admin"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "user"."Client" ADD CONSTRAINT "Client_subadminCode_fkey" FOREIGN KEY ("subadminCode") REFERENCES "user"."Subadmin"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "user"."Client" ADD CONSTRAINT "Client_subadminCode_fkey" FOREIGN KEY ("subadminCode") REFERENCES "user"."Subadmin"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "user"."Client" ADD CONSTRAINT "Client_masterCode_fkey" FOREIGN KEY ("masterCode") REFERENCES "user"."Master"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "user"."Client" ADD CONSTRAINT "Client_masterCode_fkey" FOREIGN KEY ("masterCode") REFERENCES "user"."Master"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "user"."Client" ADD CONSTRAINT "Client_superagentCode_fkey" FOREIGN KEY ("superagentCode") REFERENCES "user"."Superagent"("code") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "user"."Client" ADD CONSTRAINT "Client_superagentCode_fkey" FOREIGN KEY ("superagentCode") REFERENCES "user"."Superagent"("code") ON DELETE RESTRICT ON UPDATE CASCADE;

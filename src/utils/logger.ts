@@ -59,7 +59,9 @@ const logFatal = createLogger({
     timestamp({ format: dateFormat }),
     logFormat
   ),
-  transports: [new transports.File({ filename: path.join(logDir, 'fatal.log') })],
+  transports: [
+    new transports.File({ filename: path.join(logDir, 'fatal.log') })
+  ],
   exceptionHandlers: [
     new transports.File({ filename: path.join(logDir, 'exception.log') })
   ],
@@ -101,7 +103,7 @@ const logResReq = createLogger({
   level: 'info',
   format: combine(timestamp({ format: dateFormat }), logFormat),
   transports: [logRotate('resreq', '30d', '30m')]
-})
+}) // use morgan instead
 
 const logLogin = createLogger({
   levels: logLevels,
