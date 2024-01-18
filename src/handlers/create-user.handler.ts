@@ -35,7 +35,78 @@ const createUser = async (
   const encryptedPassword = await encryptData(password)
   const code = await generateCode(userType)
   let result
-  if (userType === ROLES.Client) {
+
+  if (userType === ROLES.Subadmin) {
+    result = await prisma.subadmin.create({
+      data: {
+        code,
+        name,
+        password: encryptedPassword,
+        mobile,
+        reference,
+        sessionCommission,
+        matchCommission,
+        mobileCommission,
+        share,
+        upLinkCode,
+        limit: 0
+      }
+    })
+  } else if(userType === ROLES.Master) {
+    result = await prisma.master.create({
+      data: {
+        code,
+        name,
+        password: encryptedPassword,
+        mobile,
+        reference,
+        sessionCommission,
+        matchCommission,
+        mobileCommission,
+        share,
+        upLinkCode,
+        adminCode: upLinkData.upLinkCode,
+        limit: 0
+      }
+    })
+  } else if(userType === ROLES.Superagent) {
+    result = await prisma.superagent.create({
+      data: {
+        code,
+        name,
+        password: encryptedPassword,
+        mobile,
+        reference,
+        sessionCommission,
+        matchCommission,
+        mobileCommission,
+        share,
+        upLinkCode,
+        adminCode: upLinkData.adminCode,
+        subadminCode: upLinkData.upLinkCode,
+        limit: 0
+      }
+    })
+  } else if(userType === ROLES.Agent) {
+    result = await prisma.agent.create({
+      data: {
+        code,
+        name,
+        password: encryptedPassword,
+        mobile,
+        reference,
+        sessionCommission,
+        matchCommission,
+        mobileCommission,
+        share,
+        upLinkCode,
+        adminCode: upLinkData.adminCode,
+        subadminCode: upLinkData.subadminCode,
+        masterCode: upLinkData.upLinkCode,
+        limit: 0
+      }
+    })
+  } else if(userType === ROLES.Client) {
     result = await prisma.client.create({
       data: {
         code,
@@ -47,90 +118,11 @@ const createUser = async (
         matchCommission,
         mobileCommission,
         upLinkCode,
+        adminCode: upLinkData.adminCode,
+        subadminCode: upLinkData.subadminCode,
+        masterCode: upLinkData.masterCode,
+        superagentCode: upLinkData.upLinkCode,
         limit: 0
-      }
-    })
-  } else {
-    result = await (prisma[userType as keyof typeof prisma] as any).create({
-      data: {
-        code,
-        name,
-        password: encryptedPassword,
-        mobile,
-        reference,
-        share,
-        sessionCommission,
-        matchCommission,
-        mobileCommission,
-        upLinkCode,
-        limit: 0
-      }
-    })
-  }
-
-  if (upLinkType === ROLES.Admin) {
-    await (prisma[upLinkType as keyof typeof prisma] as any).update({
-      where: {
-        code: upLinkCode
-      },
-      data: {
-        subadmin: {
-          connect: {
-            code: result.code
-          }
-        }
-      }
-    })
-  } else if (upLinkType === ROLES.Subadmin) {
-    await (prisma[upLinkType as keyof typeof prisma] as any).update({
-      where: {
-        code: upLinkCode
-      },
-      data: {
-        master: {
-          connect: {
-            code: result.code
-          }
-        }
-      }
-    })
-  } else if (upLinkType === ROLES.Master) {
-    await (prisma[upLinkType as keyof typeof prisma] as any).update({
-      where: {
-        code: upLinkCode
-      },
-      data: {
-        superagent: {
-          connect: {
-            code: result.code
-          }
-        }
-      }
-    })
-  } else if (upLinkType === ROLES.Superagent) {
-    await (prisma[upLinkType as keyof typeof prisma] as any).update({
-      where: {
-        code: upLinkCode
-      },
-      data: {
-        agent: {
-          connect: {
-            code: result.code
-          }
-        }
-      }
-    })
-  } else if (upLinkType === ROLES.Agent) {
-    await (prisma[upLinkType as keyof typeof prisma] as any).update({
-      where: {
-        code: upLinkCode
-      },
-      data: {
-        client: {
-          connect: {
-            code: result.code
-          }
-        }
       }
     })
   }

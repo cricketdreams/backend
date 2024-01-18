@@ -14,6 +14,7 @@ import { resreqLog } from './middlewares/resreq-log'
 import { ROUTER } from './routes'
 import { logFatal } from './utils/logger'
 import cors from 'cors'
+import { prisma } from './prisma/prisma'
 
 const app = express()
 
@@ -59,6 +60,17 @@ const serverConfig = () => {
     app.use(route.path, route.router)
   })
 
+  // only for dev
+  // app.get('/test', async (req, res) => {
+  //   const result = await prisma.admin.findUnique({
+  //     where: { code: "AD810453" },
+  //     include: {
+  //       Master: true,
+  //       Subadmin: true
+  //     }
+  //   })
+  //   res.json(result)
+  // })
   app.use(errorHandler)
 
   const PORT = process.env.PORT || 3000
