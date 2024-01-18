@@ -37,7 +37,7 @@ const debugFilter = format((info, opts) =>
 const logRotate = (
   filename: string,
   maxFiles: string,
-  frequency: string
+  frequency?: string
 ): DailyRotateFile => {
   return new DailyRotateFile({
     frequency: frequency,
@@ -59,8 +59,12 @@ const logFatal = createLogger({
     timestamp({ format: dateFormat }),
     logFormat
   ),
-  transports: [
-    new transports.File({ filename: path.join(logDir, 'Fatal.log') })
+  transports: [new transports.File({ filename: path.join(logDir, 'fatal.log') })],
+  exceptionHandlers: [
+    new transports.File({ filename: path.join(logDir, 'exception.log') })
+  ],
+  rejectionHandlers: [
+    new transports.File({ filename: path.join(logDir, 'rejection.log') })
   ]
 })
 
@@ -70,37 +74,40 @@ const logger = createLogger({
   format: combine(timestamp({ format: dateFormat }), logFormat),
   transports: [
     new transports.File({
-      filename: path.join(logDir, 'Error.log'),
+      filename: path.join(logDir, 'error.log'),
       level: 'error',
-      format: combine(errorFilter(), timestamp(), logFormat)
+      format: combine(
+        errorFilter(),
+        errors({ stack: true }),
+        timestamp(),
+        logFormat
+      )
     }),
     new transports.File({
-      filename: path.join(logDir, 'Info.log'),
+      filename: path.join(logDir, 'info.log'),
       level: 'info',
       format: combine(infoFilter(), timestamp(), logFormat)
     }),
     new transports.File({
-      filename: path.join(logDir, 'Null.log'),
+      filename: path.join(logDir, 'null.log'),
       level: 'debug',
       format: combine(debugFilter(), timestamp(), logFormat)
     })
-  ],
-  exceptionHandlers: [new transports.File({ filename: 'exception.log' })],
-  rejectionHandlers: [new transports.File({ filename: 'rejections.log' })]
+  ]
 })
 
 const logResReq = createLogger({
   levels: logLevels,
   level: 'info',
   format: combine(timestamp({ format: dateFormat }), logFormat),
-  transports: [logRotate('ResReq', '30d', '30m')]
+  transports: [logRotate('resreq', '30d', '30m')]
 })
 
 const logLogin = createLogger({
   levels: logLevels,
   level: 'info',
   format: combine(timestamp({ format: dateFormat }), logFormat),
-  transports: [logRotate('Login', '30d', '1d')]
+  transports: [logRotate('login', '30d')]
 })
 
 export { logger, logResReq, logFatal, logLogin }

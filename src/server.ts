@@ -13,6 +13,7 @@ import errorHandler from './middlewares/error'
 import { resreqLog } from './middlewares/resreq-log'
 import { ROUTER } from './routes'
 import { logFatal } from './utils/logger'
+import cors from 'cors'
 
 const app = express()
 
@@ -41,13 +42,13 @@ const serverConfig = () => {
       }
     })
   )
-  // app.use(
-  //   cors({
-  //     origin: 'http://localhost:5173',
-  //     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  //     credentials: true
-  //   })
-  // )
+  app.use(
+    cors({
+      origin: 'http://localhost:5173',
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      credentials: true
+    })
+  )
   app.use(flash())
   app.use(resreqLog)
 
