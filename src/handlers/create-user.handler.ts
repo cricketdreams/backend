@@ -52,7 +52,7 @@ const createUser = async (
         limit: 0
       }
     })
-  } else if(userType === ROLES.Master) {
+  } else if (userType === ROLES.Master) {
     result = await prisma.master.create({
       data: {
         code,
@@ -69,7 +69,7 @@ const createUser = async (
         limit: 0
       }
     })
-  } else if(userType === ROLES.Superagent) {
+  } else if (userType === ROLES.Superagent) {
     result = await prisma.superagent.create({
       data: {
         code,
@@ -87,7 +87,7 @@ const createUser = async (
         limit: 0
       }
     })
-  } else if(userType === ROLES.Agent) {
+  } else if (userType === ROLES.Agent) {
     result = await prisma.agent.create({
       data: {
         code,
@@ -106,7 +106,7 @@ const createUser = async (
         limit: 0
       }
     })
-  } else if(userType === ROLES.Client) {
+  } else if (userType === ROLES.Client) {
     result = await prisma.client.create({
       data: {
         code,
