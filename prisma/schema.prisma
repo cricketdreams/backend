@@ -17,13 +17,13 @@ model Admin {
   password   String
   share      Float        @default(100)
   mobile     String
-  subadmin   Subadmin[]
-  master     Master[]
-  superagent Superagent[]
-  agent      Agent[]
-  client     Client[]
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
+  Subadmin   Subadmin[]
+  Master     Master[]
+  Superagent Superagent[]
+  Agent      Agent[]
+  Client     Client[]
 
   @@schema("user")
 }
@@ -44,10 +44,10 @@ model Subadmin {
   limit             Float
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
-  master            Master[]
-  superagent        Superagent[]
-  agent             Agent[]
-  client            Client[]
+  Master            Master[]
+  Superagent        Superagent[]
+  Agent             Agent[]
+  Client            Client[]
 
   @@schema("user")
 }
@@ -66,20 +66,20 @@ model Master {
   mobileCommission  Float
   status            Boolean      @default(true)
   limit             Float
-  superagent        Superagent[]
-  agent             Agent[]
-  client            Client[]
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
-  Admin             Admin       @relation(fields: [adminCode], references: [code])
+  Admin             Admin        @relation(fields: [adminCode], references: [code])
   adminCode         String
+  Superagent        Superagent[]
+  Agent             Agent[]
+  Client            Client[]
 
   @@schema("user")
 }
 
 model Superagent {
-  code              String    @id @unique
-  upLink            Master    @relation(fields: [upLinkCode], references: [code])
+  code              String   @id @unique
+  upLink            Master   @relation(fields: [upLinkCode], references: [code])
   upLinkCode        String
   name              String
   password          String
@@ -89,16 +89,16 @@ model Superagent {
   sessionCommission Float
   matchCommission   Float
   mobileCommission  Float
-  status            Boolean   @default(true)
+  status            Boolean  @default(true)
   limit             Float
-  agent             Agent[]
-  client            Client[]
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
   Admin             Admin    @relation(fields: [adminCode], references: [code])
   adminCode         String
   Subadmin          Subadmin @relation(fields: [subadminCode], references: [code])
   subadminCode      String
+  Agent             Agent[]
+  Client            Client[]
 
   @@schema("user")
 }
@@ -117,22 +117,22 @@ model Agent {
   mobileCommission  Float
   status            Boolean    @default(true)
   limit             Float
-  client            Client[]
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
-  admin             Admin     @relation(fields: [adminCode], references: [code])
+  admin             Admin      @relation(fields: [adminCode], references: [code])
   adminCode         String
-  subadmin          Subadmin  @relation(fields: [subadminCode], references: [code])
+  subadmin          Subadmin   @relation(fields: [subadminCode], references: [code])
   subadminCode      String
-  master            Master    @relation(fields: [masterCode], references: [code])
+  master            Master     @relation(fields: [masterCode], references: [code])
   masterCode        String
+  Client            Client[]
 
   @@schema("user")
 }
 
 model Client {
-  code              String      @id @unique
-  upLink            Agent       @relation(fields: [upLinkCode], references: [code])
+  code              String     @id @unique
+  upLink            Agent      @relation(fields: [upLinkCode], references: [code])
   upLinkCode        String
   name              String
   password          String
@@ -141,10 +141,10 @@ model Client {
   sessionCommission Float
   matchCommission   Float
   mobileCommission  Float
-  status            Boolean     @default(true)
+  status            Boolean    @default(true)
   limit             Float
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
   admin             Admin      @relation(fields: [adminCode], references: [code])
   adminCode         String
   subadmin          Subadmin   @relation(fields: [subadminCode], references: [code])
