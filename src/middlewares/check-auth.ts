@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 interface AuthenticatedRequest extends Request {
   isAuthenticated(): boolean
 }
-export const isAuthenticate = (
+export const isAuthenticated = (
   req: AuthenticatedRequest,
   res: Response,
   next: NextFunction

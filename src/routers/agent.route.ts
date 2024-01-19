@@ -5,7 +5,7 @@ import {
   loginAgentController,
   logoutAgentController
 } from '../controllers/agent/auth.controller'
-import { isAuthenticate } from '../middlewares/check-auth'
+import { isAuthenticated } from '../middlewares/check-auth'
 import { agentPassport } from '../passport/agent.passport'
 import { catchError } from '../middlewares/catch-error'
 import {
@@ -28,7 +28,7 @@ router.get('/logout', catchError(logoutAgentController))
 //create
 router.post(
   '/create-client',
-  isAuthenticate,
+  isAuthenticated,
   catchError(createClientController)
 )
 
@@ -36,25 +36,25 @@ router.post(
 // add limit
 router.post(
   '/add-limit-client',
-  isAuthenticate,
+  isAuthenticated,
   catchError(addLimitClientController)
 )
 
 // subtract limit
 router.post(
   '/subtract-limit-client',
-  isAuthenticate,
+  isAuthenticated,
   catchError(subtractLimitClientController)
 )
 
 // login report
 router.post(
   '/login-report-client',
-  isAuthenticate,
+  isAuthenticated,
   catchError(clientLoginReportController)
 )
 
 // get all users
-router.get('/all-client', isAuthenticate, catchError(getAllClientController))
+router.get('/all-client', isAuthenticated, catchError(getAllClientController))
 
 export default router

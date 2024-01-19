@@ -10,7 +10,7 @@ import {
   loginSubadminController,
   logoutSubadminController
 } from '../controllers/subadmin/auth.controller'
-import { isAuthenticate } from '../middlewares/check-auth'
+import { isAuthenticated } from '../middlewares/check-auth'
 import {} from '../passport/admin.passport'
 import { subadminPassport } from '../passport/subadmin.passport'
 import { catchError } from '../middlewares/catch-error'
@@ -50,18 +50,18 @@ router.get('/logout', catchError(logoutSubadminController))
 //create
 router.post(
   '/create-master',
-  isAuthenticate,
+  isAuthenticated,
   catchError(createMasterController)
 )
 router.post(
   '/create-superagent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(createSuperagentController)
 )
-router.post('/create-agent', isAuthenticate, catchError(createAgentController))
+router.post('/create-agent', isAuthenticated, catchError(createAgentController))
 router.post(
   '/create-client',
-  isAuthenticate,
+  isAuthenticated,
   catchError(createClientController)
 )
 
@@ -69,77 +69,77 @@ router.post(
 // add limit
 router.post(
   '/add-limit-master',
-  isAuthenticate,
+  isAuthenticated,
   catchError(addLimitMasterController)
 )
 router.post(
   '/add-limit-superagent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(addLimitSuperagentController)
 )
 router.post(
   '/add-limit-agent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(addLimitAgentController)
 )
 router.post(
   '/add-limit-client',
-  isAuthenticate,
+  isAuthenticated,
   catchError(addLimitClientController)
 )
 
 // subtract limit
 router.post(
   '/subtract-limit-master',
-  isAuthenticate,
+  isAuthenticated,
   catchError(subtractLimitMasterController)
 )
 router.post(
   '/subtract-limit-superagent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(subtractLimitSuperagentController)
 )
 router.post(
   '/subtract-limit-agent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(subtractLimitAgentController)
 )
 router.post(
   '/subtract-limit-client',
-  isAuthenticate,
+  isAuthenticated,
   catchError(subtractLimitClientController)
 )
 
 // login report
 router.post(
   '/login-report-master',
-  isAuthenticate,
+  isAuthenticated,
   catchError(masterLoginReportController)
 )
 router.post(
   '/login-report-superagent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(superagentLoginReportController)
 )
 router.post(
   '/login-report-agent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(agentLoginReportController)
 )
 router.post(
   '/login-report-client',
-  isAuthenticate,
+  isAuthenticated,
   catchError(clientLoginReportController)
 )
 
 // get all users
-router.get('/all-master', isAuthenticate, catchError(getAllMasterController))
+router.get('/all-master', isAuthenticated, catchError(getAllMasterController))
 router.get(
   '/all-superagent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(getAllSuperagentController)
 )
-router.get('/all-agent', isAuthenticate, catchError(getAllAgentController))
-router.get('/all-client', isAuthenticate, catchError(getAllClientController))
+router.get('/all-agent', isAuthenticated, catchError(getAllAgentController))
+router.get('/all-client', isAuthenticated, catchError(getAllClientController))
 
 export default router

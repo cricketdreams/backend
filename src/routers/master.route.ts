@@ -9,7 +9,7 @@ import {
   loginMasterController,
   logoutMasterController
 } from '../controllers/master/auth.controller'
-import { isAuthenticate } from '../middlewares/check-auth'
+import { isAuthenticated } from '../middlewares/check-auth'
 import { masterPassport } from '../passport/master.passport'
 import { catchError } from '../middlewares/catch-error'
 import {
@@ -44,13 +44,13 @@ router.get('/logout', catchError(logoutMasterController))
 //create
 router.post(
   '/create-superagent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(createSuperagentController)
 )
-router.post('/create-agent', isAuthenticate, catchError(createAgentController))
+router.post('/create-agent', isAuthenticated, catchError(createAgentController))
 router.post(
   '/create-client',
-  isAuthenticate,
+  isAuthenticated,
   catchError(createClientController)
 )
 
@@ -58,61 +58,61 @@ router.post(
 // add limit
 router.post(
   '/add-limit-superagent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(addLimitSuperagentController)
 )
 router.post(
   '/add-limit-agent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(addLimitAgentController)
 )
 router.post(
   '/add-limit-client',
-  isAuthenticate,
+  isAuthenticated,
   catchError(addLimitClientController)
 )
 
 // subtract limit
 router.post(
   '/subtract-limit-superagent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(subtractLimitSuperagentController)
 )
 router.post(
   '/subtract-limit-agent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(subtractLimitAgentController)
 )
 router.post(
   '/subtract-limit-client',
-  isAuthenticate,
+  isAuthenticated,
   catchError(subtractLimitClientController)
 )
 
 // login report
 router.post(
   '/login-report-superagent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(superagentLoginReportController)
 )
 router.post(
   '/login-report-agent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(agentLoginReportController)
 )
 router.post(
   '/login-report-client',
-  isAuthenticate,
+  isAuthenticated,
   catchError(clientLoginReportController)
 )
 
 // get all users
 router.get(
   '/all-superagent',
-  isAuthenticate,
+  isAuthenticated,
   catchError(getAllSuperagentController)
 )
-router.get('/all-agent', isAuthenticate, catchError(getAllAgentController))
-router.get('/all-client', isAuthenticate, catchError(getAllClientController))
+router.get('/all-agent', isAuthenticated, catchError(getAllAgentController))
+router.get('/all-client', isAuthenticated, catchError(getAllClientController))
 
 export default router
