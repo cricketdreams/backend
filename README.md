@@ -10,6 +10,6 @@ task
 8. use morgan instead of logresreq
 
 19/07/2021
-1. Passport ke error shi kar na hai
+1. Passport ke error shi kar na hai - done
 2. Trigger
 3. Ledger using trigger

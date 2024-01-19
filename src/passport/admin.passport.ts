@@ -1,9 +1,9 @@
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { prisma } from '../prisma/prisma'
-import { compareData } from '../utils/crypt'
 import { User } from '../ts/interfaces'
 import { ROLES } from '../ts/type'
+import { compareData } from '../utils/crypt'
 
 const adminPassport = new passport.Passport()
 
@@ -14,20 +14,16 @@ adminPassport.use(
         where: { code: code }
       })
       if (!admin) {
-        return done(null, false, { message: 'Invalid User' })
+        return done({ message: 'Incorrect code and password' }, false)
       }
       if (await compareData(password, admin.password)) {
         return done(null, admin)
       } else {
-        return done(null, false, {
-          message: 'Incorrect username and password.'
-        })
+        return done({ message: 'Incorrect code and password' }, false)
       }
     } catch (error) {
       if (error instanceof Error)
-        return done(null, false, {
-          message: error.message || 'Incorrect username or password.'
-        })
+        return done({ message: 'Incorrect code and password' }, false)
     }
   })
 )
@@ -42,7 +38,7 @@ adminPassport.deserializeUser(async (id: string, done) => {
       where: { code: id }
     })
     if (!adminDb) {
-      throw new Error('User not found')
+      throw new Error('Invalid user session')
     }
     const admin = {
       ...adminDb,

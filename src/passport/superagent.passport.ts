@@ -1,9 +1,9 @@
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { prisma } from '../prisma/prisma'
-import { compareData } from '../utils/crypt'
 import { User } from '../ts/interfaces'
 import { ROLES } from '../ts/type'
+import { compareData } from '../utils/crypt'
 
 const superagentPassport = new passport.Passport()
 
@@ -14,23 +14,21 @@ superagentPassport.use(
         where: { code: code }
       })
       if (!superagentDb) {
-        return done(null, false, { message: 'Invalid User.' })
+        return done({ message: 'Incorrect code and password' }, false)
       }
       if (!superagentDb.status) {
-        return done(null, false, { message: 'User is inactive.' })
+        return done({ message: 'Inactive user' }, false)
       }
       if (await compareData(password, superagentDb.password)) {
         return done(null, superagentDb)
       } else {
         return done(null, false, {
-          message: 'Incorrect username and password.'
+          message: 'Incorrect code and password'
         })
       }
     } catch (error) {
       if (error instanceof Error)
-        return done(null, false, {
-          message: error.message || 'Incorrect username or password.'
-        })
+        return done({ message: error.message || 'Invalid input' }, false)
     }
   })
 )
@@ -46,7 +44,7 @@ superagentPassport.deserializeUser(async (id: string, done) => {
     })
 
     if (!superagentDb) {
-      throw new Error('User not found')
+      throw new Error('Invalid user session')
     }
     const superagent = {
       ...superagentDb,
