@@ -6,7 +6,7 @@ import {
   createMasterHandler,
   createSubadminHandler,
   createSuperagentHandler
-} from '../handlers/create-user.handler'
+} from '../handlers/user/create-user.handler'
 
 export const createSubadminController = async (req: Request, res: Response) => {
   return await createSubadminHandler(req, res)

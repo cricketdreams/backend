@@ -1,6 +1,6 @@
-import { prisma } from '../prisma/prisma'
-import { Roles } from '../ts/type'
-import { logger } from '../utils/logger'
+import { prisma } from '../../prisma/prisma'
+import { Roles } from '../../ts/type'
+import { logger } from '../../utils/logger'
 
 export async function getUserHandler(code: string, userType: Roles) {
   const user = await (

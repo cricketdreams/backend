@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
 
-import { ROLES } from '../ts/type'
-import { CreateUserBody } from '../ts/interfaces'
-import { prisma } from '../prisma/prisma'
-import generateCode from '../utils/generateCode'
-import { Roles } from '../ts/type'
-import { encryptData } from '../utils/crypt'
+import { ROLES } from '../../ts/type'
+import { CreateUserBody } from '../../ts/interfaces'
+import { prisma } from '../../prisma/prisma'
+import generateCode from '../../utils/generateCode'
+import { Roles } from '../../ts/type'
+import { encryptData } from '../../utils/crypt'
 
 const createUser = async (
   data: CreateUserBody,

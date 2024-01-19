@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
 import { prisma } from '../../prisma/prisma'
-import { getUserHandler } from '../../handlers/get-user.handler'
+import { getUserHandler } from '../../handlers/user/get-user.handler'
 import { ROLES } from '../../ts/type'
 
 // Subadmin Limit

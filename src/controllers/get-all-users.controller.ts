@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import { getAllUsersHandler } from '../handlers/get-all-users.handler'
+import { getAllUsersHandler } from '../handlers/user/get-all-users.handler'
 import { ROLES, Roles } from '../ts/type'
 import { User } from '../ts/interfaces'
 

@@ -1,7 +1,7 @@
-import { prisma } from '../prisma/prisma'
-import { User } from '../ts/interfaces'
-import { ROLES, Roles } from '../ts/type'
-import { decryptData } from '../utils/crypt'
+import { prisma } from '../../prisma/prisma'
+import { User } from '../../ts/interfaces'
+import { ROLES, Roles } from '../../ts/type'
+import { decryptData } from '../../utils/crypt'
 
 export const getAllUsersHandler = async (
   user: User,
