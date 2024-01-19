@@ -17,3 +17,5 @@ export const LOGIN_REPORT_DB = {
   AgentLoginReport: 'AgentLoginReport',
   ClientLoginReport: 'ClientLoginReport'
 } as const
+
+export type LoginReportDb = keyof typeof LOGIN_REPORT_DB
