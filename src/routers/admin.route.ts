@@ -42,6 +42,18 @@ import {
   getAllSubadminController,
   getAllSuperagentController
 } from '../controllers/get-all-users.controller'
+import {
+  activeMasterController,
+  activeSubadminController,
+  activeSuperagentController,
+  activeAgentController,
+  activeClientController,
+  deactiveSubadminController,
+  deactiveMasterController,
+  deactiveSuperagentController,
+  deactiveAgentController,
+  deactiveClientController
+} from '../controllers/status.controller'
 
 const router = Router()
 
@@ -74,29 +86,6 @@ router.post(
 router.post('/create-agent', isAuthenticated, catchError(createAgentController))
 router.post(
   '/create-client',
-  isAuthenticated,
-  catchError(createClientController)
-)
-
-// active deactivate
-router.post(
-  '/active-subadmin',
-  isAuthenticated,
-  catchError(createSubadminController)
-)
-router.post(
-  '/active-master',
-  isAuthenticated,
-  catchError(createMasterController)
-)
-router.post(
-  '/active-superagent',
-  isAuthenticated,
-  catchError(createSuperagentController)
-)
-router.post('/active-agent', isAuthenticated, catchError(createAgentController))
-router.post(
-  '/active-client',
   isAuthenticated,
   catchError(createClientController)
 )
@@ -202,5 +191,56 @@ router.get(
 )
 router.get('/all-agent', isAuthenticated, catchError(getAllAgentController))
 router.get('/all-client', isAuthenticated, catchError(getAllClientController))
+
+// status
+// active
+router.post(
+  '/active-subadmin',
+  isAuthenticated,
+  catchError(activeSubadminController)
+)
+router.post(
+  '/active-master',
+  isAuthenticated,
+  catchError(activeMasterController)
+)
+router.post(
+  '/active-superagent',
+  isAuthenticated,
+  catchError(activeSuperagentController)
+)
+router.post('/active-agent', isAuthenticated, catchError(activeAgentController))
+router.post(
+  '/active-client',
+  isAuthenticated,
+  catchError(activeClientController)
+)
+
+// deactive
+router.post(
+  '/deactive-subadmin',
+  isAuthenticated,
+  catchError(deactiveSubadminController)
+)
+router.post(
+  '/deactive-master',
+  isAuthenticated,
+  catchError(deactiveMasterController)
+)
+router.post(
+  '/deactive-superagent',
+  isAuthenticated,
+  catchError(deactiveSuperagentController)
+)
+router.post(
+  '/deactive-agent',
+  isAuthenticated,
+  catchError(deactiveAgentController)
+)
+router.post(
+  '/deactive-client',
+  isAuthenticated,
+  catchError(deactiveClientController)
+)
 
 export default router

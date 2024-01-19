@@ -14,6 +14,10 @@ import {
 } from '../controllers/agent/limit.controller'
 import { clientLoginReportController } from '../controllers/login-report.controller'
 import { getAllClientController } from '../controllers/get-all-users.controller'
+import {
+  activeClientController,
+  deactiveClientController
+} from '../controllers/status.controller'
 
 const router = Router()
 
@@ -56,5 +60,20 @@ router.post(
 
 // get all users
 router.get('/all-client', isAuthenticated, catchError(getAllClientController))
+
+// status
+// active
+router.post(
+  '/active-client',
+  isAuthenticated,
+  catchError(activeClientController)
+)
+
+// deactive
+router.post(
+  '/deactive-client',
+  isAuthenticated,
+  catchError(deactiveClientController)
+)
 
 export default router

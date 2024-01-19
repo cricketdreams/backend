@@ -26,6 +26,12 @@ import {
   getAllAgentController,
   getAllClientController
 } from '../controllers/get-all-users.controller'
+import {
+  activeAgentController,
+  activeClientController,
+  deactiveAgentController,
+  deactiveClientController
+} from '../controllers/status.controller'
 
 const router = Router()
 
@@ -86,4 +92,24 @@ router.post(
 router.get('/all-agent', isAuthenticated, catchError(getAllAgentController))
 router.get('/all-client', isAuthenticated, catchError(getAllClientController))
 
+// status
+// active
+router.post('/active-agent', isAuthenticated, catchError(activeAgentController))
+router.post(
+  '/active-client',
+  isAuthenticated,
+  catchError(activeClientController)
+)
+
+// deactive
+router.post(
+  '/deactive-agent',
+  isAuthenticated,
+  catchError(deactiveAgentController)
+)
+router.post(
+  '/deactive-client',
+  isAuthenticated,
+  catchError(deactiveClientController)
+)
 export default router
