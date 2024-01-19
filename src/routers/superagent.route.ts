@@ -22,6 +22,10 @@ import {
   agentLoginReportController,
   clientLoginReportController
 } from '../controllers/login-report.controller'
+import {
+  getAllAgentController,
+  getAllClientController
+} from '../controllers/get-all-users.controller'
 
 const router = Router()
 
@@ -77,5 +81,9 @@ router.post(
   isAuthenticate,
   catchError(clientLoginReportController)
 )
+
+// get all users
+router.get('/all-agent', isAuthenticate, catchError(getAllAgentController))
+router.get('/all-client', isAuthenticate, catchError(getAllClientController))
 
 export default router

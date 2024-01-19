@@ -5,14 +5,13 @@ import { CreateUserBody } from '../ts/interfaces'
 import { prisma } from '../prisma/prisma'
 import generateCode from '../utils/generateCode'
 import { Roles } from '../ts/type'
-import { encryptData } from '../utils/password'
+import { encryptData } from '../utils/crypt'
 
 const createUser = async (
   data: CreateUserBody,
   upLinkType: Roles,
   userType: Roles
 ) => {
-  console.log(upLinkType, userType, 'data')
   const {
     upLinkCode,
     name,

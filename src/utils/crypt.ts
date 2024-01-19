@@ -11,7 +11,7 @@ export async function encryptData(data: string): Promise<string> {
   return iv.toString('hex') + encryptedData
 }
 
-async function decryptData(encryptedData: string): Promise<string> {
+export async function decryptData(encryptedData: string): Promise<string> {
   const algorithm = 'aes-256-cbc'
   const key = crypto.scryptSync(process.env.ENCRYPTION_KEY!, 'salt', 32)
   const iv = Buffer.from(encryptedData.slice(0, 32), 'hex')

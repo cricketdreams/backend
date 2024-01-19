@@ -1,7 +1,7 @@
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { prisma } from '../prisma/prisma'
-import { compareData } from '../utils/password'
+import { compareData } from '../utils/crypt'
 import { User } from '../ts/interfaces'
 import { ROLES } from '../ts/type'
 

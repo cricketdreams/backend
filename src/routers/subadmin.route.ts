@@ -30,6 +30,12 @@ import {
   masterLoginReportController,
   superagentLoginReportController
 } from '../controllers/login-report.controller'
+import {
+  getAllAgentController,
+  getAllClientController,
+  getAllMasterController,
+  getAllSuperagentController
+} from '../controllers/get-all-users.controller'
 
 const router = Router()
 
@@ -125,5 +131,15 @@ router.post(
   isAuthenticate,
   catchError(clientLoginReportController)
 )
+
+// get all users
+router.get('/all-master', isAuthenticate, catchError(getAllMasterController))
+router.get(
+  '/all-superagent',
+  isAuthenticate,
+  catchError(getAllSuperagentController)
+)
+router.get('/all-agent', isAuthenticate, catchError(getAllAgentController))
+router.get('/all-client', isAuthenticate, catchError(getAllClientController))
 
 export default router

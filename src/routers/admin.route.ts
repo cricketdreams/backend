@@ -35,12 +35,19 @@ import {
   subadminLoginReportController,
   superagentLoginReportController
 } from '../controllers/login-report.controller'
+import {
+  getAllAgentController,
+  getAllClientController,
+  getAllMasterController,
+  getAllSubadminController,
+  getAllSuperagentController
+} from '../controllers/get-all-users.controller'
 
 const router = Router()
 
+router.post('/create-admin', catchError(createAdminController)) // only for development
+
 //auth
-// only for development
-router.post('/create-admin', catchError(createAdminController))
 router.post(
   '/login',
   adminPassport.authenticate('local'),
@@ -72,7 +79,6 @@ router.post(
 )
 
 // active deactivate
-
 router.post(
   '/active-subadmin',
   isAuthenticate,
@@ -181,5 +187,20 @@ router.post(
   isAuthenticate,
   catchError(clientLoginReportController)
 )
+
+// get all users
+router.get(
+  '/all-subadmin',
+  isAuthenticate,
+  catchError(getAllSubadminController)
+)
+router.get('/all-master', isAuthenticate, catchError(getAllMasterController))
+router.get(
+  '/all-superagent',
+  isAuthenticate,
+  catchError(getAllSuperagentController)
+)
+router.get('/all-agent', isAuthenticate, catchError(getAllAgentController))
+router.get('/all-client', isAuthenticate, catchError(getAllClientController))
 
 export default router

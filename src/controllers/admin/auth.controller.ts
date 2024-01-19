@@ -5,7 +5,7 @@ import { newLoginReportHandler } from '../../handlers/login-report.handler'
 import { User } from '../../ts/interfaces'
 import { prisma } from '../../prisma/prisma'
 import generateCode from '../../utils/generateCode'
-import { encryptData } from '../../utils/password'
+import { encryptData } from '../../utils/crypt'
 import { LOGIN_REPORT_DB, ROLES } from '../../ts/type'
 
 export const createAdminController = async (req: Request, res: Response) => {

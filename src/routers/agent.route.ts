@@ -13,6 +13,7 @@ import {
   subtractLimitClientController
 } from '../controllers/agent/limit.controller'
 import { clientLoginReportController } from '../controllers/login-report.controller'
+import { getAllClientController } from '../controllers/get-all-users.controller'
 
 const router = Router()
 
@@ -52,4 +53,8 @@ router.post(
   isAuthenticate,
   catchError(clientLoginReportController)
 )
+
+// get all users
+router.get('/all-client', isAuthenticate, catchError(getAllClientController))
+
 export default router
