@@ -18,6 +18,7 @@ import {
   activeClientController,
   deactiveClientController
 } from '../controllers/status.controller'
+import { updatePasswordController } from '../controllers/update-password.controller'
 
 const router = Router()
 
@@ -34,6 +35,13 @@ router.post(
   '/create-client',
   isAuthenticated,
   catchError(createClientController)
+)
+
+// update password
+router.post(
+  '/update-password',
+  isAuthenticated,
+  catchError(updatePasswordController)
 )
 
 // limit
