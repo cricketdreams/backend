@@ -58,6 +58,12 @@ import {
   updateSuperagentController
 } from '../controllers/subadmin/update.controller'
 import { ledgerController } from '../controllers/ledger.controller'
+import {
+  agentReportController,
+  clientReportController,
+  masterReportController,
+  superagentReportController
+} from '../controllers/report.controller'
 
 const router = Router()
 
@@ -159,6 +165,24 @@ router.post(
   '/login-report-client',
   isAuthenticated,
   catchError(clientLoginReportController)
+)
+
+// report
+router.post(
+  '/report-master',
+  isAuthenticated,
+  catchError(masterReportController)
+)
+router.post(
+  '/report-superagent',
+  isAuthenticated,
+  catchError(superagentReportController)
+)
+router.post('/report-agent', isAuthenticated, catchError(agentReportController))
+router.post(
+  '/report-client',
+  isAuthenticated,
+  catchError(clientReportController)
 )
 
 // get all users

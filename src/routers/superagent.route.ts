@@ -42,6 +42,7 @@ import { updatePasswordController } from '../controllers/update-password.control
 import { catchError } from '../middlewares/catch-error'
 import { isAuthenticated } from '../middlewares/check-auth'
 import { masterPassport } from '../passport/master.passport'
+import { agentReportController, clientReportController } from '../controllers/report.controller'
 
 const router = Router()
 
@@ -103,6 +104,14 @@ router.post(
   '/login-report-client',
   isAuthenticated,
   catchError(clientLoginReportController)
+)
+
+// report
+router.post('/report-agent', isAuthenticated, catchError(agentReportController))
+router.post(
+  '/report-client',
+  isAuthenticated,
+  catchError(clientReportController)
 )
 
 // get all users

@@ -25,6 +25,7 @@ import {
 } from '../controllers/transaction.controller'
 import { updateClientController } from '../controllers/agent/update.controller'
 import { ledgerController } from '../controllers/ledger.controller'
+import { clientReportController } from '../controllers/report.controller'
 
 const router = Router()
 
@@ -70,6 +71,13 @@ router.post(
   '/login-report-client',
   isAuthenticated,
   catchError(clientLoginReportController)
+)
+
+// report
+router.post(
+  '/report-client',
+  isAuthenticated,
+  catchError(clientReportController)
 )
 
 // get all users

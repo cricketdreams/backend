@@ -1,8 +1,9 @@
 import { prisma } from '../prisma/prisma'
+import { LoginReportDb } from '../ts/type'
 import { logLogin } from '../utils/logger'
 
 export const newLoginReportHandler = async (
-  reportDb: string,
+  reportDb: LoginReportDb,
   user: {
     code: string
     name: string
@@ -22,7 +23,7 @@ export const newLoginReportHandler = async (
 }
 
 export const getLoginReportHandler = async (
-  reportDb: string,
+  reportDb: LoginReportDb,
   startDate: Date,
   endDate: Date,
   code?: string
