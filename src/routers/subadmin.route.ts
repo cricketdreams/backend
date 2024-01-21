@@ -47,6 +47,12 @@ import {
   deactiveClientController
 } from '../controllers/status.controller'
 import { updatePasswordController } from '../controllers/update-password.controller'
+import {
+  updateAgentController,
+  updateClientController,
+  updateMasterController,
+  updateSuperagentController
+} from '../controllers/subadmin/update.controller'
 
 const router = Router()
 
@@ -199,6 +205,24 @@ router.post(
   '/deactive-client',
   isAuthenticated,
   catchError(deactiveClientController)
+)
+
+// update
+router.post(
+  '/update-master',
+  isAuthenticated,
+  catchError(updateMasterController)
+)
+router.post(
+  '/update-superagent',
+  isAuthenticated,
+  catchError(updateSuperagentController)
+)
+router.post('/update-agent', isAuthenticated, catchError(updateAgentController))
+router.post(
+  '/update-client',
+  isAuthenticated,
+  catchError(updateClientController)
 )
 
 export default router

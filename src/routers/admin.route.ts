@@ -55,6 +55,13 @@ import {
   deactiveClientController
 } from '../controllers/status.controller'
 import { updatePasswordController } from '../controllers/update-password.controller'
+import {
+  updateAgentController,
+  updateClientController,
+  updateMasterController,
+  updateSubadminController,
+  updateSuperagentController
+} from '../controllers/admin/update.controller'
 
 const router = Router()
 
@@ -67,6 +74,13 @@ router.post(
   catchError(loginAdminController)
 )
 router.get('/logout', catchError(logoutAdminController))
+
+// update password
+router.post(
+  '/update-password',
+  isAuthenticated,
+  catchError(updatePasswordController)
+)
 
 //create
 router.post(
@@ -89,13 +103,6 @@ router.post(
   '/create-client',
   isAuthenticated,
   catchError(createClientController)
-)
-
-// update password
-router.post(
-  '/update-password',
-  isAuthenticated,
-  catchError(updatePasswordController)
 )
 
 // limit
@@ -249,6 +256,29 @@ router.post(
   '/deactive-client',
   isAuthenticated,
   catchError(deactiveClientController)
+)
+
+// update
+router.post(
+  '/update-subadmin',
+  isAuthenticated,
+  catchError(updateSubadminController)
+)
+router.post(
+  '/update-master',
+  isAuthenticated,
+  catchError(updateMasterController)
+)
+router.post(
+  '/update-superagent',
+  isAuthenticated,
+  catchError(updateSuperagentController)
+)
+router.post('/update-agent', isAuthenticated, catchError(updateAgentController))
+router.post(
+  '/update-client',
+  isAuthenticated,
+  catchError(updateClientController)
 )
 
 export default router

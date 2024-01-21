@@ -19,6 +19,7 @@ import {
   deactiveClientController
 } from '../controllers/status.controller'
 import { updatePasswordController } from '../controllers/update-password.controller'
+import { updateClientController } from '../controllers/agent/update.controller'
 
 const router = Router()
 
@@ -82,6 +83,13 @@ router.post(
   '/deactive-client',
   isAuthenticated,
   catchError(deactiveClientController)
+)
+
+// update
+router.post(
+  '/update-client',
+  isAuthenticated,
+  catchError(updateClientController)
 )
 
 export default router
