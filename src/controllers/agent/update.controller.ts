@@ -1,0 +1,36 @@
+import { Request, Response } from 'express'
+import { prisma } from '../../prisma/prisma'
+import { encryptData } from '../../utils/crypt'
+
+export const updateClientController = async (req: Request, res: Response) => {
+  const {
+    clientCode,
+    newName,
+    newPassword,
+    newMobile,
+    casinoPlay,
+    newMatchCommission,
+    newSessionCommission,
+    newMobileCommission,
+    newCasinoCommission
+  } = req.body
+
+  const encryptedPassword = await encryptData(newPassword)
+
+  await prisma.client.update({
+    where: {
+      code: clientCode
+    },
+    data: {
+      name: newName,
+      password: encryptedPassword,
+      mobile: newMobile,
+      casinoPlay: casinoPlay,
+      mobileCharge: newMobileCommission,
+      matchCommission: newMatchCommission,
+      sessionCommission: newSessionCommission,
+      casinoCommission: newCasinoCommission
+    }
+  })
+  return res.status(200).json({ success: true })
+}
