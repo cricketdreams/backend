@@ -7,6 +7,15 @@ export const ROLES = {
   Client: 'Client'
 } as const
 
+export const USER_CODE = {
+  AD: ROLES.Admin,
+  SB: ROLES.Subadmin,
+  MA: ROLES.Master,
+  SA: ROLES.Superagent,
+  AG: ROLES.Agent,
+  CL: ROLES.Client
+}
+
 export type Roles = keyof typeof ROLES
 
 export const LOGIN_REPORT_DB = {

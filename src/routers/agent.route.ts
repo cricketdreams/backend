@@ -19,6 +19,7 @@ import {
   deactiveClientController
 } from '../controllers/status.controller'
 import { updatePasswordController } from '../controllers/update-password.controller'
+import { denaTransactionController, lenaTransactionController } from '../controllers/transaction.controller'
 
 const router = Router()
 
@@ -82,6 +83,20 @@ router.post(
   '/deactive-client',
   isAuthenticated,
   catchError(deactiveClientController)
+)
+
+
+// transaction
+router.post(
+  '/transaction/dena',
+  isAuthenticated,
+  catchError(denaTransactionController)
+)
+
+router.post(
+  '/transaction/lena',
+  isAuthenticated,
+  catchError(lenaTransactionController)
 )
 
 export default router

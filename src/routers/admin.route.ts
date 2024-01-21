@@ -1,6 +1,11 @@
 import { Router } from 'express'
 
 import {
+  createAdminController,
+  loginAdminController,
+  logoutAdminController
+} from '../controllers/admin/auth.controller'
+import {
   addLimitAgentController,
   addLimitClientController,
   addLimitMasterController,
@@ -13,20 +18,19 @@ import {
   subtractLimitSuperagentController
 } from '../controllers/admin/limit.controller'
 import {
-  createAdminController,
-  loginAdminController,
-  logoutAdminController
-} from '../controllers/admin/auth.controller'
-import {
   createAgentController,
   createClientController,
   createMasterController,
   createSubadminController,
   createSuperagentController
 } from '../controllers/create.controller'
-import { isAuthenticated } from '../middlewares/check-auth'
-import { adminPassport } from '../passport/admin.passport'
-import { catchError } from '../middlewares/catch-error'
+import {
+  getAllAgentController,
+  getAllClientController,
+  getAllMasterController,
+  getAllSubadminController,
+  getAllSuperagentController
+} from '../controllers/get-all-users.controller'
 import {
   adminLoginReportController,
   agentLoginReportController,
@@ -36,25 +40,25 @@ import {
   superagentLoginReportController
 } from '../controllers/login-report.controller'
 import {
-  getAllAgentController,
-  getAllClientController,
-  getAllMasterController,
-  getAllSubadminController,
-  getAllSuperagentController
-} from '../controllers/get-all-users.controller'
-import {
+  activeAgentController,
+  activeClientController,
   activeMasterController,
   activeSubadminController,
   activeSuperagentController,
-  activeAgentController,
-  activeClientController,
-  deactiveSubadminController,
-  deactiveMasterController,
-  deactiveSuperagentController,
   deactiveAgentController,
-  deactiveClientController
+  deactiveClientController,
+  deactiveMasterController,
+  deactiveSubadminController,
+  deactiveSuperagentController
 } from '../controllers/status.controller'
+import {
+  denaTransactionController,
+  lenaTransactionController
+} from '../controllers/transaction.controller'
 import { updatePasswordController } from '../controllers/update-password.controller'
+import { catchError } from '../middlewares/catch-error'
+import { isAuthenticated } from '../middlewares/check-auth'
+import { adminPassport } from '../passport/admin.passport'
 
 const router = Router()
 
@@ -249,6 +253,20 @@ router.post(
   '/deactive-client',
   isAuthenticated,
   catchError(deactiveClientController)
+)
+
+// transaction
+
+router.post(
+  '/transaction/dena',
+  isAuthenticated,
+  catchError(denaTransactionController)
+)
+
+router.post(
+  '/transaction/lena',
+  isAuthenticated,
+  catchError(lenaTransactionController)
 )
 
 export default router

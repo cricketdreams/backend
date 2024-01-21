@@ -29,8 +29,8 @@ model Admin {
 }
 
 model Subadmin {
-  code              String       @id @unique
-  upLink            Admin        @relation(fields: [upLinkCode], references: [code])
+  code              String           @id @unique
+  upLink            Admin            @relation(fields: [upLinkCode], references: [code])
   upLinkCode        String
   name              String
   password          String
@@ -43,19 +43,20 @@ model Subadmin {
   casinoCommission  Float        @default(0)
   status            Boolean      @default(true)
   limit             Float
-  createdAt         DateTime     @default(now())
-  updatedAt         DateTime     @updatedAt
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
   Master            Master[]
   Superagent        Superagent[]
   Agent             Agent[]
   Client            Client[]
+  SubadminLedger    SubadminLedger[]
 
   @@schema("user")
 }
 
 model Master {
-  code              String       @id @unique
-  upLink            Subadmin     @relation(fields: [upLinkCode], references: [code])
+  code              String         @id @unique
+  upLink            Subadmin       @relation(fields: [upLinkCode], references: [code])
   upLinkCode        String
   name              String
   password          String
@@ -68,20 +69,21 @@ model Master {
   casinoCommission  Float        @default(0)
   status            Boolean      @default(true)
   limit             Float
-  createdAt         DateTime     @default(now())
-  updatedAt         DateTime     @updatedAt
-  Admin             Admin        @relation(fields: [adminCode], references: [code])
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  Admin             Admin          @relation(fields: [adminCode], references: [code])
   adminCode         String
   Superagent        Superagent[]
   Agent             Agent[]
   Client            Client[]
+  MasterLedger      MasterLedger[]
 
   @@schema("user")
 }
 
 model Superagent {
-  code              String   @id @unique
-  upLink            Master   @relation(fields: [upLinkCode], references: [code])
+  code              String             @id @unique
+  upLink            Master             @relation(fields: [upLinkCode], references: [code])
   upLinkCode        String
   name              String
   password          String
@@ -97,21 +99,22 @@ model Superagent {
   casinoPlay        Boolean  @default(false)
   status            Boolean  @default(true)
   limit             Float
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  Admin             Admin    @relation(fields: [adminCode], references: [code])
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  Admin             Admin              @relation(fields: [adminCode], references: [code])
   adminCode         String
-  Subadmin          Subadmin @relation(fields: [subadminCode], references: [code])
+  Subadmin          Subadmin           @relation(fields: [subadminCode], references: [code])
   subadminCode      String
   Agent             Agent[]
   Client            Client[]
+  SuperagentLedger  SuperagentLedger[]
 
   @@schema("user")
 }
 
 model Agent {
-  code              String     @id @unique
-  upLink            Superagent @relation(fields: [upLinkCode], references: [code])
+  code              String        @id @unique
+  upLink            Superagent    @relation(fields: [upLinkCode], references: [code])
   upLinkCode        String
   name              String
   password          String
@@ -127,22 +130,23 @@ model Agent {
   casinoPlay        Boolean    @default(false)
   status            Boolean    @default(true)
   limit             Float
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
-  admin             Admin      @relation(fields: [adminCode], references: [code])
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  admin             Admin         @relation(fields: [adminCode], references: [code])
   adminCode         String
-  subadmin          Subadmin   @relation(fields: [subadminCode], references: [code])
+  subadmin          Subadmin      @relation(fields: [subadminCode], references: [code])
   subadminCode      String
-  master            Master     @relation(fields: [masterCode], references: [code])
+  master            Master        @relation(fields: [masterCode], references: [code])
   masterCode        String
   Client            Client[]
+  AgentLedger       AgentLedger[]
 
   @@schema("user")
 }
 
 model Client {
-  code              String     @id @unique
-  upLink            Agent      @relation(fields: [upLinkCode], references: [code])
+  code              String         @id @unique
+  upLink            Agent          @relation(fields: [upLinkCode], references: [code])
   upLinkCode        String
   name              String
   password          String
@@ -159,12 +163,13 @@ model Client {
   updatedAt         DateTime   @updatedAt
   admin             Admin      @relation(fields: [adminCode], references: [code])
   adminCode         String
-  subadmin          Subadmin   @relation(fields: [subadminCode], references: [code])
+  subadmin          Subadmin       @relation(fields: [subadminCode], references: [code])
   subadminCode      String
-  master            Master     @relation(fields: [masterCode], references: [code])
+  master            Master         @relation(fields: [masterCode], references: [code])
   masterCode        String
-  superagent        Superagent @relation(fields: [superagentCode], references: [code])
+  superagent        Superagent     @relation(fields: [superagentCode], references: [code])
   superagentCode    String
+  ClientLedger      ClientLedger[]
 
   @@schema("user")
 }
@@ -332,13 +337,14 @@ model SubadminLedger {
   id             String   @id @default(uuid())
   code           String
   createdAt      DateTime @default(now())
-  collectionName String
+  collectionName String   @default("cash")
   debit          Float
   credit         Float
   balance        Float
   type           String // See later
   description    String
   kisnekara      String
+  subadminCode   Subadmin @relation(fields: [code], references: [code])
 
   @@schema("ledger")
 }
@@ -354,14 +360,15 @@ model MasterLedger {
   type           String // See later
   description    String
   kisnekara      String
+  masterCode     Master   @relation(fields: [code], references: [code])
 
   @@schema("ledger")
 }
 
 model SuperagentLedger {
-  id             String   @id @default(uuid())
+  id             String     @id @default(uuid())
   code           String
-  createdAt      DateTime @default(now())
+  createdAt      DateTime   @default(now())
   collectionName String
   debit          Float
   credit         Float
@@ -369,6 +376,7 @@ model SuperagentLedger {
   type           String // See later
   description    String
   kisnekara      String
+  superagentCode Superagent @relation(fields: [code], references: [code])
 
   @@schema("ledger")
 }
@@ -384,6 +392,7 @@ model AgentLedger {
   type           String // See later
   description    String
   kisnekara      String
+  agentCode      Agent    @relation(fields: [code], references: [code])
 
   @@schema("ledger")
 }
@@ -399,6 +408,7 @@ model ClientLedger {
   type           String // See later
   description    String
   kisnekara      String
+  clientCode     Client   @relation(fields: [code], references: [code])
 
   @@schema("ledger")
 }
