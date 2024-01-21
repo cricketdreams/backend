@@ -38,6 +38,7 @@ export const updateMasterController = async (req: Request, res: Response) => {
       casinoCommission: newCasinoCommission
     }
   })
+  return res.status(200).json({ success: true })
 }
 
 export const updateSuperagentController = async (
@@ -77,6 +78,7 @@ export const updateSuperagentController = async (
       casinoCommission: newCasinoCommission
     }
   })
+  return res.status(200).json({ success: true })
 }
 
 export const updateAgentController = async (req: Request, res: Response) => {
@@ -116,6 +118,7 @@ export const updateAgentController = async (req: Request, res: Response) => {
       casinoCommission: newCasinoCommission
     }
   })
+  return res.status(200).json({ success: true })
 }
 
 export const updateClientController = async (req: Request, res: Response) => {
