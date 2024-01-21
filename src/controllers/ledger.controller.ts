@@ -13,5 +13,5 @@ export const ledgerController = async (req: Request, res: Response) => {
 
   const data = await getLedgerHandler(userLegder, code)
 
-  res.status(200).json({data})
+  res.status(200).json({ data })
 }

@@ -6,12 +6,24 @@ import {
 } from '../controllers/create.controller'
 
 import {
+  getAllAgentController,
+  getAllClientController
+} from '../controllers/get-all-users.controller'
+import { ledgerController } from '../controllers/ledger.controller'
+import {
+  agentLoginReportController,
+  clientLoginReportController
+} from '../controllers/login-report.controller'
+import {
+  activeAgentController,
+  activeClientController,
+  deactiveAgentController,
+  deactiveClientController
+} from '../controllers/status.controller'
+import {
   loginSuperagentController,
   logoutSuperagentController
 } from '../controllers/superagent/auth.controller'
-import { isAuthenticated } from '../middlewares/check-auth'
-import { masterPassport } from '../passport/master.passport'
-import { catchError } from '../middlewares/catch-error'
 import {
   addLimitAgentController,
   addLimitClientController,
@@ -19,29 +31,17 @@ import {
   subtractLimitClientController
 } from '../controllers/superagent/limit.controller'
 import {
-  agentLoginReportController,
-  clientLoginReportController
-} from '../controllers/login-report.controller'
-import {
-  getAllAgentController,
-  getAllClientController
-} from '../controllers/get-all-users.controller'
-import {
-  activeAgentController,
-  activeClientController,
-  deactiveAgentController,
-  deactiveClientController
-} from '../controllers/status.controller'
-import { updatePasswordController } from '../controllers/update-password.controller'
+  updateAgentController,
+  updateClientController
+} from '../controllers/superagent/update.controller'
 import {
   denaTransactionController,
   lenaTransactionController
 } from '../controllers/transaction.controller'
-import {
-  updateAgentController,
-  updateClientController
-} from '../controllers/superagent/update.controller'
-import { ledgerController } from '../controllers/ledger.controller'
+import { updatePasswordController } from '../controllers/update-password.controller'
+import { catchError } from '../middlewares/catch-error'
+import { isAuthenticated } from '../middlewares/check-auth'
+import { masterPassport } from '../passport/master.passport'
 
 const router = Router()
 
