@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
 
-import { logoutHandler } from '../../handlers/logout.handler'
 import { newLoginReportHandler } from '../../handlers/login-report.handler'
-import { User } from '../../ts/interfaces'
+import { logoutHandler } from '../../handlers/logout.handler'
 import { prisma } from '../../prisma/prisma'
-import generateCode from '../../utils/generateCode'
-import { encryptData } from '../../utils/crypt'
+import { User } from '../../ts/interfaces'
 import { LOGIN_REPORT_DB, ROLES } from '../../ts/type'
+import { encryptData } from '../../utils/crypt'
+import generateCode from '../../utils/generate-code'
 
 export const createAdminController = async (req: Request, res: Response) => {
   const { name, password, mobile } = req.body

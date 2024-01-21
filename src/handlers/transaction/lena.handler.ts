@@ -1,14 +1,13 @@
 import { Request } from 'express'
-import { User } from '../../ts/interfaces'
-import { USER_CODE } from '../../ts/type'
 import { prisma } from '../../prisma/prisma'
+import { User } from '../../ts/interfaces'
+import { getUserType } from '../../utils/user-type'
 
 export const lenaHandler = async (req: Request, paymentType: string) => {
   const user = req.user as User
   const { amount, recipient, description } = req.body
-  const userTypeCode: string = recipient.slice(0, 2)
-  const userLegder: string =
-    USER_CODE[userTypeCode as keyof typeof USER_CODE].toLowerCase() + 'Ledger'
+  const userType = getUserType(recipient).toLowerCase()
+  const userLegder: string = userType + 'Ledger'
   const recipientLastTransaction = await (
     prisma[userLegder as keyof typeof prisma] as any
   ).findFirst({

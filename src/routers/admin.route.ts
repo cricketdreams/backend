@@ -263,7 +263,6 @@ router.post(
 )
 
 // transaction
-
 router.post(
   '/transaction/dena',
   isAuthenticated,
@@ -275,6 +274,8 @@ router.post(
   isAuthenticated,
   catchError(lenaTransactionController)
 )
+
+router.post('/ledger', isAuthenticated, catchError(lenaTransactionController))
 
 // update
 router.post(
@@ -292,6 +293,7 @@ router.post(
   isAuthenticated,
   catchError(updateSuperagentController)
 )
+
 router.post('/update-agent', isAuthenticated, catchError(updateAgentController))
 router.post(
   '/update-client',
