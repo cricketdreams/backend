@@ -10,9 +10,7 @@ const GetReportController =
     return res.status(200).json({ data: result })
   }
 
-export const adminReportController = GetReportController(
-  REPORT_DB.AdminReport
-)
+export const adminReportController = GetReportController(REPORT_DB.AdminReport)
 export const subadminReportController = GetReportController(
   REPORT_DB.SubadminReport
 )
@@ -22,9 +20,7 @@ export const masterReportController = GetReportController(
 export const superagentReportController = GetReportController(
   REPORT_DB.SuperagentReport
 )
-export const agentReportController = GetReportController(
-  REPORT_DB.AgentReport
-)
+export const agentReportController = GetReportController(REPORT_DB.AgentReport)
 export const clientReportController = GetReportController(
   REPORT_DB.ClientReport
 )
