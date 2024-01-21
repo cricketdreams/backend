@@ -23,6 +23,7 @@ import {
   denaTransactionController,
   lenaTransactionController
 } from '../controllers/transaction.controller'
+import { updateClientController } from '../controllers/agent/update.controller'
 
 const router = Router()
 
@@ -99,6 +100,13 @@ router.post(
   '/transaction/lena',
   isAuthenticated,
   catchError(lenaTransactionController)
+)
+
+// update
+router.post(
+  '/update-client',
+  isAuthenticated,
+  catchError(updateClientController)
 )
 
 export default router

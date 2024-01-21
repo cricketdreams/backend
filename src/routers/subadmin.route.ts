@@ -51,6 +51,12 @@ import {
   denaTransactionController,
   lenaTransactionController
 } from '../controllers/transaction.controller'
+import {
+  updateAgentController,
+  updateClientController,
+  updateMasterController,
+  updateSuperagentController
+} from '../controllers/subadmin/update.controller'
 
 const router = Router()
 
@@ -216,6 +222,24 @@ router.post(
   '/transaction/lena',
   isAuthenticated,
   catchError(lenaTransactionController)
+)
+
+// update
+router.post(
+  '/update-master',
+  isAuthenticated,
+  catchError(updateMasterController)
+)
+router.post(
+  '/update-superagent',
+  isAuthenticated,
+  catchError(updateSuperagentController)
+)
+router.post('/update-agent', isAuthenticated, catchError(updateAgentController))
+router.post(
+  '/update-client',
+  isAuthenticated,
+  catchError(updateClientController)
 )
 
 export default router

@@ -59,6 +59,13 @@ import { updatePasswordController } from '../controllers/update-password.control
 import { catchError } from '../middlewares/catch-error'
 import { isAuthenticated } from '../middlewares/check-auth'
 import { adminPassport } from '../passport/admin.passport'
+import {
+  updateAgentController,
+  updateClientController,
+  updateMasterController,
+  updateSubadminController,
+  updateSuperagentController
+} from '../controllers/admin/update.controller'
 
 const router = Router()
 
@@ -71,6 +78,13 @@ router.post(
   catchError(loginAdminController)
 )
 router.get('/logout', catchError(logoutAdminController))
+
+// update password
+router.post(
+  '/update-password',
+  isAuthenticated,
+  catchError(updatePasswordController)
+)
 
 //create
 router.post(
@@ -93,13 +107,6 @@ router.post(
   '/create-client',
   isAuthenticated,
   catchError(createClientController)
-)
-
-// update password
-router.post(
-  '/update-password',
-  isAuthenticated,
-  catchError(updatePasswordController)
 )
 
 // limit
@@ -267,6 +274,29 @@ router.post(
   '/transaction/lena',
   isAuthenticated,
   catchError(lenaTransactionController)
+)
+
+// update
+router.post(
+  '/update-subadmin',
+  isAuthenticated,
+  catchError(updateSubadminController)
+)
+router.post(
+  '/update-master',
+  isAuthenticated,
+  catchError(updateMasterController)
+)
+router.post(
+  '/update-superagent',
+  isAuthenticated,
+  catchError(updateSuperagentController)
+)
+router.post('/update-agent', isAuthenticated, catchError(updateAgentController))
+router.post(
+  '/update-client',
+  isAuthenticated,
+  catchError(updateClientController)
 )
 
 export default router

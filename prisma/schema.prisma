@@ -37,10 +37,14 @@ model Subadmin {
   mobile            String
   reference         String
   share             Float
+  casinoShare       Float        @default(0)
+  mobileShare       Float        @default(0)
   sessionCommission Float        @default(0)
   matchCommission   Float        @default(0)
   mobileCommission  Float        @default(0)
   casinoCommission  Float        @default(0)
+  flatShare         Boolean      @default(false)
+  casinoPlay        Boolean      @default(false)
   status            Boolean      @default(true)
   limit             Float
   createdAt         DateTime         @default(now())
@@ -63,10 +67,14 @@ model Master {
   mobile            String
   reference         String
   share             Float
+  casinoShare       Float        @default(0)
+  mobileShare       Float        @default(0)
   sessionCommission Float        @default(0)
   matchCommission   Float        @default(0)
   mobileCommission  Float        @default(0)
   casinoCommission  Float        @default(0)
+  flatShare         Boolean      @default(false)
+  casinoPlay        Boolean      @default(false)
   status            Boolean      @default(true)
   limit             Float
   createdAt         DateTime       @default(now())
@@ -91,9 +99,9 @@ model Superagent {
   reference         String
   share             Float
   casinoShare       Float    @default(0)
+  mobileShare       Float    @default(0)
   sessionCommission Float    @default(0)
   matchCommission   Float    @default(0)
-  mobileShare       Float    @default(0)
   casinoCommission  Float    @default(0)
   flatShare         Boolean  @default(false)
   casinoPlay        Boolean  @default(false)
