@@ -33,7 +33,10 @@ import {
   deactiveClientController
 } from '../controllers/status.controller'
 import { updatePasswordController } from '../controllers/update-password.controller'
-import { denaTransactionController, lenaTransactionController } from '../controllers/transaction.controller'
+import {
+  denaTransactionController,
+  lenaTransactionController
+} from '../controllers/transaction.controller'
 
 const router = Router()
 
@@ -121,8 +124,6 @@ router.post(
   isAuthenticated,
   catchError(deactiveClientController)
 )
-
-
 
 // transaction
 router.post(

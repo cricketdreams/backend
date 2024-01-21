@@ -1,7 +1,7 @@
-import { Request } from "express"
-import { User } from "../../ts/interfaces"
-import { USER_CODE } from "../../ts/type"
-import { prisma } from "../../prisma/prisma"
+import { Request } from 'express'
+import { User } from '../../ts/interfaces'
+import { USER_CODE } from '../../ts/type'
+import { prisma } from '../../prisma/prisma'
 
 export const denaHandler = async (req: Request, paymentType: string) => {
   const user = req.user as User
@@ -9,7 +9,7 @@ export const denaHandler = async (req: Request, paymentType: string) => {
   const userTypeCode: string = recipient.slice(0, 2)
   const userLegder: string =
     USER_CODE[userTypeCode as keyof typeof USER_CODE].toLowerCase() + 'Ledger'
-  const recipientLastTransaction = await(
+  const recipientLastTransaction = await (
     prisma[userLegder as keyof typeof prisma] as any
   ).findFirst({
     where: {
@@ -20,7 +20,7 @@ export const denaHandler = async (req: Request, paymentType: string) => {
     },
     take: 1
   })
-  const transactionAdded = await(
+  const transactionAdded = await (
     prisma[userLegder as keyof typeof prisma] as any
   ).create({
     data: {
@@ -35,5 +35,5 @@ export const denaHandler = async (req: Request, paymentType: string) => {
       kisnekara: user.code
     }
   })
-  return { success: true, data: transactionAdded };
+  return { success: true, data: transactionAdded }
 }

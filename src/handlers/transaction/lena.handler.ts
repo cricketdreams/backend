@@ -3,10 +3,7 @@ import { User } from '../../ts/interfaces'
 import { USER_CODE } from '../../ts/type'
 import { prisma } from '../../prisma/prisma'
 
-export const lenaHandler = async (
-  req: Request,
-  paymentType: string
-) => {
+export const lenaHandler = async (req: Request, paymentType: string) => {
   const user = req.user as User
   const { amount, recipient, description } = req.body
   const userTypeCode: string = recipient.slice(0, 2)
@@ -23,7 +20,7 @@ export const lenaHandler = async (
     },
     take: 1
   })
-  const transactionAdded = await(
+  const transactionAdded = await (
     prisma[userLegder as keyof typeof prisma] as any
   ).create({
     data: {
