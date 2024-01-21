@@ -66,6 +66,7 @@ import {
   updateSubadminController,
   updateSuperagentController
 } from '../controllers/admin/update.controller'
+import { ledgerController } from '../controllers/ledger.controller'
 
 const router = Router()
 
@@ -275,7 +276,7 @@ router.post(
   catchError(lenaTransactionController)
 )
 
-router.post('/ledger', isAuthenticated, catchError(lenaTransactionController))
+router.post('/ledger', isAuthenticated, catchError(ledgerController))
 
 // update
 router.post(
