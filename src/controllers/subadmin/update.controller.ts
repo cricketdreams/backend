@@ -3,7 +3,21 @@ import { prisma } from '../../prisma/prisma'
 import { encryptData } from '../../utils/crypt'
 
 export const updateMasterController = async (req: Request, res: Response) => {
-  const { masterCode, newName, newReference, newPassword, newMobile, flatShare, casinoPlay, masterShare, masterCasinoShare, masterMobileShare, newMatchCommission, newSessionCommission, newCasinoCommission } = req.body
+  const {
+    masterCode,
+    newName,
+    newReference,
+    newPassword,
+    newMobile,
+    flatShare,
+    casinoPlay,
+    masterShare,
+    masterCasinoShare,
+    masterMobileShare,
+    newMatchCommission,
+    newSessionCommission,
+    newCasinoCommission
+  } = req.body
   const encryptedPassword = await encryptData(newPassword)
   await prisma.master.update({
     where: {
