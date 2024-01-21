@@ -1,11 +1,20 @@
-import { Request } from 'express'
 import { prisma } from '../../prisma/prisma'
-import { User } from '../../ts/interfaces'
 import { getUserType } from '../../utils/user-type'
 
-export const denaHandler = async (req: Request, paymentType: string) => {
-  const user = req.user as User
-  const { amount, recipient, description } = req.body
+export const denaHandler = async (
+  {
+    amount,
+    recipient,
+    description,
+    userCode
+  }: {
+    amount: number
+    recipient: string
+    description: string
+    userCode: string
+  },
+  paymentType: string
+) => {
   const userType = getUserType(recipient).toLowerCase()
   const userLegder: string = userType + 'Ledger'
   const recipientLastTransaction = await (
@@ -31,7 +40,7 @@ export const denaHandler = async (req: Request, paymentType: string) => {
       debit: 0,
       description: description,
       type: paymentType,
-      kisnekara: user.code
+      kisnekara: userCode
     }
   })
   return { success: true, data: transactionAdded }
