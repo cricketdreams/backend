@@ -103,7 +103,7 @@ const logResReq = createLogger({
   level: 'info',
   format: combine(timestamp({ format: dateFormat }), logFormat),
   transports: [logRotate('resreq', '30d', '30m')]
-}) // use morgan instead
+})
 
 const logLogin = createLogger({
   levels: logLevels,

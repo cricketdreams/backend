@@ -7,12 +7,12 @@ import flash from 'express-flash'
 import session from 'express-session'
 import helmet from 'helmet'
 import http from 'http'
+import morgan from 'morgan'
 
 import { CONST } from './config'
 import errorHandler from './middlewares/error'
-import { resreqLog } from './middlewares/resreq-log'
 import { ROUTER } from './routes'
-import { logFatal } from './utils/logger'
+import { logFatal, logResReq } from './utils/logger'
 import cors from 'cors'
 
 const app = express()
@@ -25,6 +25,11 @@ process.on('uncaughtException', err => {
 process.on('unhandledRejection', err => {
   throw err
 })
+
+const morganMiddleware = morgan(
+  ':remote-addr, :remote-user, :method, :url, HTTP/:http-version, :status, :res[content-length], :referrer, :user-agent',
+  { stream: { write: message => logResReq.info(message.trim()) } }
+)
 
 const serverConfig = () => {
   app.use(helmet())
@@ -50,7 +55,8 @@ const serverConfig = () => {
     })
   )
   app.use(flash())
-  app.use(resreqLog)
+  app.use(morganMiddleware)
+  // app.use(morgan('dev'))
 
   app.use(express.urlencoded({ extended: true }))
   app.use(express.json())
