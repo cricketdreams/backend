@@ -1,17 +1,20 @@
 import { Request, Response } from 'express'
 
 import { handleLimitOperation } from '../handlers/limit.handler'
-import { LIMIT_OPERATION, ROLES } from '../ts/type'
-import { prisma } from '../prisma/prisma'
+import { denaHandler } from '../handlers/transaction/dena.handler'
+import { lenaHandler } from '../handlers/transaction/lena.handler'
 import { getUserHandler } from '../handlers/user/get-user.handler'
+import { prisma } from '../prisma/prisma'
+import { User } from '../ts/interfaces'
+import { LIMIT_OPERATION, ROLES } from '../ts/type'
 
 // Subadmin Limit
 export const addLimitSubadminController = async (
   req: Request,
   res: Response
 ) => {
-  const { subadminCode, limit, limitType } = req.body
-
+  const { subadminCode, limit } = req.body
+  console.log(subadminCode, limit)
   const subadmin = await getUserHandler(subadminCode, ROLES.Subadmin)
   await prisma.subadmin.update({
     where: {
@@ -21,14 +24,16 @@ export const addLimitSubadminController = async (
       limit: subadmin.limit + limit
     }
   })
-  return res.status(200)
+  return res.json({
+    success: true
+  })
 }
 
 export const subtractLimitSubadminController = async (
   req: Request,
   res: Response
 ) => {
-  const { subadminCode, limit, limitType } = req.body
+  const { subadminCode, limit } = req.body
 
   const subadmin = await getUserHandler(subadminCode, ROLES.Subadmin)
   await prisma.subadmin.update({
@@ -40,14 +45,18 @@ export const subtractLimitSubadminController = async (
     }
   })
 
-  return res.status(200)
+  return res.json({
+    success: true
+  })
 }
 
 // Master Limit
 export const addLimitMasterController = async (req: Request, res: Response) => {
   const result = await handleLimitOperation(req, LIMIT_OPERATION.Add)
   return result === true
-    ? res.status(200).end()
+    ? res.json({
+        success: true
+      })
     : res.send(400).json({ message: result })
 }
 
@@ -57,7 +66,9 @@ export const subtractLimitMasterController = async (
 ) => {
   const result = await handleLimitOperation(req, LIMIT_OPERATION.Subtract)
   return result === true
-    ? res.status(200).end()
+    ? res.json({
+        success: true
+      })
     : res.send(400).json({ message: result })
 }
 
@@ -68,7 +79,9 @@ export const addLimitSuperagentController = async (
 ) => {
   const result = await handleLimitOperation(req, LIMIT_OPERATION.Add)
   return result === true
-    ? res.status(200).end()
+    ? res.json({
+        success: true
+      })
     : res.send(400).json({ message: result })
 }
 
@@ -78,7 +91,9 @@ export const subtractLimitSuperagentController = async (
 ) => {
   const result = await handleLimitOperation(req, LIMIT_OPERATION.Subtract)
   return result === true
-    ? res.status(200).end()
+    ? res.json({
+        success: true
+      })
     : res.send(400).json({ message: result })
 }
 
@@ -86,7 +101,9 @@ export const subtractLimitSuperagentController = async (
 export const addLimitAgentController = async (req: Request, res: Response) => {
   const result = await handleLimitOperation(req, LIMIT_OPERATION.Add)
   return result === true
-    ? res.status(200).end()
+    ? res.json({
+        success: true
+      })
     : res.send(400).json({ message: result })
 }
 
@@ -96,15 +113,36 @@ export const subtractLimitAgentController = async (
 ) => {
   const result = await handleLimitOperation(req, LIMIT_OPERATION.Subtract)
   return result === true
-    ? res.status(200).end()
+    ? res.json({
+        success: true
+      })
     : res.send(400).json({ message: result })
 }
 
 // Client Limit
 export const addLimitClientController = async (req: Request, res: Response) => {
+  const userRole = (req.user as User).role
+  const userCode = (req.user as User).code
+  const limitType = req.body.limitType
+
   const result = await handleLimitOperation(req, LIMIT_OPERATION.Add)
+
+  if (limitType === 'CASH') {
+    await lenaHandler(
+      {
+        amount: req.body.limit,
+        recipient: req.body.childCode,
+        description: `Limit added by ${userRole}`,
+        userCode
+      },
+      'Payment Recieved'
+    )
+  }
+
   return result === true
-    ? res.status(200).end()
+    ? res.json({
+        success: true
+      })
     : res.send(400).json({ message: result })
 }
 
@@ -112,8 +150,25 @@ export const subtractLimitClientController = async (
   req: Request,
   res: Response
 ) => {
+  const userRole = (req.user as User).role
+  const userCode = (req.user as User).code
+  const limitType = req.body.limitType
+
   const result = await handleLimitOperation(req, LIMIT_OPERATION.Subtract)
+  if (limitType === 'CASH') {
+    await denaHandler(
+      {
+        amount: req.body.limit,
+        recipient: req.body.childCode,
+        description: `Limit minus by ${userRole}`,
+        userCode
+      },
+      'Payment Paid'
+    )
+  }
   return result === true
-    ? res.status(200).end()
+    ? res.json({
+        success: true
+      })
     : res.send(400).json({ message: result })
 }

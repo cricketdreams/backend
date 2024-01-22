@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 
+import { updatePasswordHandler } from '../handlers/update-password.handler'
 import { User } from '../ts/interfaces'
 import { Roles } from '../ts/type'
-import { updatePasswordHandler } from '../handlers/update-password.handler'
 
 export const updatePasswordController = async (req: Request, res: Response) => {
   const { newPassword } = req.body
@@ -10,5 +10,5 @@ export const updatePasswordController = async (req: Request, res: Response) => {
   const role = user.role as Roles
   const code = user.code as string
   await updatePasswordHandler(code, newPassword, role)
-  return res.status(200).end
+  return res.json({ success: true })
 }

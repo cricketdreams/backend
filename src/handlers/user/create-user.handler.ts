@@ -20,7 +20,8 @@ const createUser = async (
     share,
     sessionCommission,
     matchCommission,
-    mobileCommission
+    mobileShare,
+    mobileCharge
   } = data
   const upLinkData = await (
     prisma[upLinkType as keyof typeof prisma] as any
@@ -44,7 +45,7 @@ const createUser = async (
         reference,
         sessionCommission,
         matchCommission,
-        mobileCommission,
+        mobileShare,
         share,
         upLinkCode,
         limit: 0
@@ -60,7 +61,7 @@ const createUser = async (
         reference,
         sessionCommission,
         matchCommission,
-        mobileCommission,
+        mobileShare,
         share,
         upLinkCode,
         adminCode: upLinkData.upLinkCode,
@@ -77,7 +78,7 @@ const createUser = async (
         reference,
         sessionCommission,
         matchCommission,
-        mobileCommission,
+        mobileShare,
         share,
         upLinkCode,
         adminCode: upLinkData.adminCode,
@@ -95,7 +96,7 @@ const createUser = async (
         reference,
         sessionCommission,
         matchCommission,
-        mobileCommission,
+        mobileShare,
         share,
         upLinkCode,
         adminCode: upLinkData.adminCode,
@@ -114,7 +115,7 @@ const createUser = async (
         reference,
         sessionCommission,
         matchCommission,
-        mobileCommission,
+        mobileCharge,
         upLinkCode,
         adminCode: upLinkData.adminCode,
         subadminCode: upLinkData.subadminCode,

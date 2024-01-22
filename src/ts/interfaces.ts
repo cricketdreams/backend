@@ -30,7 +30,8 @@ export type CreateUserBody = {
   share: number
   sessionCommission: number
   matchCommission: number
-  mobileCommission: number
+  mobileShare?: number,
+  mobileCharge?: number
 }
 
 export interface CustomRequestBody<P, Q, T>

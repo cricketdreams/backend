@@ -32,7 +32,7 @@ export const updateAgentController = async (req: Request, res: Response) => {
       casinoCommission: newCasinoCommission
     }
   })
-  return res.status(200).end
+  return res.json({ success: true })
 }
 
 export const updateClientController = async (req: Request, res: Response) => {
@@ -63,5 +63,5 @@ export const updateClientController = async (req: Request, res: Response) => {
       casinoPlay: casinoPlay
     }
   })
-  return res.status(200).end
+  return res.json({ success: true })
 }

@@ -9,7 +9,7 @@ const updateLimits = async (
   childCode: string,
   childType: Roles,
   parentType: Roles,
-  limitChange: number
+  limitChange: number,
 ) => {
   const child = await (prisma[childType as keyof typeof prisma] as any).update({
     where: { code: childCode },
@@ -23,10 +23,11 @@ const updateLimits = async (
 
 export const handleLimitOperation = async (
   req: Request,
-  limitOperation: LimitOperation
+  limitOperation: LimitOperation,
+  
 ) => {
   const { parentCode, childCode, limit } = req.body
-  
+
   const parentType = getUserType(parentCode)
   const childType = getUserType(childCode)
   const parent = await getUserHandler(parentCode, parentType as Roles)

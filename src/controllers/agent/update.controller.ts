@@ -32,5 +32,5 @@ export const updateClientController = async (req: Request, res: Response) => {
       casinoCommission: newCasinoCommission
     }
   })
-  return res.status(200).end
+  return res.json({ success: true })
 }
