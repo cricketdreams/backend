@@ -6,7 +6,7 @@ import { ROLES } from '../ts/type'
 const createController = (handler: Function, role: string) => {
   return async (req: Request, res: Response) => {
     await handler(req, role)
-    return res.status(200).json({ success: true })
+    return res.status(200).end
   }
 }
 

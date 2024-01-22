@@ -10,5 +10,5 @@ export const updatePasswordController = async (req: Request, res: Response) => {
   const role = user.role as Roles
   const code = user.code as string
   await updatePasswordHandler(code, newPassword, role)
-  return res.status(200).json({ success: true })
+  return res.status(200).end
 }

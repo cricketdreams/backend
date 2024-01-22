@@ -52,7 +52,6 @@ import { ledgerController } from '../controllers/ledger.controller'
 import {
   agentReportController,
   clientReportController,
-  masterReportController,
   superagentReportController
 } from '../controllers/report.controller'
 
