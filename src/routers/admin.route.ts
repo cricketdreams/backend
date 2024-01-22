@@ -16,7 +16,7 @@ import {
   subtractLimitMasterController,
   subtractLimitSubadminController,
   subtractLimitSuperagentController
-} from '../controllers/admin/limit.controller'
+} from '../controllers/limit.controller'
 import {
   createAgentController,
   createClientController,

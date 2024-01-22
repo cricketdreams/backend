@@ -11,7 +11,7 @@ import { catchError } from '../middlewares/catch-error'
 import {
   addLimitClientController,
   subtractLimitClientController
-} from '../controllers/agent/limit.controller'
+} from '../controllers/limit.controller'
 import { clientLoginReportController } from '../controllers/login-report.controller'
 import { getAllClientController } from '../controllers/get-all-users.controller'
 import {

@@ -39,3 +39,10 @@ export const REPORT_DB = {
 } as const
 
 export type ReportDb = keyof typeof REPORT_DB
+
+export const LIMIT_OPERATION = {
+  Add: 'Add',
+  Subtract: 'Subtract'
+} as const
+
+export type LimitOperation = keyof typeof LIMIT_OPERATION

@@ -19,7 +19,7 @@ import {
   subtractLimitSuperagentController,
   subtractLimitAgentController,
   subtractLimitClientController
-} from '../controllers/master/limit.controller'
+} from '../controllers/limit.controller'
 import {
   agentLoginReportController,
   clientLoginReportController,

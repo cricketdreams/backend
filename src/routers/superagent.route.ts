@@ -29,7 +29,7 @@ import {
   addLimitClientController,
   subtractLimitAgentController,
   subtractLimitClientController
-} from '../controllers/superagent/limit.controller'
+} from '../controllers/limit.controller'
 import {
   updateAgentController,
   updateClientController
