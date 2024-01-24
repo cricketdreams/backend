@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import { activeHandler, deactiveHandler } from '../handlers/status.handler'
 import { ROLES } from '../ts/type'
 
-const createController = (handler: Function, role: string) => {
+const CreateController = (handler: Function, role: string) => {
   return async (req: Request, res: Response) => {
     await handler(req, role)
     return res.json({ success: true })
@@ -11,45 +11,45 @@ const createController = (handler: Function, role: string) => {
 }
 
 // active controllers
-export const activeSubadminController = createController(
+export const activeSubadminController = CreateController(
   activeHandler,
   ROLES.Subadmin
 )
-export const activeMasterController = createController(
+export const activeMasterController = CreateController(
   activeHandler,
   ROLES.Master
 )
-export const activeSuperagentController = createController(
+export const activeSuperagentController = CreateController(
   activeHandler,
   ROLES.Superagent
 )
-export const activeAgentController = createController(
+export const activeAgentController = CreateController(
   activeHandler,
   ROLES.Agent
 )
-export const activeClientController = createController(
+export const activeClientController = CreateController(
   activeHandler,
   ROLES.Client
 )
 
 // deactive controllers
-export const deactiveSubadminController = createController(
+export const deactiveSubadminController = CreateController(
   deactiveHandler,
   ROLES.Subadmin
 )
-export const deactiveMasterController = createController(
+export const deactiveMasterController = CreateController(
   deactiveHandler,
   ROLES.Master
 )
-export const deactiveSuperagentController = createController(
+export const deactiveSuperagentController = CreateController(
   deactiveHandler,
   ROLES.Superagent
 )
-export const deactiveAgentController = createController(
+export const deactiveAgentController = CreateController(
   deactiveHandler,
   ROLES.Agent
 )
-export const deactiveClientController = createController(
+export const deactiveClientController = CreateController(
   deactiveHandler,
   ROLES.Client
 )

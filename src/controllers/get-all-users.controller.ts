@@ -4,7 +4,7 @@ import { getAllUsersHandler } from '../handlers/user/get-all-users.handler'
 import { ROLES, Roles } from '../ts/type'
 import { User } from '../ts/interfaces'
 
-const GetAllUsersByRoleController = async (
+const getAllUsersByRoleController = async (
   req: Request,
   res: Response,
   role: Roles
@@ -20,24 +20,24 @@ const GetAllUsersByRoleController = async (
 }
 
 export const getAllSubadminController = async (req: Request, res: Response) => {
-  return await GetAllUsersByRoleController(req, res, ROLES.Subadmin)
+  return await getAllUsersByRoleController(req, res, ROLES.Subadmin)
 }
 
 export const getAllMasterController = async (req: Request, res: Response) => {
-  return await GetAllUsersByRoleController(req, res, ROLES.Master)
+  return await getAllUsersByRoleController(req, res, ROLES.Master)
 }
 
 export const getAllSuperagentController = async (
   req: Request,
   res: Response
 ) => {
-  return await GetAllUsersByRoleController(req, res, ROLES.Superagent)
+  return await getAllUsersByRoleController(req, res, ROLES.Superagent)
 }
 
 export const getAllAgentController = async (req: Request, res: Response) => {
-  return await GetAllUsersByRoleController(req, res, ROLES.Agent)
+  return await getAllUsersByRoleController(req, res, ROLES.Agent)
 }
 
 export const getAllClientController = async (req: Request, res: Response) => {
-  return await GetAllUsersByRoleController(req, res, ROLES.Client)
+  return await getAllUsersByRoleController(req, res, ROLES.Client)
 }

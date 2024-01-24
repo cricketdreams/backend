@@ -35,9 +35,5 @@ export const getAllUsersHandler = async (
     })
   }
 
-  // allUser[0][requestedUsersRole].forEach(async (data: User) => {
-  //   const decryptedPassword = await decryptData(data.password)
-  //   data.password = decryptedPassword
-  // })
   return allUser[0]
 }

@@ -30,7 +30,7 @@ export type CreateUserBody = {
   share: number
   sessionCommission: number
   matchCommission: number
-  mobileShare?: number,
+  mobileShare?: number
   mobileCharge?: number
 }
 
