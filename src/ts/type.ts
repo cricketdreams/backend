@@ -45,4 +45,14 @@ export const LIMIT_OPERATION = {
   Subtract: 'Subtract'
 } as const
 
+export const LEDGER = {
+  [ROLES.Admin]: 'AdminLedger',
+  [ROLES.Subadmin]: 'SubadminLedger',
+  [ROLES.Master]: 'MasterLedger',
+  [ROLES.Superagent]: 'SuperagentLedger',
+  [ROLES.Agent]: 'AgentLedger',
+  [ROLES.Client]: 'ClientLedger'
+} as const
+
+
 export type LimitOperation = keyof typeof LIMIT_OPERATION

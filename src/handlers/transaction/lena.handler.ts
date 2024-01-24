@@ -1,4 +1,5 @@
 import { prisma } from '../../prisma/prisma'
+import { LEDGER } from '../../ts/type'
 import { getUserType } from '../../utils/user-type'
 
 export const lenaHandler = async (
@@ -15,8 +16,8 @@ export const lenaHandler = async (
   },
   paymentType: string
 ) => {
-  const userType = getUserType(recipient).toLowerCase()
-  const userLegder: string = userType + 'Ledger'
+  const userType = getUserType(recipient)
+  const userLegder = LEDGER[userType as keyof typeof LEDGER]
   const recipientLastTransaction = await (
     prisma[userLegder as keyof typeof prisma] as any
   ).findFirst({
