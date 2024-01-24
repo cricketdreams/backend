@@ -75,6 +75,13 @@ import {
   subadminReportController,
   superagentReportController
 } from '../controllers/report.controller'
+import {
+  getAllSubadminLedger,
+  getAllMasterLedger,
+  getAllSuperagentLedger,
+  getAllAgentLedger,
+  getAllClientLedger
+} from '../controllers/get-all-ledger.controller'
 
 const router = Router()
 
@@ -332,6 +339,33 @@ router.post(
   '/update-client',
   isAuthenticated,
   catchError(updateClientController)
+)
+
+// get all user ledger
+router.post(
+  '/all-subadmin-ledger',
+  isAuthenticated,
+  catchError(getAllSubadminLedger)
+)
+router.post(
+  '/all-master-ledger',
+  isAuthenticated,
+  catchError(getAllMasterLedger)
+)
+router.post(
+  '/all-superagent-ledger',
+  isAuthenticated,
+  catchError(getAllSuperagentLedger)
+)
+router.post(
+  '/all-agent-ledger',
+  isAuthenticated,
+  catchError(getAllAgentLedger)
+)
+router.post(
+  '/all-client-ledger',
+  isAuthenticated,
+  catchError(getAllClientLedger)
 )
 
 export default router

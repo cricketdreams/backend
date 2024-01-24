@@ -1,11 +1,31 @@
+import { prisma } from '../prisma/prisma'
 import { User } from '../ts/interfaces'
-import { Roles } from '../ts/type'
+import { LEDGER, Roles } from '../ts/type'
 import { getAllUsersHandler } from './user/get-all-users.handler'
 
 export const getAllLedgerHandler = async (
   code: string,
   requestedUsersRole: Roles
 ) => {
+  let allCode: string[] = []
   const allUser = await getAllUsersHandler(code, requestedUsersRole)
-  console.log(allUser[requestedUsersRole])
+  allUser[requestedUsersRole].forEach((user: User) => {
+    allCode.push(user.code)
+  })
+  const allLedger = await (
+    prisma[
+      LEDGER[requestedUsersRole as keyof typeof LEDGER] as keyof typeof prisma
+    ] as any
+  ).findFirst({
+    where: {
+      code: {
+        in: allCode
+      }
+    },
+    orderBy: {
+      createdAt: 'desc'
+    },
+    take: 1
+  })
+  return allLedger
 }

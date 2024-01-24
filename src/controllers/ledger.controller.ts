@@ -9,9 +9,9 @@ export const ledgerController = async (req: Request, res: Response) => {
   if (code === undefined) {
     code = (req.user as User).code
   }
-  const userType = getUserType(code);
+  const userType = getUserType(code)
   const userLegder = LEDGER[userType as keyof typeof LEDGER]
-  const data = await getLedgerHandler(userLegder, code);
+  const data = await getLedgerHandler(userLegder, code)
 
   res.status(200).json({ data })
 }
