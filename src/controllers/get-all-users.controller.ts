@@ -9,32 +9,35 @@ const GetAllUsersByRoleController = async (
   res: Response,
   role: Roles
 ) => {
-  const user = req.user as User
-  const result = await getAllUsersHandler(user, role)
+  let { code } = req.body
+  if (!code) {
+    code = (req.user as User).code as string
+  }
+  const result = await getAllUsersHandler(code, role)
   return res.status(200).json({
     data: result
   })
 }
 
 export const getAllSubadminController = async (req: Request, res: Response) => {
-  return GetAllUsersByRoleController(req, res, ROLES.Subadmin)
+  return await GetAllUsersByRoleController(req, res, ROLES.Subadmin)
 }
 
 export const getAllMasterController = async (req: Request, res: Response) => {
-  return GetAllUsersByRoleController(req, res, ROLES.Master)
+  return await GetAllUsersByRoleController(req, res, ROLES.Master)
 }
 
 export const getAllSuperagentController = async (
   req: Request,
   res: Response
 ) => {
-  return GetAllUsersByRoleController(req, res, ROLES.Superagent)
+  return await GetAllUsersByRoleController(req, res, ROLES.Superagent)
 }
 
 export const getAllAgentController = async (req: Request, res: Response) => {
-  return GetAllUsersByRoleController(req, res, ROLES.Agent)
+  return await GetAllUsersByRoleController(req, res, ROLES.Agent)
 }
 
 export const getAllClientController = async (req: Request, res: Response) => {
-  return GetAllUsersByRoleController(req, res, ROLES.Client)
+  return await GetAllUsersByRoleController(req, res, ROLES.Client)
 }
