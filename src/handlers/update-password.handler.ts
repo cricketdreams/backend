@@ -1,4 +1,4 @@
-import { prisma } from '../../src/prisma/prisma'
+import { prisma } from '../prisma/prisma'
 import { Roles } from '../ts/type'
 import { encryptData } from '../utils/crypt'
 
