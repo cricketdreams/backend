@@ -7,24 +7,12 @@ import { encryptData } from '../../utils/crypt'
 import generateCode from '../../utils/generate-code'
 import { createUserBodySchema } from '../../validators/general.validator'
 
-const validateCreateUserBody = (data: CreateUserBody) => {
-  try {
-    createUserBodySchema.parse(data)
-    return true
-  } catch (error) {
-    return false
-  }
-}
-
 const createUser = async (
   data: CreateUserBody,
   upLinkType: Roles,
   userType: Roles
 ) => {
-  if (!validateCreateUserBody(data)) {
-    throw new Error('Invalid input data')
-  }
-
+  createUserBodySchema.parse(data)
   const {
     upLinkCode,
     name,

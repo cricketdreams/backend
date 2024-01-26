@@ -33,7 +33,7 @@ export const createUserBodySchema = z.object({
   sessionCommission: z.number(),
   matchCommission: z.number(),
   mobileShare: z.number(),
-  mobileCharge: z.number()
+  mobileCharge: z.number().optional()
 })
 
 export const codeValidator = z.object({
