@@ -59,6 +59,7 @@ import {
   getAllAgentLedger,
   getAllClientLedger
 } from '../controllers/get-all-ledger.controller'
+import { currentUserController } from '../controllers/current-user.controller'
 
 const router = Router()
 
@@ -69,6 +70,7 @@ router.post(
   catchError(loginMasterController)
 )
 router.get('/logout', catchError(logoutMasterController))
+router.get('/current-user', isAuthenticated, catchError(currentUserController))
 
 //create
 router.post(

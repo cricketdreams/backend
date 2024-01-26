@@ -27,6 +27,7 @@ import { updateClientController } from '../controllers/agent/update.controller'
 import { ledgerController } from '../controllers/ledger.controller'
 import { clientReportController } from '../controllers/report.controller'
 import { getAllClientLedger } from '../controllers/get-all-ledger.controller'
+import { currentUserController } from '../controllers/current-user.controller'
 
 const router = Router()
 
@@ -37,6 +38,7 @@ router.post(
   catchError(loginAgentController)
 )
 router.get('/logout', catchError(logoutAgentController))
+router.get('/current-user', isAuthenticated, catchError(currentUserController))
 
 //create
 router.post(

@@ -82,6 +82,7 @@ import {
   getAllAgentLedger,
   getAllClientLedger
 } from '../controllers/get-all-ledger.controller'
+import { currentUserController } from '../controllers/current-user.controller'
 
 const router = Router()
 
@@ -93,6 +94,8 @@ router.post(
   adminPassport.authenticate('local'),
   catchError(loginAdminController)
 )
+
+router.get('/current-user', isAuthenticated, catchError(currentUserController))
 router.get('/logout', catchError(logoutAdminController))
 
 // update password
