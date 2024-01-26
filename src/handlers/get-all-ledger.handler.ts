@@ -16,7 +16,7 @@ export const getAllLedgerHandler = async (
     prisma[
       LEDGER[requestedUsersRole as keyof typeof LEDGER] as keyof typeof prisma
     ] as any
-  ).findFirst({
+  ).findMany({
     where: {
       code: {
         in: allCode
@@ -25,7 +25,11 @@ export const getAllLedgerHandler = async (
     orderBy: {
       createdAt: 'desc'
     },
-    take: 1
+    distinct: ['code'],
+    select: {
+      code: true,
+      balance: true,
+    }
   })
   return allLedger
 }
