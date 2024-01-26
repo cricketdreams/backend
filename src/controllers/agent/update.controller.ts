@@ -1,6 +1,9 @@
 import { Request, Response } from 'express'
+import { z } from 'zod'
+
 import { prisma } from '../../prisma/prisma'
 import { encryptData } from '../../utils/crypt'
+import { updateClientValidator } from '../../validators/update.validator'
 
 export const updateClientController = async (req: Request, res: Response) => {
   const {
@@ -13,7 +16,7 @@ export const updateClientController = async (req: Request, res: Response) => {
     newSessionCommission,
     newMobileCommission,
     newCasinoCommission
-  } = req.body
+  } = updateClientValidator.parse(req.body)
 
   const encryptedPassword = await encryptData(newPassword)
 

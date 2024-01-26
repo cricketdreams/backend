@@ -1,15 +1,16 @@
 import { Request, Response } from 'express'
 
 import { getAllUsersHandler } from '../handlers/user/get-all-users.handler'
-import { ROLES, Roles } from '../ts/type'
 import { User } from '../ts/interfaces'
+import { ROLES, Roles } from '../ts/type'
+import { codeValidator } from '../validators/general.validator'
 
 const getAllUsersByRoleController = async (
   req: Request,
   res: Response,
   role: Roles
 ) => {
-  let { code } = req.body
+  let { code } = codeValidator.parse(req.body)
   if (!code) {
     code = (req.user as User).code as string
   }

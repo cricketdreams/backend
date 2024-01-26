@@ -7,14 +7,19 @@ import { getUserHandler } from '../handlers/user/get-user.handler'
 import { prisma } from '../prisma/prisma'
 import { User } from '../ts/interfaces'
 import { LIMIT_OPERATION, ROLES } from '../ts/type'
+import {z} from 'zod'
 
 // Subadmin Limit
+
+const subadminLimitValidator = z.object({
+  subadminCode: z.string().min(8, { message: 'code is invalid' }),
+  limit: z.number().min(0, { message: 'limit is invalid' })
+})
 export const addLimitSubadminController = async (
   req: Request,
   res: Response
 ) => {
-  const { subadminCode, limit } = req.body
-  console.log(subadminCode, limit)
+  const { subadminCode, limit } = subadminLimitValidator.parse(req.body)
   const subadmin = await getUserHandler(subadminCode, ROLES.Subadmin)
   await prisma.subadmin.update({
     where: {
@@ -33,7 +38,7 @@ export const subtractLimitSubadminController = async (
   req: Request,
   res: Response
 ) => {
-  const { subadminCode, limit } = req.body
+  const { subadminCode, limit } = subadminLimitValidator.parse(req.body)
 
   const subadmin = await getUserHandler(subadminCode, ROLES.Subadmin)
   await prisma.subadmin.update({

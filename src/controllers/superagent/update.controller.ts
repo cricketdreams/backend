@@ -1,6 +1,8 @@
 import { Request, Response } from 'express'
+
 import { prisma } from '../../prisma/prisma'
 import { encryptData } from '../../utils/crypt'
+import { updateAgentValidator } from '../../validators/update.validator'
 
 export const updateAgentController = async (req: Request, res: Response) => {
   const {
@@ -14,7 +16,7 @@ export const updateAgentController = async (req: Request, res: Response) => {
     newMatchCommission,
     newSessionCommission,
     newCasinoCommission
-  } = req.body
+  } = updateAgentValidator.parse(req.body)
   const encryptedPassword = await encryptData(newPassword)
   await prisma.agent.update({
     where: {
