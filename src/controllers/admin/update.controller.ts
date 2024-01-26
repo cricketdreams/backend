@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
-import { z } from 'zod'
 
 import { prisma } from '../../prisma/prisma'
 import { encryptData } from '../../utils/crypt'
+import { updateSubadminValidator } from '../../validators/update.validator'
 
 // export const updateAdminController = async (req: Request, res: Response) => {}
 

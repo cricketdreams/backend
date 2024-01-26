@@ -37,7 +37,7 @@ export const createUserBodySchema = z.object({
 })
 
 export const codeValidator = z.object({
-  code: z.string().min(8, { message: 'Code is invalid' })
+  code: z.string().min(8, { message: 'Code is invalid' }).optional()
 })
 
 export const limitValidator = z.object({
