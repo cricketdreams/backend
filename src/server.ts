@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import compression from 'compression'
+import MongoStore from 'connect-mongo'
 import express from 'express'
 import flash from 'express-flash'
 import session from 'express-session'
@@ -39,6 +40,10 @@ const serverConfig = () => {
       secret: 'test is tought ug sdfsdf',
       resave: true,
       saveUninitialized: true,
+      store: MongoStore.create({
+        mongoUrl:
+          process.env.SESSION_STORE
+      }),
       cookie: {
         maxAge: CONST.maxAge,
         httpOnly: true,
