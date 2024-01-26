@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build": "tsc",
-    "start": "nodemon dist/server.js",
+    "start": "tsc && nodemon dist/server.js",
     "dev": "ts-node src/server.ts",
     "dev2": "tsnd --trace-warnings --respawn --transpile-only --exit-child src/server.ts",
     "fw": "prettier --write ./src",

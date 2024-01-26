@@ -1,5 +1,7 @@
 import { prisma } from '../../prisma/prisma'
+import { User } from '../../ts/interfaces'
 import { ROLES, Roles } from '../../ts/type'
+import { decryptData } from '../../utils/crypt'
 import { getUserType } from '../../utils/user-type'
 
 export const getAllUsersHandler = async (
@@ -34,6 +36,10 @@ export const getAllUsersHandler = async (
       include: { Client: true }
     })
   }
-
+  allUser[0].password = await decryptData(allUser[0].password)
+  allUser[0][requestedUsersRole].forEach(async (data: User) => {
+    const decryptedPassword = await decryptData(data.password)
+    data.password = decryptedPassword
+  })
   return allUser[0]
 }
