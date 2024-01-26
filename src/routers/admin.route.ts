@@ -85,7 +85,7 @@ import {
 
 const router = Router()
 
-router.post('/create-admin', catchError(createAdminController)) // only for development
+router.post('/create-admin',catchError(createAdminController)) // only for development
 
 //auth
 router.post(

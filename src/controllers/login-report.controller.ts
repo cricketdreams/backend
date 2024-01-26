@@ -2,10 +2,13 @@ import { Request, Response } from 'express'
 
 import { getLoginReportHandler } from '../handlers/login-report.handler'
 import { LOGIN_REPORT_DB, LoginReportDb } from '../ts/type'
+import { codeAndDatesValidator } from '../validators/general.validator'
 
 const GetLoginReportController =
   (reportDb: LoginReportDb) => async (req: Request, res: Response) => {
-    const { code, startDate, endDate } = req.body
+    const { code, startDate, endDate } = codeAndDatesValidator.parse(
+      req.body
+    )
     const result = await getLoginReportHandler(
       reportDb,
       startDate,

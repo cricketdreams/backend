@@ -1,6 +1,8 @@
 import { Request, Response } from 'express'
+
 import { prisma } from '../../prisma/prisma'
 import { encryptData } from '../../utils/crypt'
+import { updateSuperagentValidator } from '../../validators/update.validator'
 
 export const updateSuperagentController = async (
   req: Request,
@@ -19,7 +21,7 @@ export const updateSuperagentController = async (
     newMatchCommission,
     newSessionCommission,
     newCasinoCommission
-  } = req.body
+  } = updateSuperagentValidator.parse(req.body)
   const encryptedPassword = await encryptData(newPassword)
   await prisma.superagent.update({
     where: {

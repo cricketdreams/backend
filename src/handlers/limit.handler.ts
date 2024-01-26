@@ -3,6 +3,7 @@ import { Request } from 'express'
 import { prisma } from '../prisma/prisma'
 import { LIMIT_OPERATION, LimitOperation, Roles } from '../ts/type'
 import { getUserType } from '../utils/user-type'
+import { limitValidator } from '../validators/general.validator'
 import { getUserHandler } from './user/get-user.handler'
 
 const updateLimits = async (
@@ -25,7 +26,7 @@ export const handleLimitOperation = async (
   req: Request,
   limitOperation: LimitOperation
 ) => {
-  const { parentCode, childCode, limit } = req.body
+  const { parentCode, childCode, limit } = limitValidator.parse(req.body)
 
   const parentType = getUserType(parentCode)
   const childType = getUserType(childCode)

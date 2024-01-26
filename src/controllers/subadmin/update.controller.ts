@@ -1,6 +1,8 @@
 import { Request, Response } from 'express'
+
 import { prisma } from '../../prisma/prisma'
 import { encryptData } from '../../utils/crypt'
+import { updateMasterValidator } from '../../validators/update.validator'
 
 export const updateMasterController = async (req: Request, res: Response) => {
   const {
@@ -17,7 +19,7 @@ export const updateMasterController = async (req: Request, res: Response) => {
     newMatchCommission,
     newSessionCommission,
     newCasinoCommission
-  } = req.body
+  } = updateMasterValidator.parse(req.body)
   const encryptedPassword = await encryptData(newPassword)
   await prisma.master.update({
     where: {

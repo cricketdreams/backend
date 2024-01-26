@@ -7,9 +7,10 @@ import { User } from '../../ts/interfaces'
 import { LOGIN_REPORT_DB, ROLES } from '../../ts/type'
 import { encryptData } from '../../utils/crypt'
 import generateCode from '../../utils/generate-code'
+import { createAdminSchema } from '../../validators/general.validator'
 
 export const createAdminController = async (req: Request, res: Response) => {
-  const { name, password, mobile } = req.body
+  const { name, password, mobile } = createAdminSchema.parse(req.body)
   const code = await generateCode(ROLES.Admin)
   const encryptedPassword = await encryptData(password)
   const result = await prisma.admin.create({

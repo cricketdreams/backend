@@ -1,4 +1,6 @@
 import { Request, Response } from 'express'
+import { z } from 'zod'
+
 import { prisma } from '../../prisma/prisma'
 import { encryptData } from '../../utils/crypt'
 
@@ -18,7 +20,7 @@ export const updateSubadminController = async (req: Request, res: Response) => {
     newMatchCommission,
     newSessionCommission,
     newCasinoCommission
-  } = req.body
+  } = updateSubadminValidator.parse(req.body)
   const encryptedPassword = await encryptData(newPassword)
   await prisma.subadmin.update({
     where: {
