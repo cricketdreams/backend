@@ -20,7 +20,7 @@ export const createAdminSchema = z.object({
 })
 
 export const createUserBodySchema = z.object({
-  upLinkCode: z.string().min(8, { message: 'Uplink code is required' }),
+  upLinkCode: z.string().min(8, { message: 'Uplink Code is required' }),
   name: z.string().min(3, { message: 'Name is required' }),
   password: z
     .string()
@@ -37,17 +37,28 @@ export const createUserBodySchema = z.object({
 })
 
 export const codeValidator = z.object({
-  code: z.string().min(8, { message: 'code is invalid' })
+  code: z.string().min(8, { message: 'Code is invalid' })
 })
 
 export const limitValidator = z.object({
-  parentCode: z.string().min(8, { message: 'code is invalid' }),
-  childCode: z.string().min(8, { message: 'code is invalid' }),
+  parentCode: z.string().min(8, { message: 'Code is invalid' }),
+  childCode: z.string().min(8, { message: 'Code is invalid' }),
   limit: z.number().min(0, { message: 'limit is invalid' })
 })
 
 export const updatePasswordValidator = z.object({
-  code: z.string().min(8, { message: 'code is invalid' }),
+  code: z.string().min(8, { message: 'Code is invalid' }),
   newPassword: z.string().min(6, { message: 'Password is invalid' }),
   role: z.nativeEnum(ROLES)
+})
+
+
+export const dateSchema = z.date().refine(date => !isNaN(date.getTime()), {
+  message: 'Invalid date format'
+})
+
+export const codeAndDatesValidator = z.object({
+  code: z.string().min(1, { message: 'Code is required' }),
+  startDate: dateSchema,
+  endDate: dateSchema
 })

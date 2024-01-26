@@ -8,7 +8,7 @@ export const updateAgentValidator = z.object({
     .string()
     .min(6, { message: 'New password must be at least 6 characters long' }),
   newMobile: z.string().min(10, {
-    message: 'New mobile number must be at least 10 characters long'
+    message: 'Mobile number least 10 characters long'
   }),
   flatShare: z.boolean(),
   casinoPlay: z.boolean(),
@@ -27,7 +27,7 @@ export const updateMasterValidator = z.object({
     .string()
     .min(6, { message: 'New password must be at least 6 characters long' }),
   newMobile: z.string().min(10, {
-    message: 'New mobile number must be at least 10 characters long'
+    message: 'Mobile number least 10 characters long'
   }),
   flatShare: z.boolean(),
   casinoPlay: z.boolean(),
@@ -48,7 +48,7 @@ export const updateSubadminValidator = z.object({
     .string()
     .min(6, { message: 'New password must be at least 6 characters long' }),
   newMobile: z.string().min(10, {
-    message: 'New mobile number must be at least 10 characters long'
+    message: 'Mobile number least 10 characters long'
   }),
   flatShare: z.boolean(),
   casinoPlay: z.boolean(),
@@ -69,7 +69,7 @@ export const updateSuperagentValidator = z.object({
     .string()
     .min(6, { message: 'New password must be at least 6 characters long' }),
   newMobile: z.string().min(10, {
-    message: 'New mobile number must be at least 10 characters long'
+    message: 'Mobile number least 10 characters long'
   }),
   flatShare: z.boolean(),
   casinoPlay: z.boolean(),
@@ -88,7 +88,7 @@ export const updateClientValidator = z.object({
     .string()
     .min(6, { message: 'New password must be at least 6 characters long' }),
   newMobile: z.string().min(10, {
-    message: 'New mobile number must be at least 10 characters long'
+    message: 'Mobile number least 10 characters long'
   }),
   casinoPlay: z.boolean(),
   newMatchCommission: z.number(),
