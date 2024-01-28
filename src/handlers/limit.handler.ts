@@ -2,6 +2,7 @@ import { Request } from 'express'
 
 import { prisma } from '../prisma/prisma'
 import { LIMIT_OPERATION, LimitOperation, Roles } from '../ts/type'
+import { checkAppropriateRoleAction } from '../utils/check-appropriate-role-action'
 import { getUserType } from '../utils/user-type'
 import { limitValidator } from '../validators/general.validator'
 import { getUserHandler } from './user/get-user.handler'
@@ -30,6 +31,9 @@ export const handleLimitOperation = async (
 
   const parentType = getUserType(parentCode)
   const childType = getUserType(childCode)
+
+  if (!checkAppropriateRoleAction({ parentType, childType })) return false
+
   const parent = await getUserHandler(parentCode, parentType as Roles)
   const child = await getUserHandler(childCode, childType as Roles)
 

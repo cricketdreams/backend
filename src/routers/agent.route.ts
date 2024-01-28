@@ -1,34 +1,34 @@
 import { Router } from 'express'
 
-import { createClientController } from '../controllers/create.controller'
 import {
   loginAgentController,
   logoutAgentController
 } from '../controllers/agent/auth.controller'
-import { isAuthenticated } from '../middlewares/check-auth'
-import { agentPassport } from '../passport/agent.passport'
-import { catchError } from '../middlewares/catch-error'
+import { updateClientController } from '../controllers/agent/update.controller'
+import { createClientController } from '../controllers/create.controller'
+import { currentUserController } from '../controllers/current-user.controller'
+import { getAllClientLedgerController } from '../controllers/get-all-ledger.controller'
+import { getAllClientController } from '../controllers/get-all-users.controller'
+import { getUserController } from '../controllers/get-user.controller'
+import { ledgerController } from '../controllers/ledger.controller'
 import {
   addLimitClientController,
   subtractLimitClientController
 } from '../controllers/limit.controller'
 import { clientLoginReportController } from '../controllers/login-report.controller'
-import { getAllClientController } from '../controllers/get-all-users.controller'
+import { clientReportController } from '../controllers/report.controller'
 import {
   activeClientController,
   deactiveClientController
 } from '../controllers/status.controller'
-import { updatePasswordController } from '../controllers/update-password.controller'
 import {
   denaTransactionController,
   lenaTransactionController
 } from '../controllers/transaction.controller'
-import { updateClientController } from '../controllers/agent/update.controller'
-import { ledgerController } from '../controllers/ledger.controller'
-import { clientReportController } from '../controllers/report.controller'
-import { getAllClientLedgerController } from '../controllers/get-all-ledger.controller'
-import { currentUserController } from '../controllers/current-user.controller'
-import { getUserController } from '../controllers/getUser.controller'
+import { updatePasswordController } from '../controllers/update-password.controller'
+import { catchError } from '../middlewares/catch-error'
+import { isAuthenticated } from '../middlewares/check-auth'
+import { agentPassport } from '../passport/agent.passport'
 
 const router = Router()
 

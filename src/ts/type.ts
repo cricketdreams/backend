@@ -56,7 +56,7 @@ export const LEDGER = {
   [ROLES.Client]: 'ClientLedger'
 } as const
 
-export const authorizedRoles: { [key: string]: string[] } = {
+export const AUTHORIZED_ROLES: { [key: string]: string[] } = {
   [ROLES.Admin]: [
     ROLES.Subadmin,
     ROLES.Master,

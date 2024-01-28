@@ -6,23 +6,30 @@ import {
   createMasterController,
   createSuperagentController
 } from '../controllers/create.controller'
+import { currentUserController } from '../controllers/current-user.controller'
 import {
-  loginSubadminController,
-  logoutSubadminController
-} from '../controllers/subadmin/auth.controller'
-import { isAuthenticated } from '../middlewares/check-auth'
-import {} from '../passport/admin.passport'
-import { subadminPassport } from '../passport/subadmin.passport'
-import { catchError } from '../middlewares/catch-error'
+  getAllAgentLedgerController,
+  getAllClientLedgerController,
+  getAllMasterLedgerController,
+  getAllSuperagentLedgerController
+} from '../controllers/get-all-ledger.controller'
+import {
+  getAllAgentController,
+  getAllClientController,
+  getAllMasterController,
+  getAllSuperagentController
+} from '../controllers/get-all-users.controller'
+import { getUserController } from '../controllers/get-user.controller'
+import { ledgerController } from '../controllers/ledger.controller'
 import {
   addLimitAgentController,
   addLimitClientController,
   addLimitMasterController,
   addLimitSuperagentController,
-  subtractLimitMasterController,
-  subtractLimitSuperagentController,
   subtractLimitAgentController,
-  subtractLimitClientController
+  subtractLimitClientController,
+  subtractLimitMasterController,
+  subtractLimitSuperagentController
 } from '../controllers/limit.controller'
 import {
   agentLoginReportController,
@@ -31,47 +38,40 @@ import {
   superagentLoginReportController
 } from '../controllers/login-report.controller'
 import {
-  getAllAgentController,
-  getAllClientController,
-  getAllMasterController,
-  getAllSuperagentController
-} from '../controllers/get-all-users.controller'
-import {
-  activeMasterController,
-  activeSuperagentController,
-  activeAgentController,
-  activeClientController,
-  deactiveMasterController,
-  deactiveSuperagentController,
-  deactiveAgentController,
-  deactiveClientController
-} from '../controllers/status.controller'
-import { updatePasswordController } from '../controllers/update-password.controller'
-import {
-  denaTransactionController,
-  lenaTransactionController
-} from '../controllers/transaction.controller'
-import {
-  updateAgentController,
-  updateClientController,
-  updateMasterController,
-  updateSuperagentController
-} from '../controllers/subadmin/update.controller'
-import { ledgerController } from '../controllers/ledger.controller'
-import {
   agentReportController,
   clientReportController,
   masterReportController,
   superagentReportController
 } from '../controllers/report.controller'
 import {
-  getAllMasterLedgerController,
-  getAllAgentLedgerController,
-  getAllClientLedgerController,
-  getAllSuperagentLedgerController
-} from '../controllers/get-all-ledger.controller'
-import { currentUserController } from '../controllers/current-user.controller'
-import { getUserController } from '../controllers/getUser.controller'
+  activeAgentController,
+  activeClientController,
+  activeMasterController,
+  activeSuperagentController,
+  deactiveAgentController,
+  deactiveClientController,
+  deactiveMasterController,
+  deactiveSuperagentController
+} from '../controllers/status.controller'
+import {
+  loginSubadminController,
+  logoutSubadminController
+} from '../controllers/subadmin/auth.controller'
+import {
+  updateAgentController,
+  updateClientController,
+  updateMasterController,
+  updateSuperagentController
+} from '../controllers/subadmin/update.controller'
+import {
+  denaTransactionController,
+  lenaTransactionController
+} from '../controllers/transaction.controller'
+import { updatePasswordController } from '../controllers/update-password.controller'
+import { catchError } from '../middlewares/catch-error'
+import { isAuthenticated } from '../middlewares/check-auth'
+import {} from '../passport/admin.passport'
+import { subadminPassport } from '../passport/subadmin.passport'
 
 const router = Router()
 
@@ -300,6 +300,5 @@ router.get(
 )
 
 router.post('/get-child', isAuthenticated, catchError(getUserController))
-
 
 export default router

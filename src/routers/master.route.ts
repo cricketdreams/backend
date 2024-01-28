@@ -5,20 +5,26 @@ import {
   createClientController,
   createSuperagentController
 } from '../controllers/create.controller'
+import { currentUserController } from '../controllers/current-user.controller'
 import {
-  loginMasterController,
-  logoutMasterController
-} from '../controllers/master/auth.controller'
-import { isAuthenticated } from '../middlewares/check-auth'
-import { masterPassport } from '../passport/master.passport'
-import { catchError } from '../middlewares/catch-error'
+  getAllAgentLedgerController,
+  getAllClientLedgerController,
+  getAllSuperagentLedgerController
+} from '../controllers/get-all-ledger.controller'
+import {
+  getAllAgentController,
+  getAllClientController,
+  getAllSuperagentController
+} from '../controllers/get-all-users.controller'
+import { getUserController } from '../controllers/get-user.controller'
+import { ledgerController } from '../controllers/ledger.controller'
 import {
   addLimitAgentController,
   addLimitClientController,
   addLimitSuperagentController,
-  subtractLimitSuperagentController,
   subtractLimitAgentController,
-  subtractLimitClientController
+  subtractLimitClientController,
+  subtractLimitSuperagentController
 } from '../controllers/limit.controller'
 import {
   agentLoginReportController,
@@ -26,41 +32,35 @@ import {
   superagentLoginReportController
 } from '../controllers/login-report.controller'
 import {
-  getAllAgentController,
-  getAllClientController,
-  getAllSuperagentController
-} from '../controllers/get-all-users.controller'
-import {
-  activeSuperagentController,
-  activeAgentController,
-  activeClientController,
-  deactiveSuperagentController,
-  deactiveAgentController,
-  deactiveClientController
-} from '../controllers/status.controller'
-import { updatePasswordController } from '../controllers/update-password.controller'
-import {
-  denaTransactionController,
-  lenaTransactionController
-} from '../controllers/transaction.controller'
+  loginMasterController,
+  logoutMasterController
+} from '../controllers/master/auth.controller'
 import {
   updateAgentController,
   updateClientController,
   updateSuperagentController
 } from '../controllers/master/update.controller'
-import { ledgerController } from '../controllers/ledger.controller'
 import {
   agentReportController,
   clientReportController,
   superagentReportController
 } from '../controllers/report.controller'
 import {
-  getAllSuperagentLedgerController,
-  getAllAgentLedgerController,
-  getAllClientLedgerController
-} from '../controllers/get-all-ledger.controller'
-import { currentUserController } from '../controllers/current-user.controller'
-import { getUserController } from '../controllers/getUser.controller'
+  activeAgentController,
+  activeClientController,
+  activeSuperagentController,
+  deactiveAgentController,
+  deactiveClientController,
+  deactiveSuperagentController
+} from '../controllers/status.controller'
+import {
+  denaTransactionController,
+  lenaTransactionController
+} from '../controllers/transaction.controller'
+import { updatePasswordController } from '../controllers/update-password.controller'
+import { catchError } from '../middlewares/catch-error'
+import { isAuthenticated } from '../middlewares/check-auth'
+import { masterPassport } from '../passport/master.passport'
 
 const router = Router()
 

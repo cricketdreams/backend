@@ -6,6 +6,37 @@ import {
   logoutAdminController
 } from '../controllers/admin/auth.controller'
 import {
+  updateAgentController,
+  updateClientController,
+  updateMasterController,
+  updateSubadminController,
+  updateSuperagentController
+} from '../controllers/admin/update.controller'
+import {
+  createAgentController,
+  createClientController,
+  createMasterController,
+  createSubadminController,
+  createSuperagentController
+} from '../controllers/create.controller'
+import { currentUserController } from '../controllers/current-user.controller'
+import {
+  getAllAgentLedgerController,
+  getAllClientLedgerController,
+  getAllMasterLedgerController,
+  getAllSubadminLedgerController,
+  getAllSuperagentLedgerController
+} from '../controllers/get-all-ledger.controller'
+import {
+  getAllAgentController,
+  getAllClientController,
+  getAllMasterController,
+  getAllSubadminController,
+  getAllSuperagentController
+} from '../controllers/get-all-users.controller'
+import { getUserController } from '../controllers/get-user.controller'
+import { ledgerController } from '../controllers/ledger.controller'
+import {
   addLimitAgentController,
   addLimitClientController,
   addLimitMasterController,
@@ -18,20 +49,6 @@ import {
   subtractLimitSuperagentController
 } from '../controllers/limit.controller'
 import {
-  createAgentController,
-  createClientController,
-  createMasterController,
-  createSubadminController,
-  createSuperagentController
-} from '../controllers/create.controller'
-import {
-  getAllAgentController,
-  getAllClientController,
-  getAllMasterController,
-  getAllSubadminController,
-  getAllSuperagentController
-} from '../controllers/get-all-users.controller'
-import {
   adminLoginReportController,
   agentLoginReportController,
   clientLoginReportController,
@@ -39,6 +56,14 @@ import {
   subadminLoginReportController,
   superagentLoginReportController
 } from '../controllers/login-report.controller'
+import {
+  adminReportController,
+  agentReportController,
+  clientReportController,
+  masterReportController,
+  subadminReportController,
+  superagentReportController
+} from '../controllers/report.controller'
 import {
   activeAgentController,
   activeClientController,
@@ -59,31 +84,6 @@ import { updatePasswordController } from '../controllers/update-password.control
 import { catchError } from '../middlewares/catch-error'
 import { isAuthenticated } from '../middlewares/check-auth'
 import { adminPassport } from '../passport/admin.passport'
-import {
-  updateAgentController,
-  updateClientController,
-  updateMasterController,
-  updateSubadminController,
-  updateSuperagentController
-} from '../controllers/admin/update.controller'
-import { ledgerController } from '../controllers/ledger.controller'
-import {
-  adminReportController,
-  agentReportController,
-  clientReportController,
-  masterReportController,
-  subadminReportController,
-  superagentReportController
-} from '../controllers/report.controller'
-import {
-  getAllSubadminLedgerController,
-  getAllMasterLedgerController,
-  getAllSuperagentLedgerController,
-  getAllAgentLedgerController,
-  getAllClientLedgerController
-} from '../controllers/get-all-ledger.controller'
-import { currentUserController } from '../controllers/current-user.controller'
-import { getUserController } from '../controllers/getUser.controller'
 
 const router = Router()
 

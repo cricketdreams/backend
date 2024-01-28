@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { getLedgerHandler } from '../handlers/ledger.handler'
 import { User } from '../ts/interfaces'
 import { LEDGER } from '../ts/type'
+import { checkAppropriateRoleAction } from '../utils/check-appropriate-role-action'
 import { getUserType } from '../utils/user-type'
 import { codeValidator } from '../validators/general.validator'
 
@@ -10,7 +11,12 @@ export const ledgerController = async (req: Request, res: Response) => {
   if (code === undefined) {
     code = (req.user as User).code
   }
+  const role = (req.user as User).role
   const userType = getUserType(code)
+
+  if (!checkAppropriateRoleAction({ parentType: role, childType: userType }))
+    return res.status(403).json({ message: 'FORBIDDEN' })
+
   const userLegder = LEDGER[userType as keyof typeof LEDGER]
   const data = await getLedgerHandler(userLegder, code)
 

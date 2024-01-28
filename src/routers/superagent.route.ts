@@ -5,15 +5,31 @@ import {
   createClientController
 } from '../controllers/create.controller'
 
+import { currentUserController } from '../controllers/current-user.controller'
+import {
+  getAllAgentLedgerController,
+  getAllClientLedgerController
+} from '../controllers/get-all-ledger.controller'
 import {
   getAllAgentController,
   getAllClientController
 } from '../controllers/get-all-users.controller'
+import { getUserController } from '../controllers/get-user.controller'
 import { ledgerController } from '../controllers/ledger.controller'
+import {
+  addLimitAgentController,
+  addLimitClientController,
+  subtractLimitAgentController,
+  subtractLimitClientController
+} from '../controllers/limit.controller'
 import {
   agentLoginReportController,
   clientLoginReportController
 } from '../controllers/login-report.controller'
+import {
+  agentReportController,
+  clientReportController
+} from '../controllers/report.controller'
 import {
   activeAgentController,
   activeClientController,
@@ -24,12 +40,6 @@ import {
   loginSuperagentController,
   logoutSuperagentController
 } from '../controllers/superagent/auth.controller'
-import {
-  addLimitAgentController,
-  addLimitClientController,
-  subtractLimitAgentController,
-  subtractLimitClientController
-} from '../controllers/limit.controller'
 import {
   updateAgentController,
   updateClientController
@@ -42,16 +52,6 @@ import { updatePasswordController } from '../controllers/update-password.control
 import { catchError } from '../middlewares/catch-error'
 import { isAuthenticated } from '../middlewares/check-auth'
 import { masterPassport } from '../passport/master.passport'
-import {
-  agentReportController,
-  clientReportController
-} from '../controllers/report.controller'
-import {
-  getAllAgentLedgerController,
-  getAllClientLedgerController
-} from '../controllers/get-all-ledger.controller'
-import { currentUserController } from '../controllers/current-user.controller'
-import { getUserController } from '../controllers/getUser.controller'
 
 const router = Router()
 
