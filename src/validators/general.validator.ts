@@ -22,9 +22,6 @@ export const createAdminSchema = z.object({
 export const createUserBodySchema = z.object({
   upLinkCode: z.string().min(8, { message: 'Uplink Code is required' }),
   name: z.string().min(3, { message: 'Name is required' }),
-  password: z
-    .string()
-    .min(6, { message: 'Password must be at least 6 characters long' }),
   mobile: z
     .string()
     .min(10, { message: 'Mobile number must be at least 10 characters long' }),
@@ -48,7 +45,9 @@ export const limitValidator = z.object({
 
 export const updatePasswordValidator = z.object({
   code: z.string().min(8, { message: 'Code is invalid' }),
-  newPassword: z.string().min(6, { message: 'Password is invalid' }),
+  newPassword: z
+    .string()
+    .min(8, { message: 'Password must be at least 8 characters long' }),
   role: z.nativeEnum(ROLES)
 })
 

@@ -8,10 +8,8 @@ import { codeValidator } from '../validators/general.validator'
 const GetUsersByRoleController =
   (role: Roles) => async (req: Request, res: Response) => {
     let { code } = codeValidator.parse(req.body)
-    if (!code) {
-      code = (req.user as User).code as string
-    }
-    const result = await getAllUsersHandler(code, role)
+    const userCode = code || ((req.user as User).code as string)
+    const result = await getAllUsersHandler(userCode, role)
     return res.status(200).json({
       data: result
     })
