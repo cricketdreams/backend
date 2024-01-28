@@ -37,14 +37,14 @@ model Subadmin {
   mobile            String
   reference         String
   share             Float
-  casinoShare       Float        @default(0)
-  mobileShare       Float        @default(0)
-  sessionCommission Float        @default(0)
-  matchCommission   Float        @default(0)
-  casinoCommission  Float        @default(0)
-  flatShare         Boolean      @default(false)
-  casinoPlay        Boolean      @default(false)
-  status            Boolean      @default(true)
+  casinoShare       Float            @default(0)
+  mobileShare       Float            @default(0)
+  sessionCommission Float            @default(0)
+  matchCommission   Float            @default(0)
+  casinoCommission  Float            @default(0)
+  flatShare         Boolean          @default(false)
+  casinoPlay        Boolean          @default(false)
+  status            Boolean          @default(true)
   limit             Float
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
@@ -66,14 +66,14 @@ model Master {
   mobile            String
   reference         String
   share             Float
-  casinoShare       Float        @default(0)
-  mobileShare       Float        @default(0)
-  sessionCommission Float        @default(0)
-  matchCommission   Float        @default(0)
-  casinoCommission  Float        @default(0)
-  flatShare         Boolean      @default(false)
-  casinoPlay        Boolean      @default(false)
-  status            Boolean      @default(true)
+  casinoShare       Float          @default(0)
+  mobileShare       Float          @default(0)
+  sessionCommission Float          @default(0)
+  matchCommission   Float          @default(0)
+  casinoCommission  Float          @default(0)
+  flatShare         Boolean        @default(false)
+  casinoPlay        Boolean        @default(false)
+  status            Boolean        @default(true)
   limit             Float
   createdAt         DateTime       @default(now())
   updatedAt         DateTime       @updatedAt
@@ -96,14 +96,14 @@ model Superagent {
   mobile            String
   reference         String
   share             Float
-  casinoShare       Float    @default(0)
-  mobileShare       Float    @default(0)
-  sessionCommission Float    @default(0)
-  matchCommission   Float    @default(0)
-  casinoCommission  Float    @default(0)
-  flatShare         Boolean  @default(false)
-  casinoPlay        Boolean  @default(false)
-  status            Boolean  @default(true)
+  casinoShare       Float              @default(0)
+  mobileShare       Float              @default(0)
+  sessionCommission Float              @default(0)
+  matchCommission   Float              @default(0)
+  casinoCommission  Float              @default(0)
+  flatShare         Boolean            @default(false)
+  casinoPlay        Boolean            @default(false)
+  status            Boolean            @default(true)
   limit             Float
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
@@ -127,14 +127,14 @@ model Agent {
   mobile            String
   reference         String
   share             Float
-  casinoShare       Float      @default(0)
-  sessionCommission Float      @default(0)
-  matchCommission   Float      @default(0)
-  mobileShare       Float      @default(0)
-  casinoCommission  Float      @default(0)
-  flatShare         Boolean    @default(false)
-  casinoPlay        Boolean    @default(false)
-  status            Boolean    @default(true)
+  casinoShare       Float         @default(0)
+  sessionCommission Float         @default(0)
+  matchCommission   Float         @default(0)
+  mobileShare       Float         @default(0)
+  casinoCommission  Float         @default(0)
+  flatShare         Boolean       @default(false)
+  casinoPlay        Boolean       @default(false)
+  status            Boolean       @default(true)
   limit             Float
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
@@ -158,16 +158,16 @@ model Client {
   password          String
   mobile            String
   reference         String
-  sessionCommission Float      @default(0)
-  matchCommission   Float      @default(0)
-  mobileCharge      Float      @default(0)
-  casinoCommission  Float      @default(0)
-  status            Boolean    @default(true)
+  sessionCommission Float          @default(0)
+  matchCommission   Float          @default(0)
+  mobileCharge      Float          @default(0)
+  casinoCommission  Float          @default(0)
+  status            Boolean        @default(true)
   limit             Float
-  casinoPlay        Boolean    @default(false)
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
-  admin             Admin      @relation(fields: [adminCode], references: [code])
+  casinoPlay        Boolean        @default(false)
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  admin             Admin          @relation(fields: [adminCode], references: [code])
   adminCode         String
   subadmin          Subadmin       @relation(fields: [subadminCode], references: [code])
   subadminCode      String
@@ -328,7 +328,7 @@ model AdminLedger {
   id             String   @id @default(uuid())
   code           String
   createdAt      DateTime @default(now())
-  collectionName String
+  collectionName String   @default("cash")
   debit          Float
   credit         Float
   balance        Float
@@ -359,7 +359,7 @@ model MasterLedger {
   id             String   @id @default(uuid())
   code           String
   createdAt      DateTime @default(now())
-  collectionName String
+  collectionName String   @default("cash")
   debit          Float
   credit         Float
   balance        Float
@@ -375,7 +375,7 @@ model SuperagentLedger {
   id             String     @id @default(uuid())
   code           String
   createdAt      DateTime   @default(now())
-  collectionName String
+  collectionName String     @default("cash")
   debit          Float
   credit         Float
   balance        Float
@@ -391,7 +391,7 @@ model AgentLedger {
   id             String   @id @default(uuid())
   code           String
   createdAt      DateTime @default(now())
-  collectionName String
+  collectionName String   @default("cash")
   debit          Float
   credit         Float
   balance        Float
@@ -407,7 +407,7 @@ model ClientLedger {
   id             String   @id @default(uuid())
   code           String
   createdAt      DateTime @default(now())
-  collectionName String
+  collectionName String   @default("cash")
   debit          Float
   credit         Float
   balance        Float
