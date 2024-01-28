@@ -51,6 +51,7 @@ import {
   getAllClientLedger
 } from '../controllers/get-all-ledger.controller'
 import { currentUserController } from '../controllers/current-user.controller'
+import { getUserController } from '../controllers/getUser.controller'
 
 const router = Router()
 
@@ -178,5 +179,8 @@ router.post(
   isAuthenticated,
   catchError(getAllClientLedger)
 )
+
+router.post('/get-child', isAuthenticated, catchError(getUserController))
+
 
 export default router
