@@ -278,22 +278,22 @@ router.post(
 )
 
 // get all user ledger
-router.post(
+router.get(
   '/all-master-ledger',
   isAuthenticated,
   catchError(getAllMasterLedgerController)
 )
-router.post(
+router.get(
   '/all-superagent-ledger',
   isAuthenticated,
   catchError(getAllSuperagentLedgerController)
 )
-router.post(
+router.get(
   '/all-agent-ledger',
   isAuthenticated,
   catchError(getAllAgentLedgerController)
 )
-router.post(
+router.get(
   '/all-client-ledger',
   isAuthenticated,
   catchError(getAllClientLedgerController)

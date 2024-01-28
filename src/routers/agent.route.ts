@@ -125,7 +125,7 @@ router.post(
 )
 
 // get all user ledger
-router.post(
+router.get(
   '/all-client-ledger',
   isAuthenticated,
   catchError(getAllClientLedgerController)

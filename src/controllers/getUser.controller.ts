@@ -4,7 +4,6 @@ import { User } from '../ts/interfaces'
 import { ROLES } from '../ts/type'
 import { getUserType } from '../utils/user-type'
 import { codeValidator } from '../validators/general.validator'
-import { decrypt } from 'dotenv'
 import { decryptData } from '../utils/crypt'
 
 export const getUserController = async (req: Request, res: Response) => {

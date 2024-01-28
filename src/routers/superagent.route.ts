@@ -173,18 +173,17 @@ router.post(
 )
 
 // get all user ledger
-router.post(
+router.get(
   '/all-agent-ledger',
   isAuthenticated,
   catchError(getAllAgentLedgerController)
 )
-router.post(
+router.get(
   '/all-client-ledger',
   isAuthenticated,
   catchError(getAllClientLedgerController)
 )
 
 router.post('/get-child', isAuthenticated, catchError(getUserController))
-
 
 export default router
