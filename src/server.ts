@@ -41,8 +41,7 @@ const serverConfig = () => {
       resave: true,
       saveUninitialized: true,
       store: MongoStore.create({
-        mongoUrl:
-          process.env.SESSION_STORE
+        mongoUrl: process.env.SESSION_STORE
       }),
       cookie: {
         maxAge: CONST.maxAge,

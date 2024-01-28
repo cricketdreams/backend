@@ -6,9 +6,7 @@ import { codeAndDatesValidator } from '../validators/general.validator'
 
 const GetReportController =
   (reportDb: ReportDb) => async (req: Request, res: Response) => {
-    const { code, startDate, endDate } = codeAndDatesValidator.parse(
-      req.body
-    )
+    const { code, startDate, endDate } = codeAndDatesValidator.parse(req.body)
     const result = await getReportHandler(reportDb, startDate, endDate, code)
     return res.status(200).json({ data: result })
   }

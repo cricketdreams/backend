@@ -6,6 +6,7 @@ import { ROLES, Roles } from '../../ts/type'
 import { encryptData } from '../../utils/crypt'
 import generateCode from '../../utils/generate-code'
 import { createUserBodySchema } from '../../validators/general.validator'
+import { generatePassword } from '../../utils/generate-password'
 
 const createUser = async (
   data: CreateUserBody,
@@ -16,7 +17,6 @@ const createUser = async (
   const {
     upLinkCode,
     name,
-    password,
     mobile,
     reference,
     share,
@@ -33,6 +33,7 @@ const createUser = async (
     }
   })
   if (!upLinkData) throw new Error('Uplink not found')
+  const password = generatePassword()
   const encryptedPassword = await encryptData(password)
   const code = await generateCode(userType)
   let result
