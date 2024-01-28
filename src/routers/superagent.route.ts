@@ -47,8 +47,8 @@ import {
   clientReportController
 } from '../controllers/report.controller'
 import {
-  getAllAgentLedger,
-  getAllClientLedger
+  getAllAgentLedgerController,
+  getAllClientLedgerController
 } from '../controllers/get-all-ledger.controller'
 import { currentUserController } from '../controllers/current-user.controller'
 
@@ -172,11 +172,15 @@ router.post(
 )
 
 // get all user ledger
-router.post('/all-agent-ledger', isAuthenticated, catchError(getAllAgentLedger))
+router.post(
+  '/all-agent-ledger',
+  isAuthenticated,
+  catchError(getAllAgentLedgerController)
+)
 router.post(
   '/all-client-ledger',
   isAuthenticated,
-  catchError(getAllClientLedger)
+  catchError(getAllClientLedgerController)
 )
 
 export default router

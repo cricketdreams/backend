@@ -52,7 +52,6 @@ export const updatePasswordValidator = z.object({
   role: z.nativeEnum(ROLES)
 })
 
-
 export const dateSchema = z.date().refine(date => !isNaN(date.getTime()), {
   message: 'Invalid date format'
 })

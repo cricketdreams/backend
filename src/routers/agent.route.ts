@@ -26,7 +26,7 @@ import {
 import { updateClientController } from '../controllers/agent/update.controller'
 import { ledgerController } from '../controllers/ledger.controller'
 import { clientReportController } from '../controllers/report.controller'
-import { getAllClientLedger } from '../controllers/get-all-ledger.controller'
+import { getAllClientLedgerController } from '../controllers/get-all-ledger.controller'
 import { currentUserController } from '../controllers/current-user.controller'
 
 const router = Router()
@@ -127,7 +127,7 @@ router.post(
 router.post(
   '/all-client-ledger',
   isAuthenticated,
-  catchError(getAllClientLedger)
+  catchError(getAllClientLedgerController)
 )
 
 export default router

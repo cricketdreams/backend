@@ -7,7 +7,7 @@ import { getUserHandler } from '../handlers/user/get-user.handler'
 import { prisma } from '../prisma/prisma'
 import { User } from '../ts/interfaces'
 import { LIMIT_OPERATION, ROLES } from '../ts/type'
-import {z} from 'zod'
+import { z } from 'zod'
 
 // Subadmin Limit
 

@@ -5,40 +5,22 @@ import { User } from '../ts/interfaces'
 import { ROLES, Roles } from '../ts/type'
 import { codeValidator } from '../validators/general.validator'
 
-const getAllUsersByRoleController = async (
-  req: Request,
-  res: Response,
-  role: Roles
-) => {
-  let { code } = codeValidator.parse(req.body)
-  if (!code) {
-    code = (req.user as User).code as string
+const GetUsersByRoleController =
+  (role: Roles) => async (req: Request, res: Response) => {
+    let { code } = codeValidator.parse(req.body)
+    if (!code) {
+      code = (req.user as User).code as string
+    }
+    const result = await getAllUsersHandler(code, role)
+    return res.status(200).json({
+      data: result
+    })
   }
-  const result = await getAllUsersHandler(code, role)
-  return res.status(200).json({
-    data: result
-  })
-}
 
-export const getAllSubadminController = async (req: Request, res: Response) => {
-  return await getAllUsersByRoleController(req, res, ROLES.Subadmin)
-}
-
-export const getAllMasterController = async (req: Request, res: Response) => {
-  return await getAllUsersByRoleController(req, res, ROLES.Master)
-}
-
-export const getAllSuperagentController = async (
-  req: Request,
-  res: Response
-) => {
-  return await getAllUsersByRoleController(req, res, ROLES.Superagent)
-}
-
-export const getAllAgentController = async (req: Request, res: Response) => {
-  return await getAllUsersByRoleController(req, res, ROLES.Agent)
-}
-
-export const getAllClientController = async (req: Request, res: Response) => {
-  return await getAllUsersByRoleController(req, res, ROLES.Client)
-}
+export const getAllSubadminController = GetUsersByRoleController(ROLES.Subadmin)
+export const getAllMasterController = GetUsersByRoleController(ROLES.Master)
+export const getAllSuperagentController = GetUsersByRoleController(
+  ROLES.Superagent
+)
+export const getAllAgentController = GetUsersByRoleController(ROLES.Agent)
+export const getAllClientController = GetUsersByRoleController(ROLES.Client)

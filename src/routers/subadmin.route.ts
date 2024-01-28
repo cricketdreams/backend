@@ -65,10 +65,10 @@ import {
   superagentReportController
 } from '../controllers/report.controller'
 import {
-  getAllMasterLedger,
-  getAllSuperagentLedger,
-  getAllAgentLedger,
-  getAllClientLedger
+  getAllMasterLedgerController,
+  getAllAgentLedgerController,
+  getAllClientLedgerController,
+  getAllSuperagentLedgerController
 } from '../controllers/get-all-ledger.controller'
 import { currentUserController } from '../controllers/current-user.controller'
 
@@ -280,18 +280,22 @@ router.post(
 router.post(
   '/all-master-ledger',
   isAuthenticated,
-  catchError(getAllMasterLedger)
+  catchError(getAllMasterLedgerController)
 )
 router.post(
   '/all-superagent-ledger',
   isAuthenticated,
-  catchError(getAllSuperagentLedger)
+  catchError(getAllSuperagentLedgerController)
 )
-router.post('/all-agent-ledger', isAuthenticated, catchError(getAllAgentLedger))
+router.post(
+  '/all-agent-ledger',
+  isAuthenticated,
+  catchError(getAllAgentLedgerController)
+)
 router.post(
   '/all-client-ledger',
   isAuthenticated,
-  catchError(getAllClientLedger)
+  catchError(getAllClientLedgerController)
 )
 
 export default router

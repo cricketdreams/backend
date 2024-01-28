@@ -28,7 +28,7 @@ export const getAllLedgerHandler = async (
     distinct: ['code'],
     select: {
       code: true,
-      balance: true,
+      balance: true
     }
   })
   return allLedger

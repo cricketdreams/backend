@@ -76,17 +76,17 @@ import {
   superagentReportController
 } from '../controllers/report.controller'
 import {
-  getAllSubadminLedger,
-  getAllMasterLedger,
-  getAllSuperagentLedger,
-  getAllAgentLedger,
-  getAllClientLedger
+  getAllSubadminLedgerController,
+  getAllMasterLedgerController,
+  getAllSuperagentLedgerController,
+  getAllAgentLedgerController,
+  getAllClientLedgerController
 } from '../controllers/get-all-ledger.controller'
 import { currentUserController } from '../controllers/current-user.controller'
 
 const router = Router()
 
-router.post('/create-admin',catchError(createAdminController)) // only for development
+router.post('/create-admin', catchError(createAdminController)) // only for development
 
 //auth
 router.post(
@@ -348,27 +348,27 @@ router.post(
 router.post(
   '/all-subadmin-ledger',
   isAuthenticated,
-  catchError(getAllSubadminLedger)
+  catchError(getAllSubadminLedgerController)
 )
 router.post(
   '/all-master-ledger',
   isAuthenticated,
-  catchError(getAllMasterLedger)
+  catchError(getAllMasterLedgerController)
 )
 router.post(
   '/all-superagent-ledger',
   isAuthenticated,
-  catchError(getAllSuperagentLedger)
+  catchError(getAllSuperagentLedgerController)
 )
 router.post(
   '/all-agent-ledger',
   isAuthenticated,
-  catchError(getAllAgentLedger)
+  catchError(getAllAgentLedgerController)
 )
 router.post(
   '/all-client-ledger',
   isAuthenticated,
-  catchError(getAllClientLedger)
+  catchError(getAllClientLedgerController)
 )
 
 export default router

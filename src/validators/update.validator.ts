@@ -1,4 +1,4 @@
-import z from "zod"
+import z from 'zod'
 
 export const updateAgentValidator = z.object({
   agentCode: z.string().min(1, { message: 'Agent code is required' }),
@@ -16,8 +16,6 @@ export const updateAgentValidator = z.object({
   newSessionCommission: z.number(),
   newCasinoCommission: z.number()
 })
-
-
 
 export const updateMasterValidator = z.object({
   masterCode: z.string().min(1, { message: 'Master code is required' }),
@@ -39,8 +37,6 @@ export const updateMasterValidator = z.object({
   newCasinoCommission: z.number()
 })
 
-
-
 export const updateSubadminValidator = z.object({
   subadminCode: z.string().min(1, { message: 'Subadmin code is required' }),
   newName: z.string().min(1, { message: 'New name is required' }),
@@ -60,7 +56,6 @@ export const updateSubadminValidator = z.object({
   newCasinoCommission: z.number()
 })
 
-
 export const updateSuperagentValidator = z.object({
   superagentCode: z.string().min(1, { message: 'Superagent code is required' }),
   newName: z.string().min(1, { message: 'New name is required' }),
@@ -79,7 +74,6 @@ export const updateSuperagentValidator = z.object({
   newSessionCommission: z.number(),
   newCasinoCommission: z.number()
 })
-
 
 export const updateClientValidator = z.object({
   clientCode: z.string().min(1, { message: 'Client code is required' }),
