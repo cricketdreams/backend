@@ -55,3 +55,17 @@ export const LEDGER = {
   [ROLES.Agent]: 'AgentLedger',
   [ROLES.Client]: 'ClientLedger'
 } as const
+
+export const authorizedRoles: { [key: string]: string[] } = {
+  [ROLES.Admin]: [
+    ROLES.Subadmin,
+    ROLES.Master,
+    ROLES.Superagent,
+    ROLES.Agent,
+    ROLES.Client
+  ],
+  [ROLES.Subadmin]: [ROLES.Master, ROLES.Superagent, ROLES.Agent, ROLES.Client],
+  [ROLES.Master]: [ROLES.Superagent, ROLES.Agent, ROLES.Client],
+  [ROLES.Superagent]: [ROLES.Agent, ROLES.Client],
+  [ROLES.Agent]: [ROLES.Client]
+}
