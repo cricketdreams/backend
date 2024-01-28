@@ -84,7 +84,7 @@ router.post(
 )
 
 // get all users
-router.get('/all-client', isAuthenticated, catchError(getAllClientController))
+router.post('/all-client', isAuthenticated, catchError(getAllClientController))
 
 // status
 // active

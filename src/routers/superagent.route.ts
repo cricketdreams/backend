@@ -124,8 +124,8 @@ router.post(
 )
 
 // get all users
-router.get('/all-agent', isAuthenticated, catchError(getAllAgentController))
-router.get('/all-client', isAuthenticated, catchError(getAllClientController))
+router.post('/all-agent', isAuthenticated, catchError(getAllAgentController))
+router.post('/all-client', isAuthenticated, catchError(getAllClientController))
 
 // status
 // active
