@@ -29,5 +29,4 @@ router.post(
   catchError(updatePasswordController)
 )
 
-
 export default router

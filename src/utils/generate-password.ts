@@ -11,7 +11,7 @@ export function generatePassword(): string {
     password += alphabets.charAt(randomIndex)
   }
 
-  for (let i = 0; i < CONST.passwordLendth - CONST.maxAlphabets; i++) {
+  for (let i = 0; i < CONST.passwordLength - CONST.maxAlphabets; i++) {
     const randomIndex = Math.floor(Math.random() * numbers.length)
     password += numbers.charAt(randomIndex)
   }

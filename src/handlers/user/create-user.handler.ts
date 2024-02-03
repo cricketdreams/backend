@@ -22,6 +22,7 @@ const createUser = async (
     share,
     sessionCommission,
     matchCommission,
+    casinoCommission,
     mobileShare,
     mobileCharge
   } = data
@@ -49,6 +50,7 @@ const createUser = async (
         sessionCommission,
         matchCommission,
         mobileShare,
+        casinoCommission,
         share,
         upLinkCode,
         limit: 0
@@ -65,6 +67,7 @@ const createUser = async (
         sessionCommission,
         matchCommission,
         mobileShare,
+        casinoCommission,
         share,
         upLinkCode,
         adminCode: upLinkData.upLinkCode,
@@ -82,6 +85,7 @@ const createUser = async (
         sessionCommission,
         matchCommission,
         mobileShare,
+        casinoCommission,
         share,
         upLinkCode,
         adminCode: upLinkData.adminCode,
@@ -100,6 +104,7 @@ const createUser = async (
         sessionCommission,
         matchCommission,
         mobileShare,
+        casinoCommission,
         share,
         upLinkCode,
         adminCode: upLinkData.adminCode,

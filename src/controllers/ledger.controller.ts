@@ -14,7 +14,10 @@ export const ledgerController = async (req: Request, res: Response) => {
   const role = (req.user as User).role
   const userType = getUserType(code)
 
-  if (!checkAppropriateRoleAction({ parentType: role, childType: userType }))
+  if (
+    role !== userType &&
+    !checkAppropriateRoleAction({ parentType: role, childType: userType })
+  )
     return res.status(403).json({ message: 'FORBIDDEN' })
 
   const userLegder = LEDGER[userType as keyof typeof LEDGER]

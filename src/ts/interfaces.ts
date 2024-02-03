@@ -32,6 +32,8 @@ export type CreateUserBody = {
   matchCommission: number
   mobileShare?: number
   mobileCharge?: number
+  casinoCommission?: number
+  limit?: number
 }
 
 export interface CustomRequestBody<P, Q, T>
