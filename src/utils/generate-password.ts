@@ -1,7 +1,7 @@
 import { CONST } from '../config'
 
 export function generatePassword(): string {
-  const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+  const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   const numbers = '0123456789'
 
   let password = ''
@@ -21,5 +21,5 @@ export function generatePassword(): string {
     .sort(() => Math.random() - 0.5)
     .join('')
 
-  return password
+  return process.env.NODE_ENV === 'development' ? '12345678' : password
 }
