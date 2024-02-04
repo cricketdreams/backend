@@ -24,19 +24,32 @@ export const newLoginReportHandler = async (
 
 export const getLoginReportHandler = async (
   reportDb: LoginReportDb,
-  startDate: Date,
-  endDate: Date,
+  startDate: string,
+  endDate: string,
   code?: string
 ) => {
   let report
+  const startDateObject = new Date(startDate)
+  const endDateObject = new Date(endDate)
+
+  // Decrease the day by one for startDate
+  startDateObject.setDate(startDateObject.getDate() - 1)
+  endDateObject.setDate(endDateObject.getDate() + 1)
+
+  const isoStartDate = startDateObject.toISOString()
+  const isoEndDate = endDateObject.toISOString()
+  
   if (code) {
     report = await (prisma[reportDb as keyof typeof prisma] as any).findMany({
       where: {
         code,
         createdAt: {
-          gte: startDate,
-          lte: endDate
+          gte: isoStartDate,
+          lte: isoEndDate
         }
+      },
+      orderBy: {
+        createdAt: 'desc'
       }
     })
   } else {
@@ -44,9 +57,12 @@ export const getLoginReportHandler = async (
       where: {
         code,
         createdAt: {
-          gte: startDate,
-          lte: endDate
+          gte: isoStartDate,
+          lte: isoEndDate
         }
+      },
+      orderBy: {
+        createdAt: 'desc'
       }
     })
   }

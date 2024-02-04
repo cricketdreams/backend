@@ -51,12 +51,9 @@ export const updatePasswordValidator = z.object({
   role: z.nativeEnum(ROLES)
 })
 
-export const dateSchema = z.date().refine(date => !isNaN(date.getTime()), {
-  message: 'Invalid date format'
-})
 
 export const codeAndDatesValidator = z.object({
-  code: z.string().min(1, { message: 'Code is required' }),
-  startDate: dateSchema,
-  endDate: dateSchema
+  code: z.string().min(1, { message: 'Code is required' }).optional(),
+  startDate: z.string(),
+  endDate: z.string()
 })
