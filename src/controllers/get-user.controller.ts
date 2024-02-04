@@ -5,6 +5,7 @@ import { checkAppropriateRoleAction } from '../utils/check-appropriate-role-acti
 import { decryptData } from '../utils/crypt'
 import { getUserType } from '../utils/user-type'
 import { codeValidator } from '../validators/general.validator'
+import { ROLES } from '../ts/type'
 
 export const getUserController = async (req: Request, res: Response) => {
   const { code } = codeValidator.parse(req.body)
@@ -12,6 +13,7 @@ export const getUserController = async (req: Request, res: Response) => {
   const role = (req.user as User).role
 
   if (
+    role !== ROLES.Admin &&
     !checkAppropriateRoleAction({
       parentType: role,
       childType: requestedUserRole
