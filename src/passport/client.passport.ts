@@ -48,7 +48,7 @@ clientPassport.deserializeUser(async (id: string, done) => {
     }
     const client = {
       ...clientDb,
-      role: ROLES.Agent
+      role: ROLES.Client
     }
     return done(null, client)
   } catch (error) {
