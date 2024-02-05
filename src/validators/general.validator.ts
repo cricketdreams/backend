@@ -45,6 +45,7 @@ export const limitValidator = z.object({
 
 export const updatePasswordValidator = z.object({
   code: z.string().min(8, { message: 'Code is invalid' }),
+  currentPassword: z.string().max(16, { message: 'Enter Old password' }),
   newPassword: z
     .string()
     .min(8, { message: 'Password must be at least 8 characters long' }),
