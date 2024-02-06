@@ -69,3 +69,21 @@ export const AUTHORIZED_ROLES: { [key: string]: string[] } = {
   [ROLES.Superagent]: [ROLES.Agent, ROLES.Client],
   [ROLES.Agent]: [ROLES.Client]
 }
+
+export const HTTP_STATUS_CODE = {
+  OK: 200,
+  CREATED: 201,
+  ACCEPTED: 202,
+  NO_CONTENT: 204,
+  FOUND: 302,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  METHOD_NOT_ALLOWED: 405,
+  TOO_MANY_REQUESTS: 429,
+  INTERNAL_SERVER: 500,
+  SERVICE_UNAVAILABLE: 503,
+} as const
+
+export type HttpStatusCode = keyof typeof HTTP_STATUS_CODE
