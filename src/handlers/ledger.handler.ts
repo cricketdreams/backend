@@ -21,7 +21,18 @@ export const getLedgerHandler = async ({
       createdAt: 'desc'
     },
     skip: page ? (page - 1) * limit : 0,
-    take: limit
+    take: limit,
+    select: {
+      code: true,
+      createdAt: true,
+      collectionName: true,
+      debit: true,
+      credit: true,
+      balance: true,
+      type: true,
+      description: true,
+      kisnekara: true
+    }
   })
 
   return {
