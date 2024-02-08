@@ -1,6 +1,16 @@
 import { prisma } from '../prisma/prisma'
 
-export const getLedgerHandler = async (userLegder: string, code: string) => {
+export const getLedgerHandler = async ({
+  userLegder,
+  code,
+  limit,
+  page
+}: {
+  userLegder: string
+  code: string
+  page?: number
+  limit: number
+}) => {
   const ledger = await (
     prisma[userLegder as keyof typeof prisma] as any
   ).findMany({
@@ -9,7 +19,9 @@ export const getLedgerHandler = async (userLegder: string, code: string) => {
     },
     orderBy: {
       createdAt: 'desc'
-    }
+    },
+    skip: page ? (page - 1) * limit : 0,
+    take: limit
   })
 
   return {

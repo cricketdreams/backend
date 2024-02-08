@@ -1,4 +1,4 @@
-import { CONST } from '../config'
+import { CONST } from '../constants'
 
 export function generatePassword(): string {
   const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'

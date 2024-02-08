@@ -10,7 +10,7 @@ import helmet from 'helmet'
 import http from 'http'
 import morgan from 'morgan'
 
-import { CONST } from './config'
+import { CONST } from './constants'
 import errorHandler from './middlewares/error'
 import { ROUTER } from './routes'
 import { logFatal, logResReq } from './utils/logger'

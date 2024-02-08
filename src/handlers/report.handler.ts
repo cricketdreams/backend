@@ -1,12 +1,21 @@
 import { prisma } from '../prisma/prisma'
 import { ReportDb } from '../ts/type'
 
-export const getReportHandler = async (
-  reportDb: ReportDb,
-  startDate: string,
-  endDate: string,
+export const getReportHandler = async ({
+  reportDb,
+  startDate,
+  endDate,
+  code,
+  page,
+  limit
+}: {
+  reportDb: ReportDb
+  startDate: string
+  endDate: string
   code?: string
-) => {
+  page?: number
+  limit: number
+}) => {
   const startDateObject = new Date(startDate)
   const endDateObject = new Date(endDate)
 
@@ -16,7 +25,9 @@ export const getReportHandler = async (
 
   const isoStartDate = startDateObject.toISOString()
   const isoEndDate = endDateObject.toISOString()
-  
+
+  const skip = page ? (page - 1) * limit : 0
+
   let report
   if (code) {
     report = await (prisma[reportDb as keyof typeof prisma] as any).findMany({
@@ -26,16 +37,26 @@ export const getReportHandler = async (
           gte: isoStartDate,
           lte: isoEndDate
         }
-      }
+      },
+      orderBy: {
+        createdAt: 'desc'
+      },
+      skip,
+      take: limit
     })
   } else {
-    report = await prisma.adminReport.findMany({
+    report = await (prisma[reportDb as keyof typeof prisma] as any).findMany({
       where: {
         createdAt: {
           gte: isoStartDate,
           lte: isoEndDate
         }
-      }
+      },
+      orderBy: {
+        createdAt: 'desc'
+      },
+      skip,
+      take: limit
     })
   }
 
