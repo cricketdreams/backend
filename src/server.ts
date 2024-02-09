@@ -53,7 +53,7 @@ const serverConfig = () => {
   )
   app.use(
     cors({
-      origin: 'http://localhost:3001',
+      origin: process.env.CLIENT_URL,
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
       credentials: true
     })

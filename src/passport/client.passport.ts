@@ -23,7 +23,7 @@ clientPassport.use(
         return done(null, clientDb)
       } else {
         return done(null, false, {
-          message: 'Incorrect code and password'
+          message: 'Something went wrong'
         })
       }
     } catch (error) {

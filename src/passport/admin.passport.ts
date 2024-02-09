@@ -23,7 +23,7 @@ adminPassport.use(
       }
     } catch (error) {
       if (error instanceof Error)
-        return done({ message: 'Incorrect code and password' }, false)
+        return done({ message: 'Something went wrong' }, false)
     }
   })
 )

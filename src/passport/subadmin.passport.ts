@@ -23,7 +23,7 @@ subadminPassport.use(
         return done(null, subadmin)
       } else {
         return done(null, false, {
-          message: 'Incorrect code and password'
+          message: 'Something went wrong'
         })
       }
     } catch (error) {

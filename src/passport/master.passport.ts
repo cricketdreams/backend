@@ -23,7 +23,7 @@ masterPassport.use(
         return done(null, masterdDb)
       } else {
         return done(null, false, {
-          message: 'Incorrect code and password'
+          message: 'Something went wrong'
         })
       }
     } catch (error) {

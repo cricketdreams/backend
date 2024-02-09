@@ -23,7 +23,7 @@ superagentPassport.use(
         return done(null, superagentDb)
       } else {
         return done(null, false, {
-          message: 'Incorrect code and password'
+          message: 'Something went wrong'
         })
       }
     } catch (error) {
