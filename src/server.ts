@@ -38,7 +38,7 @@ const serverConfig = () => {
   app.use(compression())
   app.use(
     session({
-      secret: 'test is tought ug sdfsdf',
+      secret: process.env.SESSION_SECRET as string,
       resave: true,
       saveUninitialized: true,
       store: MongoStore.create({
