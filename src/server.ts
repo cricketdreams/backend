@@ -52,13 +52,13 @@ const serverConfig = () => {
       }
     })
   )
-  app.use(
-    cors({
-      origin: process.env.CLIENT_URL,
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-      credentials: true
-    })
-  )
+  // app.use(
+  //   cors({
+  //     origin: process.env.CLIENT_URL,
+  //     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  //     credentials: true
+  //   })
+  // )
   app.use(flash())
   app.use(morganMiddleware)
   // app.use(morgan('dev'))
