@@ -47,8 +47,8 @@ const serverConfig = () => {
       cookie: {
         maxAge: CONST.maxAge,
         httpOnly: true,
-        secure: false,
-        sameSite: 'lax'
+        secure: true,
+        sameSite: 'none'
       }
     })
   )
