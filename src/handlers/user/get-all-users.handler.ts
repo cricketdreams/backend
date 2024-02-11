@@ -15,7 +15,6 @@ export const getAllUsersHandler = async ({
   page?: number
   limit: number
 }) => {
-  console.log(limit, page)
   let allUser
   const userRole = getUserType(code)
 
