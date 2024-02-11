@@ -20,7 +20,7 @@ RUN npm run build
 EXPOSE 3000
 
 # Set environment variables
-ENV DATABASE_URL="postgresql://postgres:rvR8jEHEyGiR1Bfz@db.qapnmxgytxjyaoohkzst.supabase.co:5432/postgres"
+ENV DATABASE_URL="postgres://postgres.qapnmxgytxjyaoohkzst:rvR8jEHEyGiR1Bfz@aws-0-ap-south-1.pooler.supabase.com:5432/postgres"
 ENV NODE_ENV="development"
 ENV ENCRYPTION_KEY="xEywM1JA9VTJEpzbL3XtERq6TRpd7MTbzUo7KYzkuJM="
 ENV SESSION_STORE='mongodb+srv://admin:ogYGizfwCG7c9gw5@cluster0.lvikbnl.mongodb.net/clientPortal?retryWrites=true&w=majority'

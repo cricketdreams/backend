@@ -19,6 +19,7 @@ import cors from 'cors'
 const app = express()
 
 process.on('uncaughtException', err => {
+  console.log(err.message)
   logFatal.log('fatal', `uncaught exception, ${err.message}, ${err.stack}`)
   process.exit(1)
 })
