@@ -47,8 +47,9 @@ const serverConfig = () => {
       cookie: {
         maxAge: CONST.maxAge,
         httpOnly: true,
-        secure: true,
-        sameSite: 'none'
+        secure: true, // Ensure your site is served over HTTPS
+        sameSite: 'none', // Change to 'none' for cross-origin requests
+        domain: 'vercel.app' // Adjust to match your frontend domain
       }
     })
   )
