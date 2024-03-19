@@ -43,6 +43,6 @@ export const ROUTER = [
   {
     path: `/api/${version}/client`,
     router: clientRoute,
-    middleware: [clientPassport.initialize(), clientPassport.session()]
+    middleware: []
   }
 ]

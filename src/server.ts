@@ -9,6 +9,7 @@ import session from 'express-session'
 import helmet from 'helmet'
 import http from 'http'
 import morgan from 'morgan'
+import { Server } from 'socket.io'
 
 import { CONST } from './constants'
 import errorHandler from './middlewares/error'
@@ -47,9 +48,8 @@ const serverConfig = () => {
       cookie: {
         maxAge: CONST.maxAge,
         httpOnly: true,
-        secure: true, // Ensure your site is served over HTTPS
-        sameSite: 'none', // Change to 'none' for cross-origin requests
-        domain: 'vercel.app' // Adjust to match your frontend domain
+        secure: false, // Ensure your site is served over HTTPS
+        sameSite: 'lax' // Change to 'none' for cross-origin requests
       }
     })
   )
@@ -74,11 +74,17 @@ const serverConfig = () => {
   app.use(errorHandler)
 
   const PORT = process.env.PORT || 3000
-  http
+  const server = http
     .createServer(app)
     .listen(PORT, () =>
       console.log(`Express is listening at http://localhost:${PORT}`)
     )
+
+  const io = new Server(server)
+
+  io.on('connection', socket => {
+    console.log('a user connected')
+  })
 }
 
 serverConfig()
